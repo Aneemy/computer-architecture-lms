@@ -1,0 +1,9 @@
+.SideBar{
+    padding: 0 0 0 1.25%;
+    width: 100%;
+    min-width: 10%;
+    max-width: 10%;
+    /*border-right: 5px #185ae8 solid;*/
+    background: #ff5533;
+    overflow: scroll;
+}
