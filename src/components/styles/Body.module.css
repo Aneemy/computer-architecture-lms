@@ -1,6 +1,13 @@
 .Body{
+    display: flex;
+    justify-content: center;
     background: #1e2027;
     color: white;
     width: 100%;
     min-height: 100vh;
+}
+.Container{
+    display: flex;
+    justify-content: center;
+    min-width: 100%;
 }

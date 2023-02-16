@@ -1,10 +1,12 @@
 import React from 'react';
 import classes from "./styles/Body.module.css";
 
-const Body = () => {
+const Body = (props) => {
     return (
         <div className={classes.Body}>
-        Pidoras
+            <div className={classes.Container}>
+            {props.children}
+            </div>
         </div>
     );
 };

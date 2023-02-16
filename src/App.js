@@ -3,6 +3,7 @@ import SideBar from "./components/SideBar";
 import Body from "./components/Body";
 import './components/styles/nullstyle.css';
 import Header from "./components/Header";
+import SumInput from "./components/summators/SumInput";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
         <Header/>
         <div style={{display:"flex"}}>
             <SideBar/>
-            <Body/>
+            <Body>
+                <SumInput/>
+            </Body>
         </div>
     </div>
   );
