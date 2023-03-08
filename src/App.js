@@ -10,16 +10,13 @@ function App() {
     const [sumData,setSumData] = useState({first:'0',second:'0'})
     const [sumBinary,setSumBinary] = useState({set:false,sumData});
 
-    function binaryEqualizer(){
-
-    }
 
   return (
     <div className="App" >
         <Header/>
         <div style={{display:"flex"}}>
             <SideBar/>
-            <Body binary = {sumBinary}>
+            <Body binary = {sumBinary} setBinary = {setSumBinary} >
                 <SumInput data = {sumData} setData = {setSumData} binary = {sumBinary} setBinary = {setSumBinary}/>
             </Body>
         </div>
