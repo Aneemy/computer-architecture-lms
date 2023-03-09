@@ -3,7 +3,7 @@ import SumRowItem from "./SumRowItem";
 import classes from "./styles/SumRow.module.css";
 
 const SumRow = (props) => {
-    const numbers = props.row.toString().split('');
+    const numbers = props.row;
     return (
         <div className={classes.SumRow}>
             {numbers.map((number,index) =>

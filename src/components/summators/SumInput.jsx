@@ -32,30 +32,23 @@ const SumInput = (props) => {
         }
         return resarr;
     }
-    function binaryEqualizer(firstNum,secondNum){
-        var first = firstNum.toString().split('');
-        var second = secondNum.toString().split('');
+    function getReadyBinary(props){
+        var first = convertToBinary(props.data.first).toString().split('');
+        var second = convertToBinary(props.data.second).toString().split('');
         const maxlength = nearestPowerOfTwo(Math.max(first.length,second.length));
         props.setBinary({first:elaborateArray(first,maxlength),second:elaborateArray(second,maxlength)});
+        props.setFlag(true);
     }
-    function prepareBinary() {
-        if (props.binary.set) {
-            props.setBinary({
-                first: convertToBinary(props.data.first),
-                second: convertToBinary(props.data.second),
-                set: true
-            });
-            console.log(props.binary);
-            binaryEqualizer(props.binary.first, props.binary.second);
-            console.log(props.binary);
-        }
-    }
+
+
     return (
         <div className="classes.input__form">
             <form action="">
                 <input type="text" className={classes.input__field} value={props.data.first} onChange={(e)=>props.setData({...props.data,first:e.target.value})}/>
                 <input type="text" className={classes.input__field} value = {props.data.second} onChange={(e)=>props.setData({...props.data,second:e.target.value})}/>
-                <input type="button" value="Запуск" className={classes.input__button} onClick={()=>{props.setBinary({...props.binary,set:true});prepareBinary()}}/>
+                <input type="button" value="Запуск" className={classes.input__button} onClick={()=> {
+                    getReadyBinary(props)
+                }}/>
             </form>
         </div>
     );
