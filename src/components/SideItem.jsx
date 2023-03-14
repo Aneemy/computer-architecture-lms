@@ -4,7 +4,7 @@ const SideItem = (props) => {
     return (
         <div className="item">
             <div className="item__container">
-                <div>
+                <div onClick={()=>props.SetCurSum(props.item)}>
                     {props.item.heading}
                 </div>
             </div>

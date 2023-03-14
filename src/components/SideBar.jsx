@@ -1,16 +1,9 @@
 import React, {useState} from 'react';
-import classes from "./styles/SideBar.module.css";
 import SideBlock from "./SideBlock";
-const SideBar = () => {
-    const [items,SetItems]  = useState ([
-        {id: 1, heading: 'Одноразрядный'},
-        {id: 2, heading: 'Многоразрядный'},
-        {id: 3, heading: 'Параллельного действия'},
-        {id: 4, heading: 'С групповым переносом'}
-    ])
+const SideBar = (props) => {
     return (
-        <div className={classes.SideBar}>
-            <SideBlock title={'Сумматоры'} items={items}/>
+        <div className='SideBar'>
+            <SideBlock title={'Сумматоры'} items={props.sums} SetCurSum = {props.SetCurSum}/>
         </div>
     );
 };

@@ -1,12 +1,12 @@
 import React from 'react';
 import SideItem from "./SideItem";
 
-const SideBlock = ({title,items}) => {
+const SideBlock = (props) => {
     return (
         <div className="side__block">
-            <h2>{title}</h2>
-            {items.map((item,index) =>
-            <SideItem numer = {index + 1} item = {item} key = {item.id}/>)}
+            <h2>{props.title}</h2>
+            {props.items.map((item,index) =>
+            <SideItem numer = {index + 1} item = {item} key = {item.id} SetCurSum = {props.SetCurSum}/>)}
         </div>
     );
 };
