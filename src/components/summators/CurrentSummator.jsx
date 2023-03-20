@@ -1,10 +1,10 @@
 import React from 'react';
-
 const CurrentSummator = (props) => {
+    const SvgComponent = props.curSum.links;
     console.log(props.curSum.links)
     return (
-        <div>
-            <img style={{width:'100px',height:'200px'}} src={props.curSum.links} alt="Кал"/>
+        <div >
+            <SvgComponent style = {{width: '100%',height:'100%'}} />
         </div>
     );
 };

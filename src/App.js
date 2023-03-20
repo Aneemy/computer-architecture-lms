@@ -5,13 +5,14 @@ import './components/styles/main.css';
 import Header from "./components/Header";
 import SumInput from "./components/summators/SumInput";
 import SumRow from "./components/summators/SumRow";
+import {ReactComponent as SingleSvg} from "./single.svg";
 
 function App() {
     const [sumData,setSumData] = useState({first:'0',second:'0'})
     const [sumBinary,setSumBinary] = useState(sumData);
     const [gotBinary,setGotBinary] = useState(false);
     const [sums,SetSums]  = useState ([
-        {id: 1, heading: 'Одноразрядный',links:'components'},
+        {id: 1, heading: 'Одноразрядный',links: SingleSvg},
         {id: 2, heading: 'Многоразрядный',links:{
             first:'/summators/img/multiple.svg',
                 second:'summators/img/multiplebegining.svg',
@@ -28,7 +29,6 @@ function App() {
         <div style={{display:"flex"}}>
             <SideBar sums = {sums} curSum = {curSum} SetCurSum = {SetCurSum}/>
             <Body binary = {sumBinary} setBinary = {setSumBinary} flag = {gotBinary} curSum = {curSum} >
-                <img src="components/summators/img/slon.jpg" alt="Моча"/>
                 <SumInput data = {sumData} setData = {setSumData} binary = {sumBinary} setBinary = {setSumBinary} setFlag = {setGotBinary}/>
             </Body>
         </div>

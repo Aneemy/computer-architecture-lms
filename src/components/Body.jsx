@@ -9,9 +9,11 @@ const Body = (props) => {
             <div className="body">
                 <div className='container'>
                     {props.children}
+                    <CurrentSummator curSum = {props.curSum}/>
+                    <div style={{display:"flex"}}>
                     <SumRow row={props.binary.first}/>
                     <SumRow row={props.binary.second}/>
-                    <CurrentSummator curSum = {props.curSum}/>
+                    </div>
                 </div>
             </div>
         )

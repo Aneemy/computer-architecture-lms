@@ -1,0 +1,6 @@
+<svg version="1.1" baseProfile="full" viewBox="0 0 860 520">
+	<polyline points="20,520,20,100,260,100,260,20,620,20,620,100,840,100" stroke="black" stroke-width="5px" fill="none"/>
+	<polyline points="840,180,620,180,620,220,740,220,740,500,400,500,400,380,260,380,260,300,220,300,220,520" stroke="black" stroke-width="5px" fill="none"/>
+	<polyline points="100,520,100,180,260,180,260,220,140,220,140,520" stroke="black" stroke-width="5px" fill="none"/>
+	<polyline points="620,300,660,300,660,420,480,420,480,380,620,380,620,300" stroke="black" stroke-width="5px" fill="none"/>
+</svg>
