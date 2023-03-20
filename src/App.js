@@ -6,6 +6,9 @@ import Header from "./components/Header";
 import SumInput from "./components/summators/SumInput";
 import SumRow from "./components/summators/SumRow";
 import {ReactComponent as SingleSvg} from "./single.svg";
+import {ReactComponent as MultiHead} from "./multiplehead.svg";
+import {ReactComponent as MultiBody} from "./multiplebody.svg";
+import {ReactComponent as MultiTail} from "./multipletail.svg";
 
 function App() {
     const [sumData,setSumData] = useState({first:'0',second:'0'})
@@ -13,11 +16,9 @@ function App() {
     const [gotBinary,setGotBinary] = useState(false);
     const [sums,SetSums]  = useState ([
         {id: 1, heading: 'Одноразрядный',links: SingleSvg},
-        {id: 2, heading: 'Многоразрядный',links:{
-            first:'/summators/img/multiple.svg',
-                second:'summators/img/multiplebegining.svg',
-                third:'summators/img/multipleending.svg'
-            }},
+        {id: 2, heading: 'Многоразрядный',links:[
+            MultiHead,MultiBody,MultiTail
+            ]},
         {id: 3, heading: 'Параллельного действия'},
         {id: 4, heading: 'С групповым переносом'}
     ])
