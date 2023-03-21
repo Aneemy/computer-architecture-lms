@@ -2,3 +2,44 @@
   width: 50%;
   height: 100%;
 }
+.suminput{
+  padding-top: 1.25%;
+  position: relative;
+}
+.suminput__field{
+  max-width: 50%;
+  width: 100%;
+  padding-left: 1.25%;
+  border:2px #004d68 solid;
+  color:#004d68;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 25px;
+  &:first-child{
+    border-right: 1px #004d68 solid;
+  }
+}
+.suminput__button{
+  position: relative;
+  float: right;
+  margin-top: 1.25%;
+  padding:0 2.5%;
+  font-size: 25px;
+  background: #004d68;
+  border-radius: 25px;
+  color: white;
+  line-height: 1.75;
+}
+.sinsum__row{
+  display: flex;
+  flex-direction: column-reverse;
+}
+.sinsum__item{
+  height: 27.5px;
+  width: 27.5px;
+  font-size: 21px;
+  text-align: center;
+  color: #004d68;
+  border: 1px #004d68 solid;
+  padding: 2px;
+}

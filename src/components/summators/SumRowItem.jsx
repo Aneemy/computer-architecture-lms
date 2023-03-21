@@ -1,9 +1,8 @@
 import React from 'react';
-import classes from "./styles/SumRowItem.module.css";
 
 const SumRowItem = (props) => {
     return (
-        <div className={classes.SumRowItem}>
+        <div className='sinsum__item'>
             {props.children}
         </div>
     );

@@ -2,12 +2,10 @@ import React from 'react';
 
 const SideItem = (props) => {
     return (
-        <div className="item">
-            <div className="item__container">
+        <div className="sidebar__item">
                 <div onClick={()=>props.SetCurSum(props.item)}>
                     {props.item.heading}
                 </div>
-            </div>
             
         </div>
     );

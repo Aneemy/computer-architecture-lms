@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from "./styles/SumInput.module.css";
 const SumInput = (props) => {
     function convertToBinary(x) {
         let bin = 0;
@@ -42,11 +41,11 @@ const SumInput = (props) => {
 
 
     return (
-        <div className="classes.input__form">
+        <div className="suminput">
             <form action="">
-                <input type="text" className={classes.input__field} value={props.data.first} onChange={(e)=>props.setData({...props.data,first:e.target.value})}/>
-                <input type="text" className={classes.input__field} value = {props.data.second} onChange={(e)=>props.setData({...props.data,second:e.target.value})}/>
-                <input type="button" value="Запуск" className={classes.input__button} onClick={()=> {
+                <input type="text" className='suminput__field' value={props.data.first} onChange={(e)=>props.setData({...props.data,first:e.target.value})}/>
+                <input type="text" className='suminput__field' value = {props.data.second} onChange={(e)=>props.setData({...props.data,second:e.target.value})}/>
+                <input type="button" value="Запуск" className='suminput__button' onClick={()=> {
                     getReadyBinary(props)
                 }}/>
             </form>
