@@ -33,6 +33,14 @@
 .sinsum__row{
   display: flex;
   flex-direction: column-reverse;
+  &:first-child{
+    position: relative;
+    left: 2.5%;
+  }
+  &:last-child{
+    position: relative;
+    left: 7.5%;
+  }
 }
 .sinsum__item{
   height: 27.5px;
@@ -42,4 +50,16 @@
   color: #004d68;
   border: 1px #004d68 solid;
   padding: 2px;
+}
+.sinsum__item-enter{
+
+}
+.sinsum__item-enter-active{
+
+}
+.sinsum__item-exit{
+
+}
+.sinsum__item-exit-active{
+
 }
