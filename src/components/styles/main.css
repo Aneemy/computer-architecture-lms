@@ -194,11 +194,43 @@ h6 {
   position: relative;
   left: 2.5%;
 }
+.sinsum__row:first-child > .sinsum__item-enter-active:last-child {
+  animation: left 500ms forwards;
+}
 .sinsum__row:last-child {
   position: relative;
   left: 7.5%;
 }
+.sinsum__row:last-child > .sinsum__item-enter-active:last-child {
+  animation: right 500ms forwards;
+}
 
+@keyframes left {
+  0% {
+    transform: translateY(-535%);
+  }
+  75% {
+    transform: translate(500%, -535%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(500%, -450%);
+    opacity: 0;
+  }
+}
+@keyframes right {
+  0% {
+    transform: translateY(-385%);
+  }
+  75% {
+    transform: translate(350%, -385%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(350%, -450%);
+    opacity: 0;
+  }
+}
 .sinsum__item {
   height: 27.5px;
   width: 27.5px;

@@ -13,8 +13,8 @@ const [sumToggle,setSumToggle]=useState(false);
                     <div>
                         <CurrentSummator curSum = {props.curSum}/>
                             <div style={{display:"flex"}}>
-                                <SumRow on = {sumToggle} row={props.binary.first}/>
-                                <SumRow on = {sumToggle} row={props.binary.second}/>
+                                <SumRow on = {sumToggle} setOn = {setSumToggle} row={props.binary.first}/>
+                                <SumRow on = {sumToggle} setOn = {setSumToggle} row={props.binary.second}/>
                             </div>
                         <button  onClick={()=> setSumToggle(!sumToggle)} style={{float:"right"}}>Включить</button>
                     </div>

@@ -9,6 +9,7 @@ import {ReactComponent as SingleSvg} from "./single.svg";
 import {ReactComponent as MultiHead} from "./multiplehead.svg";
 import {ReactComponent as MultiBody} from "./multiplebody.svg";
 import {ReactComponent as MultiTail} from "./multipletail.svg";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 function App() {
     const [sumData,setSumData] = useState({first:'0',second:'0'})
