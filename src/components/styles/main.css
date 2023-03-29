@@ -195,18 +195,18 @@ h6 {
   left: 2.5%;
 }
 .sinsum__row:first-child > .sinsum__item-enter-active:last-child {
-  animation: left 500ms forwards;
+  animation: left 1000ms forwards;
 }
 .sinsum__row:last-child {
   position: relative;
   left: 7.5%;
 }
 .sinsum__row:last-child > .sinsum__item-enter-active:last-child {
-  animation: right 500ms forwards;
+  animation: right 1000ms forwards;
 }
 
 @keyframes left {
-  0% {
+  50% {
     transform: translateY(-535%);
   }
   75% {
@@ -219,7 +219,7 @@ h6 {
   }
 }
 @keyframes right {
-  0% {
+  50% {
     transform: translateY(-385%);
   }
   75% {
