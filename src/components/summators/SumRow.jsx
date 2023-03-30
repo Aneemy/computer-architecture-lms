@@ -6,9 +6,10 @@ const SumRow = (props) => {
     const [numbers,setNumbers] = useState(props.row);
     const [currentIndex,setCurrentIndex] = useState(numbers.length-1)
     function itemIteration(){
+        props.setSumData(numbers[currentIndex]);
         setNumbers(numbers.filter((_,index)=> index !== numbers.length-1))
         setCurrentIndex(currentIndex-1);
-        props.setSumData(currentIndex)
+        props.setIt(props.it+1);
     }
 
 
