@@ -41,13 +41,6 @@
         animation: left 1000ms forwards;
       }
     }
-    //&>.sinsum__item-enter-done{
-    //  &:last-child{
-    //    position: relative;
-    //    top: -67.5%;
-    //    left: 500%;
-    //  }
-    //}
   }
   &:last-child{
     position: relative;
@@ -57,13 +50,34 @@
         animation: right 1000ms forwards;
       }
     }
-    //&>.sinsum__item-enter-done{
-    //  &:last-child{
-    //    position: relative;
-    //    top: -50%;
-    //    left: 345%;
-    //  }
-    //}
+  }
+}
+.sinsum__result{
+  display: flex;
+  flex-direction: row;
+  color: red;
+  position: absolute;
+  top: 19.5%;
+  &>.sinsum__item{
+    opacity: 0;
+  }
+  &>.sinsum__item-enter-done {
+    opacity: 1;
+  }
+  &>.sinsum__item-appear{
+    &:first-child{
+    animation: appear 1000ms forwards;
+  }
+    opacity: 1;
+  }
+}
+@keyframes appear {
+  0% {
+    opacity: 1;
+    transform: translate(-1000%, 0);
+  }
+  100%{
+    transform: translate(0,0);
   }
 }
 @keyframes left {

@@ -31,12 +31,30 @@ const SumInput = (props) => {
         }
         return resarr;
     }
+    function computeCarry(arr1, arr2) {
+        const carry = new Array(arr1.length + 1).fill(0);
+
+        for (let i = arr1.length - 1; i >= 0; i--) {
+            const sum = parseInt(arr1[i]) + parseInt(arr2[i]) + carry[i + 1];
+            carry[i + 1] = sum > 1 ? 1 : 0;
+        }
+
+        return carry;
+    }
+
+
+
     function getReadyBinary(props){
+
+        var output = Number(props.data.first)+Number(props.data.second);
         var first = convertToBinary(props.data.first).toString().split('');
         var second = convertToBinary(props.data.second).toString().split('');
         const maxlength = nearestPowerOfTwo(Math.max(first.length,second.length));
+        var carry = computeCarry(elaborateArray(first,maxlength),elaborateArray(second,maxlength))
+        props.setOutPut(convertToBinary(output).toString().split(''));
         props.setBinary({first:elaborateArray(first,maxlength),second:elaborateArray(second,maxlength)});
         props.setFlag(true);
+        console.log('carry:',carry,'first:',elaborateArray(first,maxlength),'second:',elaborateArray(second,maxlength))
     }
 
 

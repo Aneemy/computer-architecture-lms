@@ -23,15 +23,16 @@ function App() {
         {id: 3, heading: 'Параллельного действия'},
         {id: 4, heading: 'С групповым переносом'}
     ])
-    const [curSum,SetCurSum] = useState(sums[0])
+    const [curSum,SetCurSum] = useState(sums[0]);
+    const [sumOutPut,setSumOutPut] = useState([])
 
   return (
     <div className="App" >
         <Header/>
         <div style={{display:"flex"}}>
             <SideBar sums = {sums} curSum = {curSum} SetCurSum = {SetCurSum}/>
-            <Body binary = {sumBinary} setBinary = {setSumBinary} flag = {gotBinary} curSum = {curSum} >
-                <SumInput data = {sumData} setData = {setSumData} binary = {sumBinary} setBinary = {setSumBinary} setFlag = {setGotBinary}/>
+            <Body sumOutPut = {sumOutPut} binary = {sumBinary} setBinary = {setSumBinary} flag = {gotBinary} curSum = {curSum} >
+                <SumInput setOutPut={setSumOutPut} data = {sumData} setData = {setSumData} binary = {sumBinary} setBinary = {setSumBinary} setFlag = {setGotBinary}/>
             </Body>
         </div>
     </div>

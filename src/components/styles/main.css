@@ -205,6 +205,35 @@ h6 {
   animation: right 1000ms forwards;
 }
 
+.sinsum__result {
+  display: flex;
+  flex-direction: row;
+  color: red;
+  position: absolute;
+  top: 19.5%;
+}
+.sinsum__result > .sinsum__item {
+  opacity: 0;
+}
+.sinsum__result > .sinsum__item-enter-done {
+  opacity: 1;
+}
+.sinsum__result > .sinsum__item-appear {
+  opacity: 1;
+}
+.sinsum__result > .sinsum__item-appear:first-child {
+  animation: appear 1000ms forwards;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 1;
+    transform: translate(-1000%, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
 @keyframes left {
   50% {
     transform: translateY(-535%);

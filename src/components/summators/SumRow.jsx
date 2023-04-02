@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SumRowItem from "./SumRowItem";
 import {CSSTransition} from "react-transition-group";
 
@@ -11,14 +11,18 @@ const SumRow = (props) => {
         setCurrentIndex(currentIndex-1);
         props.setIt(props.it+1);
     }
-
+    // function SumReset(){
+    //     props.restart.setRestart(true);
+    //     setNumbers(props.row);
+    //     setCurrentIndex(props.row.length - 1);
+    // }
 
     return (
         numbers.length>0 ?
         <div className = "sinsum__row">
             {numbers.map((number,index) =>
                 <CSSTransition
-                    in={currentIndex===index&&props.on}
+                    in={currentIndex===index&&props.on.sumToggle}
                     key={index}
                     classNames="sinsum__item"
                     timeout={1000}
@@ -29,8 +33,10 @@ const SumRow = (props) => {
             )}
         </div>
             :
-            <div>
-            </div>
+            // <SumReset/>
+        <div>
+            Masyanya
+        </div>
     );
 };
 
