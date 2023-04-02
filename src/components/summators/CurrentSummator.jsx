@@ -3,6 +3,7 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 import SumRowItem from "./SumRowItem";
 const CurrentSummator = (props) => {
     const [outStyle,setOutStyle] = useState((props.output.length)*(-10));
+    console.log(props.output)
     function Result() {
 
         const result = props.output.length > 0 ? props.output : null;
@@ -14,12 +15,12 @@ const CurrentSummator = (props) => {
                             appear
                             key={index}
                             timeout={{
-                                appear:2000,
+                                appear:1000,
                                 enter:0
                             }}
                             mountOnEnter
                             classNames='sinsum__item'
-                            in={index >= (props.output.length - 1 - props.it) && props.on}
+                            in={(index >= (props.output.length - props.it) && props.on)}
                             onEntering={() => {
                             }}>
                             <SumRowItem key={index}>
@@ -33,7 +34,30 @@ const CurrentSummator = (props) => {
     }
 
     function Buffer(){
-
+        const result = props.buffer.length > 0 ? props.buffer : null;
+        let i = props.it;
+        if (props.output.length-props.buffer.length===1){
+            props.setIt(props.it+1);
+            i++
+        }
+        if(result!==null&&result[i-1]!==0&&result.length<props.output.length) {
+            return (
+                <div className='sinsum__buffer'>
+                        <CSSTransition
+                            appear
+                            in={true}
+                            timeout={{
+                                appear:2000,
+                                enter:0
+                            }}
+                        classNames={'sinsum__item'}>
+                            <SumRowItem >
+                                {result[i-1]}
+                            </SumRowItem>
+                        </CSSTransition>
+                </div>
+            )
+        }
     }
     switch (props.curSum.id){
         case 1:{
@@ -42,6 +66,7 @@ const CurrentSummator = (props) => {
                 <div style={{position:'relative'}}>
                     <Summator style = {{width: '100%',height:'100%'}} />
                     <Result/>
+                    <Buffer/>
                 </div>
             );
         }

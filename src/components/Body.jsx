@@ -64,7 +64,7 @@ const [buffer,setBuffer] = useState([]);
                 <div className='container'>
                     {props.children}
                     <div>
-                        <CurrentSummator on = {sumToggle} it = {sumIt}  output = {props.sumOutPut} curSum = {props.curSum}/>
+                        <CurrentSummator  buffer = {buffer} on = {sumToggle} it = {sumIt} setIt = {setSumIt}  output = {props.sumOutPut} curSum = {props.curSum}/>
                             <div style={{display:"flex"}}>
                                 <SumRow restart = {{restart,setRestart}} it = {sumIt} setIt = {setSumIt} setSumData = {setLeftSum} on = {{sumToggle,setSumToggle}} row={props.binary.first}/>
                                 <SumRow restart = {{restart,setRestart}} it = {sumIt} setIt = {setSumIt} setSumData = {setRightSum} on = {{sumToggle,setSumToggle}} row={props.binary.second}/>
