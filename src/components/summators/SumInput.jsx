@@ -19,8 +19,8 @@ const SumInput = (props) => {
         return power;
     }
     function elaborateArray(array,maxlength){
-        var curlen = array.length;
-        var resarr = new Array(maxlength);
+        const curlen = array.length;
+        let resarr = new Array(maxlength);
         for (let i = 0;i<maxlength-curlen;i++){
             resarr[i] = '0';
         }
@@ -31,16 +31,6 @@ const SumInput = (props) => {
         }
         return resarr;
     }
-    // function computeCarry(arr1, arr2) {
-    //     const carry = new Array(arr1.length + 1).fill(0);
-    //
-    //     for (let i = arr1.length - 1; i >= 0; i--) {
-    //         const sum = parseInt(arr1[i]) + parseInt(arr2[i]) + carry[i + 1];
-    //         carry[i + 1] = sum > 1 ? 1 : 0;
-    //     }
-    //
-    //     return carry;
-    // }
 
 
 
@@ -51,18 +41,17 @@ const SumInput = (props) => {
         var second = convertToBinary(props.data.second).toString().split('');
         const maxlength = nearestPowerOfTwo(Math.max(first.length,second.length));
 
-        props.setOutPut(convertToBinary(output).toString().split(''));
-        props.setBinary({first:elaborateArray(first,maxlength),second:elaborateArray(second,maxlength)});
-        props.setFlag(true);
-        // console.log('carry:',carry,'first:',elaborateArray(first,maxlength),'second:',elaborateArray(second,maxlength))
+        props.changeSumOutPut(convertToBinary(output).toString().split(''));
+        props.changeSumBinary({first:elaborateArray(first,maxlength),second:elaborateArray(second,maxlength)});
+        props.changeSumReady(true);
     }
 
 
     return (
         <div className="suminput">
             <form action="">
-                <input type="text" className='suminput__field' value={props.data.first} onChange={(e)=>props.setData({...props.data,first:e.target.value})}/>
-                <input type="text" className='suminput__field' value = {props.data.second} onChange={(e)=>props.setData({...props.data,second:e.target.value})}/>
+                <input type="text" className='suminput__field' value={props.data.first} onChange={(e)=>props.changeSumData({...props.data,first:e.target.value})}/>
+                <input type="text" className='suminput__field' value = {props.data.second} onChange={(e)=>props.changeSumData({...props.data,second:e.target.value})}/>
                 <input type="button" value="Запуск" className='suminput__button' onClick={()=> {
                     getReadyBinary(props)
                 }}/>

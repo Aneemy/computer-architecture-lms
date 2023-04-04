@@ -3,7 +3,6 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 import SumRowItem from "./SumRowItem";
 const CurrentSummator = (props) => {
     const [outStyle,setOutStyle] = useState((props.output.length)*(-10));
-    console.log(props.output)
     function Result() {
 
         const result = props.output.length > 0 ? props.output : null;
@@ -15,7 +14,7 @@ const CurrentSummator = (props) => {
                             appear
                             key={index}
                             timeout={{
-                                appear:1000,
+                                appear:2000,
                                 enter:0
                             }}
                             mountOnEnter

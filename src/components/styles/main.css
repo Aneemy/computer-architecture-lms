@@ -195,14 +195,14 @@ h6 {
   left: 2.5%;
 }
 .sinsum__row:first-child > .sinsum__item-enter-active:last-child {
-  animation: left 1000ms forwards;
+  animation: left 2000ms forwards;
 }
 .sinsum__row:last-child {
   position: relative;
   left: 7.5%;
 }
 .sinsum__row:last-child > .sinsum__item-enter-active:last-child {
-  animation: right 1000ms forwards;
+  animation: right 2000ms forwards;
 }
 
 .sinsum__result {
@@ -222,7 +222,7 @@ h6 {
   opacity: 1;
 }
 .sinsum__result > .sinsum__item-appear:first-child {
-  animation: appear 1000ms forwards;
+  animation: appear 2000ms forwards;
 }
 
 .sinsum__buffer {
@@ -231,7 +231,7 @@ h6 {
   top: 35%;
 }
 .sinsum__buffer > .sinsum__item-appear {
-  animation: cycle 1000ms forwards;
+  animation: cycle 2000ms forwards;
 }
 .sinsum__item {
   height: 27.5px;

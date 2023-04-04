@@ -11,11 +11,6 @@ const SumRow = (props) => {
         setCurrentIndex(currentIndex-1);
         props.setIt(props.it+1);
     }
-    // function SumReset(){
-    //     props.restart.setRestart(true);
-    //     setNumbers(props.row);
-    //     setCurrentIndex(props.row.length - 1);
-    // }
 
     return (
         numbers.length>0 ?
@@ -25,7 +20,7 @@ const SumRow = (props) => {
                     in={currentIndex===index&&props.on.sumToggle}
                     key={index}
                     classNames="sinsum__item"
-                    timeout={1000}
+                    timeout={2000}
                     onEntered = {()=>itemIteration()}
                     >
                     <SumRowItem key = {index}>{number}</SumRowItem>
@@ -33,7 +28,6 @@ const SumRow = (props) => {
             )}
         </div>
             :
-            // <SumReset/>
         <div>
             Masyanya
         </div>
