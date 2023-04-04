@@ -2,13 +2,15 @@ import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import SumRowItem from "./SumRowItem";
 const CurrentSummator = (props) => {
-    const [outStyle,setOutStyle] = useState((props.output.length)*(-10));
+    const outStyle = props.sumOutPut.length*(-10);
+    const classses = [
+    {id:1,result:'sinsum__result',buf:'sinsum__buffer',item:'sinsum__item'},
+    ]
     function Result() {
-
-        const result = props.output.length > 0 ? props.output : null;
+        const result = props.sumOutPut.length > 0 ? props.sumOutPut : null;
         if (result !== null) {
             return (
-                <div className='sinsum__result' style={{right: `${outStyle}%`}}>
+                <div className={classses[props.curSum.id-1].result} style={{right: `${outStyle}%`}}>
                     {result.map((number, index) =>
                         <CSSTransition
                             appear
@@ -18,8 +20,8 @@ const CurrentSummator = (props) => {
                                 enter:0
                             }}
                             mountOnEnter
-                            classNames='sinsum__item'
-                            in={(index >= (props.output.length - props.it) && props.on)}
+                            classNames={classses[props.curSum.id-1].item}
+                            in={(index >= (props.sumOutPut.length - props.iteration.it) && props.sumToggle)}
                             onEntering={() => {
                             }}>
                             <SumRowItem key={index}>
@@ -34,14 +36,13 @@ const CurrentSummator = (props) => {
 
     function Buffer(){
         const result = props.buffer.length > 0 ? props.buffer : null;
-        let i = props.it;
-        if (props.output.length-props.buffer.length===1){
-            props.setIt(props.it+1);
-            i++
+        let i = props.iteration.it-1;
+        if (props.sumOutPut.length-props.buffer.length===1){
+            props.changeIteration({it:props.iteration.it+1});
         }
-        if(result!==null&&result[i-1]!==0&&result.length<props.output.length) {
+        if(result!==null&&result[i]!==0&&result.length<props.sumOutPut.length) {
             return (
-                <div className='sinsum__buffer'>
+                <div className={classses[props.curSum.id-1].buf}>
                         <CSSTransition
                             appear
                             in={true}
@@ -49,15 +50,16 @@ const CurrentSummator = (props) => {
                                 appear:2000,
                                 enter:0
                             }}
-                        classNames={'sinsum__item'}>
+                        classNames={classses[props.curSum.id-1].item}>
                             <SumRowItem >
-                                {result[i-1]}
+                                {result[i]}
                             </SumRowItem>
                         </CSSTransition>
                 </div>
             )
         }
     }
+    console.log(props.curSum)
     switch (props.curSum.id){
         case 1:{
             const Summator = props.curSum.links;
@@ -65,7 +67,7 @@ const CurrentSummator = (props) => {
                 <div style={{position:'relative'}}>
                     <Summator style = {{width: '100%',height:'100%'}} />
                     <Result/>
-                    <Buffer/>
+                    {props.iteration.it>0&&<Buffer/>}
                 </div>
             );
         }

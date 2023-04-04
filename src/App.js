@@ -39,7 +39,6 @@ function App() {
     const changeSumReady = (ready) =>{
         setSumReady(ready)
     }
-
   return (
     <div className="App" >
         <Header/>

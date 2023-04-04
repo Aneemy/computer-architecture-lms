@@ -6,18 +6,22 @@ const SumRow = (props) => {
     const [numbers,setNumbers] = useState(props.row);
     const [currentIndex,setCurrentIndex] = useState(numbers.length-1)
     function itemIteration(){
-        props.setSumData(numbers[currentIndex]);
+        if(props.ph ==='left')
+            props.changeIteration({left:numbers[currentIndex]});
+        else
+            props.changeIteration({right:numbers[currentIndex]});
         setNumbers(numbers.filter((_,index)=> index !== numbers.length-1))
         setCurrentIndex(currentIndex-1);
-        props.setIt(props.it+1);
-    }
+        if(props.ph==='right')
+            props.changeIteration({it:props.iteration.it+1})
+        }
 
     return (
         numbers.length>0 ?
         <div className = "sinsum__row">
             {numbers.map((number,index) =>
                 <CSSTransition
-                    in={currentIndex===index&&props.on.sumToggle}
+                    in={currentIndex===index&&props.sumToggle}
                     key={index}
                     classNames="sinsum__item"
                     timeout={2000}
@@ -29,7 +33,6 @@ const SumRow = (props) => {
         </div>
             :
         <div>
-            Masyanya
         </div>
     );
 };
