@@ -101,6 +101,23 @@
     transform: translate(0,0);
   }
 }
+@keyframes cycle {
+  0%{
+    color:red;
+  }
+  25%{
+    transform: translate(-5%,300%);
+  }
+  50%{
+    transform: translate(325%,300%);
+  }
+  75%{
+    transform: translate(300%,40%);
+  }
+  100%{
+    transform: translate(0,40%);
+  }
+}
 @keyframes left {
   50%{
     transform: translateY(-535%)
@@ -126,22 +143,4 @@
     transform: translate(350%,-450%);
     opacity: 0;
   }
-}
-@keyframes cycle {
-  0%{
-    color:red;
-  }
-  25%{
-  transform: translate(-5%,300%);
-  }
-  50%{
-  transform: translate(325%,300%);
-  }
-  75%{
-    transform: translate(300%,40%);
-  }
-  100%{
-  transform: translate(0,40%);
-  }
-
 }

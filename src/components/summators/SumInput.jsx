@@ -31,7 +31,33 @@ const SumInput = (props) => {
         }
         return resarr;
     }
-
+    function createBuffer(array1,array2){
+        let resarr = [];
+        let buf = 0;
+        for (let i = array1.length-1;i>=0;i--){
+            let k = 0;
+            k =  Number(buf)+Number(array1[i]) + Number(array2[i]);
+            switch (k) {
+                case 0:
+                    resarr[array1.length - i - 1] = 0;
+                    buf=0;
+                    break;
+                case 1:
+                    resarr[array1.length - i - 1] = 0;
+                    buf=0;
+                    break;
+                case 2:
+                    resarr[array1.length - i - 1] = 1;
+                    buf=1;
+                    break;
+                case 3:
+                    resarr[array1.length - i - 1] = 1;
+                    buf=1;
+                    break;
+            }
+        }
+        return resarr;
+    }
 
 
     function getReadyBinary(props){
@@ -44,6 +70,7 @@ const SumInput = (props) => {
         props.changeSumOutPut(convertToBinary(output).toString().split(''));
         props.changeSumBinary({first:elaborateArray(first,maxlength),second:elaborateArray(second,maxlength)});
         props.changeSumReady(true);
+        props.changeSumBuffer(createBuffer(elaborateArray(first,maxlength),elaborateArray(second,maxlength)))
     }
 
 

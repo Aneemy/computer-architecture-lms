@@ -23,6 +23,7 @@ function App() {
     ])
     const [curSum,setCurSum] = useState(sums[0]);
     const [sumOutPut,setSumOutPut] = useState([])
+    const [sumBuffer,setSumBuffer] = useState([]);
 
     const changeCurSum = (summ) =>{
         setCurSum(summ)
@@ -39,14 +40,17 @@ function App() {
     const changeSumReady = (ready) =>{
         setSumReady(ready)
     }
+    const changeSumBuffer = (buffer) =>{
+        setSumBuffer(buffer)
+    }
   return (
     <div className="App" >
         <Header/>
         <div style={{display:"flex"}}>
             <SideBar sums = {sums} curSum = {curSum} changeSumm = {changeCurSum}/>
-            <Body sumOutPut = {sumOutPut} binary = {sumBinary} flag = {sumReady} curSum = {curSum} >
+            <Body sumBuffer = {sumBuffer} sumOutPut = {sumOutPut} binary = {sumBinary} flag = {sumReady} curSum = {curSum} >
                 <SumInput data = {sumData} binary = {sumBinary} changeSumData = {changeSumData}  changeSumBinary = {changeSumBinary}
-                          changeSumOutPut={changeSumOutPut} changeSumReady = {changeSumReady}/>
+                          changeSumOutPut={changeSumOutPut} changeSumReady = {changeSumReady} changeSumBuffer = {changeSumBuffer}/>
             </Body>
         </div>
     </div>

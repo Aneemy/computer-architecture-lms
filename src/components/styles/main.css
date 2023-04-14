@@ -102,7 +102,7 @@ h6 {
   justify-content: center;
   background: white;
   color: white;
-  width: 100%;
+  min-width: 90%;
   min-height: 100vh;
 }
 
@@ -252,6 +252,23 @@ h6 {
     transform: translate(0, 0);
   }
 }
+@keyframes cycle {
+  0% {
+    color: red;
+  }
+  25% {
+    transform: translate(-5%, 300%);
+  }
+  50% {
+    transform: translate(325%, 300%);
+  }
+  75% {
+    transform: translate(300%, 40%);
+  }
+  100% {
+    transform: translate(0, 40%);
+  }
+}
 @keyframes left {
   50% {
     transform: translateY(-535%);
@@ -278,21 +295,134 @@ h6 {
     opacity: 0;
   }
 }
-@keyframes cycle {
-  0% {
-    color: red;
+.multisum__row {
+  display: flex;
+  width: 100%;
+}
+
+.multisum__block {
+  position: relative;
+}
+.multisum__block > .multisum__item:nth-child(4) {
+  position: absolute;
+  top: 42.5%;
+  left: 45%;
+  color: red;
+  opacity: 0;
+}
+.multisum__block > .multisum__item:nth-child(4).enter {
+  animation: forwards 1s msi-result;
+}
+.multisum__block > .multisum__item:nth-child(4).enter-done {
+  opacity: 1;
+}
+.multisum__block > .multisum__item:nth-child(5) {
+  position: absolute;
+  top: 42.5%;
+  left: 45%;
+  opacity: 0;
+}
+.multisum__block > .multisum__item:nth-child(5).enter {
+  animation: forwards 1s msi-buffer;
+}
+.multisum__block > .multisum__item:nth-child(2) {
+  position: absolute;
+  top: 97.5%;
+  left: 2.5%;
+}
+.multisum__block > .multisum__item:nth-child(2).enter {
+  animation: forwards 1s msi-left;
+}
+.multisum__block > .multisum__item:nth-child(2).enter-done {
+  opacity: 0;
+}
+.multisum__block > .multisum__item:nth-child(2).exit-active {
+  opacity: 0;
+}
+.multisum__block > .multisum__item:nth-child(2).exit-done {
+  opacity: 0;
+}
+.multisum__block > .multisum__item:nth-child(3) {
+  position: absolute;
+  top: 97.5%;
+  left: 16.5%;
+}
+.multisum__block > .multisum__item:nth-child(3).enter {
+  animation: forwards 1s msi-right;
+}
+.multisum__block > .multisum__item:nth-child(3).enter-done {
+  opacity: 0;
+}
+.multisum__block > .multisum__item:nth-child(3).exit-active {
+  opacity: 0;
+}
+.multisum__block > .multisum__item:nth-child(3).exit-done {
+  opacity: 0;
+}
+
+.multisum__item {
+  border: 0.25px solid teal;
+  color: black;
+  width: calc(var(--msi__width) * 0.95px);
+  height: calc(var(--msi__height) * 0.95px);
+  text-align: center;
+  font-size: calc(var(--msi__height) * 0.9px);
+}
+
+@keyframes msi-left {
+  40% {
+    transform: translate(0, -500%);
   }
-  25% {
-    transform: translate(-5%, 300%);
+  80% {
+    transform: translate(475%, -500%);
   }
-  50% {
-    transform: translate(325%, 300%);
-  }
-  75% {
-    transform: translate(300%, 40%);
+  90% {
+    transform: translate(475%, -485%);
+    opacity: 1;
   }
   100% {
-    transform: translate(0, 40%);
+    transform: translate(475%, -485%);
+    opacity: 0;
+  }
+}
+@keyframes msi-right {
+  40% {
+    transform: translate(0, -325%);
+  }
+  80% {
+    transform: translate(325%, -325%);
+  }
+  90% {
+    transform: translate(325%, -485%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(325%, -485%);
+    opacity: 0;
+  }
+}
+@keyframes msi-buffer {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(0, -240%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(550%, -240%);
+  }
+}
+@keyframes msi-result {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(350%, 0);
+  }
+  100% {
+    transform: translate(350%, 400%);
+    opacity: 1;
   }
 }
 * {
