@@ -35,7 +35,7 @@
   flex-direction: column-reverse;
   &:first-child{
     position: relative;
-    left: 2.5%;
+    left: 12.5%;
     &>.sinsum__item-enter-active{
       &:last-child{
         animation: left 2000ms forwards;
@@ -44,7 +44,7 @@
   }
   &:last-child{
     position: relative;
-    left: 7.5%;
+    left: 40%;
     &>.sinsum__item-enter-active{
       &:last-child{
         animation: right 2000ms forwards;
@@ -59,7 +59,7 @@
   position: absolute;
   top: 19.5%;
   &>.sinsum__item{
-    opacity: 0;
+    opacity: 1;
   }
   &>.sinsum__item-enter-done {
     opacity: 1;
@@ -74,7 +74,7 @@
 .sinsum__buffer{
   position: absolute;
   left: 47.5%;
-  top: 35%;
+  top: 25%;
   &>.sinsum__item-appear{
   animation: cycle 2000ms forwards;
   }
@@ -95,7 +95,7 @@
 @keyframes appear {
   0% {
     opacity: 1;
-    transform: translate(-1000%, 0);
+    transform: translate(-1000%,0);
   }
   100%{
     transform: translate(0,0);
@@ -106,13 +106,16 @@
     color:red;
   }
   25%{
-    transform: translate(-5%,300%);
+    transform: translate(-5%,365%);
   }
   50%{
-    transform: translate(325%,300%);
+    transform: translate(315%,365%);
   }
   75%{
-    transform: translate(300%,40%);
+    transform: translate(315%,100%);
+  }
+  90%{
+    transform: translate(-5%,100%);
   }
   100%{
     transform: translate(0,40%);

@@ -13,7 +13,7 @@ const Body = (props) => {
 
     function SwitchButton(){
         return(
-            <button onClick={()=> setSumToggle(!sumToggle)} style={{float:"right"}}>{'Включить'}</button>
+            <button onClick={()=> setSumToggle(!sumToggle)} style={{float:"right",marginTop:'25px'}}>{'Включить'}</button>
         )
         // if (sumToggle)
         //     return null

@@ -11,7 +11,7 @@ const SinSum = (props) => {
         let i = props.iteration.it-1
         if (props.sumOutPut.length-props.sumBuffer.length===i)
             props.changeIteration({it:props.iteration.it+1})
-        if(result!==null&&result[i]!==0&&result[i]!==undefined) {
+        if(result!==null&&result[i]!==undefined) {
             return (
                 <div className={classses.buf}>
                     <CSSTransition
@@ -62,10 +62,12 @@ const SinSum = (props) => {
     const Summator = props.curSum.links;
     return (
         <div style={{position:'relative'}}>
+            <div>
             <Summator style = {{width: '100%',height:'100%'}} />
             <Result/>
             {props.iteration.it>0&&<Buffer/>}
-            <div style={{display:"flex"}}>
+            </div>
+            <div style={{display:"flex",position:'absolute'}}>
                 <SumRow  iteration = {props.iteration} ph = 'left' changeIteration = {props.changeIteration}  sumToggle = {props.sumToggle} row={props.binary.first}/>
                 <SumRow  iteration = {props.iteration} ph = 'right' changeIteration = {props.changeIteration}
                          sumToggle = {props.sumToggle} row={props.binary.second}/>
