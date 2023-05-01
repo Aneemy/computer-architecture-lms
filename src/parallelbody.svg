@@ -1,0 +1,13 @@
+<svg version="1.1"
+	 baseProfile="full"
+	 viewBox="0 0 860 520"
+	 preserveAspectRatio="xMidYMid meet">
+	<polyline points="220,0,220,140,260,140,260,100,620,100,620,180,740,180,740,560"
+			  stroke="black" stroke-width="5px" fill="none"/>
+	<polyline points="20,560,20,240,260,240,260,220,140,220,140,0"
+			  stroke="black" stroke-width="5px" fill="none"/>
+	<polyline points="660,560,660,260,620,260,620,460,260,460,260,420,220,420,220,560"
+			  stroke="black" stroke-width="5px" fill="none"/>
+	<polyline points="100,560,100,320,260,320,260,340,140,340,140,560"
+			  stroke="black" stroke-width="5px" fill="none"/>
+</svg>

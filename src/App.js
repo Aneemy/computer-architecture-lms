@@ -8,7 +8,9 @@ import {ReactComponent as SingleSvg} from "./single.svg";
 import {ReactComponent as MultiHead} from "./multiplehead.svg";
 import {ReactComponent as MultiBody} from "./multiplebody.svg";
 import {ReactComponent as MultiTail} from "./multipletail.svg";
-
+import {ReactComponent as ParHead} from "./parallelhead.svg";
+import {ReactComponent as ParBody} from "./parallelbody.svg";
+import {ReactComponent as ParTail} from "./paralleltail.svg";
 function App() {
     const [sumData,setSumData] = useState({first:'0',second:'0'})
     const [sumBinary,setSumBinary] = useState(sumData);
@@ -18,7 +20,9 @@ function App() {
         {id: 2, heading: 'Многоразрядный',links:[
             MultiHead,MultiBody,MultiTail
             ]},
-        {id: 3, heading: 'Параллельного действия'},
+        {id: 3, heading: 'Параллельного действия',links: [
+            ParHead,ParBody,ParTail
+            ]},
         {id: 4, heading: 'С групповым переносом'}
     ])
     const [curSum,setCurSum] = useState(sums[0]);
@@ -43,6 +47,7 @@ function App() {
     const changeSumBuffer = (buffer) =>{
         setSumBuffer(buffer)
     }
+    // console.log(sumOutPut,sumBuffer,sumBinary)
   return (
     <div className="App" >
         <Header/>

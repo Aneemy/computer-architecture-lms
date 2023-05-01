@@ -66,8 +66,10 @@ const SumInput = (props) => {
         var first = convertToBinary(props.data.first).toString().split('');
         var second = convertToBinary(props.data.second).toString().split('');
         const maxlength = nearestPowerOfTwo(Math.max(first.length,second.length));
+        var result = convertToBinary(output).toString().split('');
+        result.length < maxlength ? result = elaborateArray(convertToBinary(output).toString().split(''),maxlength) : result = result;
 
-        props.changeSumOutPut(convertToBinary(output).toString().split(''));
+        props.changeSumOutPut(result);
         props.changeSumBinary({first:elaborateArray(first,maxlength),second:elaborateArray(second,maxlength)});
         props.changeSumReady(true);
         props.changeSumBuffer(createBuffer(elaborateArray(first,maxlength),elaborateArray(second,maxlength)))

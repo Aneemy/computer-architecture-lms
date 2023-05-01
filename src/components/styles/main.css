@@ -114,6 +114,18 @@ h6 {
   flex-direction: column;
 }
 
+#bodyButton {
+  position: relative;
+  float: right;
+  margin-top: 1.25%;
+  padding: 0 2.5%;
+  font-size: 25px;
+  background: #004d68;
+  border-radius: 25px;
+  color: white;
+  line-height: 1.75;
+}
+
 .sidebar {
   width: 100%;
   padding-left: 0.25%;
@@ -190,6 +202,14 @@ h6 {
   display: flex;
   flex-direction: column-reverse;
 }
+.sinsum__row > .sinsum__item {
+  border-left: 1px #004d68 solid;
+  border-bottom: 1px #004d68 solid;
+  border-right: 1px #004d68 solid;
+}
+.sinsum__row > .sinsum__item:last-child {
+  border-top: 1px #004d68 solid;
+}
 .sinsum__row:first-child {
   position: relative;
   left: 12.5%;
@@ -214,6 +234,12 @@ h6 {
 }
 .sinsum__result > .sinsum__item {
   opacity: 1;
+  border-left: 1px #004d68 solid;
+  border-top: 1px #004d68 solid;
+  border-bottom: 1px #004d68 solid;
+}
+.sinsum__result > .sinsum__item:last-child {
+  border-right: 1px #004d68 solid;
 }
 .sinsum__result > .sinsum__item-enter-done {
   opacity: 1;
@@ -227,11 +253,14 @@ h6 {
 
 .sinsum__buffer {
   position: absolute;
-  left: 47.5%;
+  left: 46.5%;
   top: 25%;
 }
+.sinsum__buffer > .sinsum__item {
+  border: 1px #004d68 solid;
+}
 .sinsum__buffer > .sinsum__item-appear {
-  animation: cycle 2000ms forwards;
+  animation: cycle 1800ms forwards;
 }
 .sinsum__item {
   height: 27.5px;
@@ -239,7 +268,6 @@ h6 {
   font-size: 21px;
   text-align: center;
   color: #004d68;
-  border: 1px #004d68 solid;
   padding: 2px;
 }
 
@@ -257,16 +285,16 @@ h6 {
     color: red;
   }
   25% {
-    transform: translate(-5%, 365%);
+    transform: translate(0, 365%);
   }
   50% {
-    transform: translate(315%, 365%);
+    transform: translate(322.5%, 365%);
   }
   75% {
-    transform: translate(315%, 100%);
+    transform: translate(322.5%, 115%);
   }
   90% {
-    transform: translate(-5%, 100%);
+    transform: translate(0, 115%);
   }
   100% {
     transform: translate(0, 40%);
@@ -277,11 +305,11 @@ h6 {
     transform: translateY(-535%);
   }
   75% {
-    transform: translate(500%, -535%);
+    transform: translate(482.5%, -535%);
     opacity: 1;
   }
   100% {
-    transform: translate(500%, -450%);
+    transform: translate(482.5%, -450%);
     opacity: 0;
   }
 }
@@ -290,11 +318,11 @@ h6 {
     transform: translateY(-385%);
   }
   75% {
-    transform: translate(350%, -385%);
+    transform: translate(330.5%, -385%);
     opacity: 1;
   }
   100% {
-    transform: translate(350%, -450%);
+    transform: translate(330.5%, -450%);
     opacity: 0;
   }
 }
@@ -308,7 +336,7 @@ h6 {
 }
 .multisum__block > .multisum__item:nth-child(2) {
   position: absolute;
-  top: 42.5%;
+  top: 41.5%;
   left: 45%;
   color: red;
   opacity: 0;
@@ -322,12 +350,12 @@ h6 {
 }
 .multisum__block > .multisum__item:nth-child(3) {
   position: absolute;
-  top: 42.5%;
+  top: 40%;
   left: 45%;
   opacity: 0;
 }
 .multisum__block > .multisum__item:nth-child(3).enter {
-  animation: forwards 1s msi-buffer;
+  animation: forwards 2s msi-buffer;
 }
 .multisum__block > .multisum__item:nth-child(4) {
   position: absolute;
@@ -375,7 +403,7 @@ h6 {
 
 @keyframes msi-left {
   40% {
-    transform: translate(0, -500%);
+    transform: translate(0, -482.5%);
   }
   80% {
     transform: translate(475%, -500%);
@@ -391,6 +419,145 @@ h6 {
 }
 @keyframes msi-right {
   40% {
+    transform: translate(0, -330%);
+  }
+  80% {
+    transform: translate(322.5%, -325%);
+  }
+  90% {
+    transform: translate(322.5%, -485%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(322.5%, -485%);
+    opacity: 0;
+  }
+}
+@keyframes msi-result {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(350%, 0);
+  }
+  100% {
+    transform: translate(350%, 400%);
+    opacity: 1;
+  }
+}
+@keyframes msi-buffer {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    transform: translate(0, -215%);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(550%, -215%);
+  }
+  75% {
+    transform: translate(1110%, -215%);
+  }
+  100% {
+    transform: translate(1110%, -65%);
+    opacity: 1;
+  }
+}
+.parsum__row {
+  display: flex;
+  width: 100%;
+  position: relative;
+  align-items: flex-end;
+}
+
+.parsum__block {
+  position: relative;
+  width: 100%;
+}
+.parsum__block > .parsum__item:nth-child(3) {
+  position: absolute;
+  top: 42.5%;
+  left: 45%;
+  opacity: 0;
+}
+.parsum__block > .parsum__item:nth-child(3).enter {
+  animation: forwards 1s psi-result;
+}
+.parsum__block > .parsum__item:nth-child(4) {
+  position: absolute;
+  top: 97.5%;
+  left: 2.5%;
+}
+.parsum__block > .parsum__item:nth-child(4).enter {
+  animation: forwards 1s psi-left;
+}
+.parsum__block > .parsum__item:nth-child(4).enter-done {
+  opacity: 0;
+}
+.parsum__block > .parsum__item:nth-child(4).exit-active {
+  opacity: 0;
+}
+.parsum__block > .parsum__item:nth-child(4).exit-done {
+  opacity: 0;
+}
+.parsum__block > .parsum__item:nth-child(5) {
+  position: absolute;
+  top: 97.5%;
+  left: 16.5%;
+}
+.parsum__block > .parsum__item:nth-child(5).enter {
+  animation: forwards 1s psi-right;
+}
+.parsum__block > .parsum__item:nth-child(5).enter-done {
+  opacity: 0;
+}
+.parsum__block > .parsum__item:nth-child(5).exit-active {
+  opacity: 0;
+}
+.parsum__block > .parsum__item:nth-child(5).exit-done {
+  opacity: 0;
+}
+
+.parsum__sum {
+  position: relative;
+}
+.parsum__sum > div {
+  position: relative;
+  left: 13%;
+}
+
+.parsum__transition {
+  display: flex;
+}
+
+.parsum__item {
+  border: 0.25px solid teal;
+  color: black;
+  width: calc(var(--psi__width) * 0.95px);
+  height: calc(var(--psi__height) * 0.95px);
+  text-align: center;
+  font-size: calc(var(--psi__height) * 0.9px);
+}
+
+@keyframes psi-left {
+  40% {
+    transform: translate(0, -500%);
+  }
+  80% {
+    transform: translate(475%, -500%);
+  }
+  90% {
+    transform: translate(475%, -485%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(475%, -485%);
+    opacity: 0;
+  }
+}
+@keyframes psi-right {
+  40% {
     transform: translate(0, -325%);
   }
   80% {
@@ -405,19 +572,7 @@ h6 {
     opacity: 0;
   }
 }
-@keyframes msi-buffer {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    transform: translate(0, -240%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(550%, -240%);
-  }
-}
-@keyframes msi-result {
+@keyframes psi-result {
   0% {
     opacity: 1;
   }

@@ -10,7 +10,7 @@ const MultiSum = (props) => {
     if(props.sumOutPut.length>1)
     return (
         <div  className="multisum__row">
-            {props.sumOutPut.map((number,index)=>
+            {props.sumOutPut.filter((number,index)=>index<props.binary.first.length).map((number,index)=>
                 <MultiSumBlock width = {sumWidth} key = {index} keyValue = {index} cursum = {props.curSum} sumBuffer = {props.sumBuffer}
                                binary = {props.binary} sumOutPut = {props.sumOutPut} sumToggle = {props.sumToggle}
                                 msIteration = {msIteration} changeMsIteration = {changeMsIteration}/>

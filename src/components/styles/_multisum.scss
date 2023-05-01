@@ -6,7 +6,7 @@
   position: relative;
   &>.multisum__item:nth-child(2){
     position: absolute;
-    top: 42.5%;
+    top: 41.5%;
     left: 45%;
     color: red;
     opacity: 0;
@@ -20,11 +20,11 @@
   }
   &>.multisum__item:nth-child(3){
     position: absolute;
-    top: 42.5%;
+    top: 40%;
     left: 45%;
     opacity: 0;
     &.enter{
-      animation: forwards 1s msi-buffer;
+      animation: forwards 2s msi-buffer;
     }
   }
   &>.multisum__item:nth-child(4){
@@ -70,9 +70,10 @@
   text-align: center;
   font-size: calc(var(--msi__height)*0.9px);
 }
+
 @keyframes msi-left {
   40%{
-  transform: translate(0,-500%);
+  transform: translate(0,-482.5%);
   }
   80%{
     transform: translate(475%,-500%);
@@ -88,30 +89,18 @@
 }
 @keyframes msi-right {
   40%{
-    transform: translate(0,-325%);
+    transform: translate(0,-330%);
   }
   80%{
-    transform: translate(325%,-325%);
+    transform: translate(322.5%,-325%);
   }
   90%{
-    transform: translate(325%,-485%);
+    transform: translate(322.5%,-485%);
     opacity: 1;
   }
   100%{
-    transform: translate(325%,-485%);
+    transform: translate(322.5%,-485%);
     opacity: 0;
-  }
-}
-@keyframes msi-buffer {
-0%{
-  opacity: 1;
-}
-  50%{
-    transform: translate(0,-240%);
-  }
-  100%{
-  opacity: 1;
-    transform: translate(550%,-240%);
   }
 }
 @keyframes msi-result {
@@ -123,6 +112,25 @@
   }
   100%{
     transform: translate(350%,400%);
+    opacity: 1;
+  }
+}
+@keyframes msi-buffer {
+  0%{
+    opacity: 1;
+  }
+  25%{
+    transform: translate(0,-215%);
+  }
+  50%{
+    opacity: 1;
+    transform: translate(550%,-215%);
+  }
+  75%{
+    transform: translate(1110%,-215%);
+  }
+  100%{
+  transform: translate(1110%,-65%);
     opacity: 1;
   }
 }

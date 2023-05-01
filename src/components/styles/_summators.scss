@@ -33,6 +33,14 @@
 .sinsum__row{
   display: flex;
   flex-direction: column-reverse;
+  &>.sinsum__item{
+    border-left: 1px #004d68 solid;
+    border-bottom: 1px #004d68 solid;
+    border-right: 1px #004d68 solid;
+    &:last-child{
+      border-top: 1px #004d68 solid;
+    }
+  }
   &:first-child{
     position: relative;
     left: 12.5%;
@@ -60,6 +68,12 @@
   top: 19.5%;
   &>.sinsum__item{
     opacity: 1;
+    border-left: 1px #004d68 solid;
+    border-top: 1px #004d68 solid;
+    border-bottom: 1px #004d68 solid;
+    &:last-child{
+      border-right: 1px #004d68 solid;
+    }
   }
   &>.sinsum__item-enter-done {
     opacity: 1;
@@ -73,10 +87,14 @@
 }
 .sinsum__buffer{
   position: absolute;
-  left: 47.5%;
+  left: 46.5%;
   top: 25%;
+  &>.sinsum__item{
+    border: 1px #004d68 solid;
+
+  }
   &>.sinsum__item-appear{
-  animation: cycle 2000ms forwards;
+  animation: cycle 1800ms forwards;
   }
   &>.sinsum__item-enter-active{
   }
@@ -89,7 +107,6 @@
   font-size: 21px;
   text-align: center;
   color: #004d68;
-  border: 1px #004d68 solid;
   padding: 2px;
 }
 @keyframes appear {
@@ -106,16 +123,16 @@
     color:red;
   }
   25%{
-    transform: translate(-5%,365%);
+    transform: translate(0,365%);
   }
   50%{
-    transform: translate(315%,365%);
+    transform: translate(322.5%,365%);
   }
   75%{
-    transform: translate(315%,100%);
+    transform: translate(322.5%,115%);
   }
   90%{
-    transform: translate(-5%,100%);
+    transform: translate(0,115%);
   }
   100%{
     transform: translate(0,40%);
@@ -126,11 +143,11 @@
     transform: translateY(-535%)
   }
   75%{
-    transform: translate(500%,-535%);
+    transform: translate(482.5%,-535%);
     opacity: 1;
   }
   100%{
-    transform: translate(500%,-450%);
+    transform: translate(482.5%,-450%);
     opacity: 0;
   }
 }
@@ -139,11 +156,11 @@
     transform: translateY(-385%)
   }
   75%{
-    transform: translate(350%,-385%);
+    transform: translate(330.5%,-385%);
     opacity: 1;
   }
   100%{
-    transform: translate(350%,-450%);
+    transform: translate(330.5%,-450%);
     opacity: 0;
   }
 }
