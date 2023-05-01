@@ -13,6 +13,7 @@ const MultiSumBlock = (props) => {
     props.sumOutPut.length-props.sumBuffer.length===1 ? balance = 1 : balance = 0;
     props.sumOutPut.length-1-props.keyValue===0 ? last = true : last = false;
 
+
     switch (props.keyValue){
         case 0:
             Summator = props.cursum.links[0]
@@ -42,7 +43,7 @@ const MultiSumBlock = (props) => {
                 appear
                 >
                 <MultiSumItem msiH = {msi__height} msiW = {msi__width}>
-                    {props.sumBuffer[props.sumOutPut.length-1-props.keyValue-balance]}
+                    {props.sumBuffer[props.keyValue]}
                 </MultiSumItem>
             </CSSTransition>
             <CSSTransition
