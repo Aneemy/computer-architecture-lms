@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CSSTransition} from "react-transition-group";
 import ParSumItem from "./ParSumItem";
-import MultiSumItem from "./MultiSumItem";
+import ParSumTransition from "./ParSumTransition";
 
 const ParSumBlock = (props) => {
     let balance;
@@ -21,36 +21,31 @@ const ParSumBlock = (props) => {
     }
 
     return (
-        <div className='parsum__block' >
-            <div className="parsum__transition" style = {{width:`${props.width}px`}}>
-                {props.unitedArray
-                    .filter((number, index,array) => index < props.keyValue*2)
-                    .map((filterednumber,index,array) => (
-                        <ParSumItem key = {index} psiH = {psi__height} psiW = {psi__width}>
-                            {filterednumber}
-                        </ParSumItem>
-                    ))
-                }
-            </div>
-            <div className="parsum__sum" style = {{width:`${props.width}px`}}>
-                <div>
+            <div className='parsum__block'>
+            <ParSumTransition
+                keyValue = {props.keyValue}
+                unitedArray = {props.unitedArray}
+                psi__width = {psi__width}
+                psi__height = {psi__height}
+                sumToggle = {props.sumToggle}
+            />
+            <div className="parsum__sum" style = {{width:`${props.width}px`,'--psi__height':psi__height}}>
+                <div className="parsum__sum-top">
             <ParTop1 style = {{width:`${props.width/4}px`}}/>
             <ParTop2 style = {{width:`${props.width/4}px`}}/>
                 </div>
             <ParSum style = {{width:`${props.width}px`}}/>
-            </div>
+                <div className="parsum__items">
             <CSSTransition
-            timeout = {1000}
+            timeout = {2500}
             in = {go}
             appear>
                 <ParSumItem psiH = {psi__height} psiW = {psi__width}>
                     {props.sumOutPut[props.sumOutPut.length-1-props.keyValue-balance]}
                 </ParSumItem>
             </CSSTransition>
-
-
             <CSSTransition
-                timeout = {1000}
+                timeout = {2500}
                 in = {props.sumToggle}
                 appear>
                 <ParSumItem psiH = {psi__height} psiW = {psi__width}>
@@ -58,7 +53,7 @@ const ParSumBlock = (props) => {
                 </ParSumItem>
             </CSSTransition>
             <CSSTransition
-                timeout = {1000}
+                timeout = {2500}
                 in = {props.sumToggle}
                 appear
                 onEntered = {()=>setGo(true)}>
@@ -66,6 +61,8 @@ const ParSumBlock = (props) => {
                     {props.binary.second[props.sumOutPut.length-1-props.keyValue-balance]}
                 </ParSumItem>
             </CSSTransition>
+                </div>
+            </div>
         </div>
     );
 };

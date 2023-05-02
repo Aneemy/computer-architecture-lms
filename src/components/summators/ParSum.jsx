@@ -1,5 +1,4 @@
 import React from 'react';
-import {TransitionGroup} from "react-transition-group";
 import ParSumBlock from "./ParSumBlock";
 
 const ParSum = (props) => {
@@ -17,8 +16,8 @@ const ParSum = (props) => {
 
 
     return (
-         <div className="parsum__row">
-                {result.map((number,index)=>
+         <div className="parsum__row" style={{width:props.bodyDimensions.width}}>
+                {result.filter((number,index)=>index<props.binary.first.length).map((number,index)=>
                  <ParSumBlock key = {index} keyValue = {index} cursum = {props.curSum} sumBuffer = {props.sumBuffer}
                               binary = {props.binary} sumOutPut = {props.sumOutPut} sumToggle = {props.sumToggle} width = {sumWidth}
                                 unitedArray = {unitedArray}/>
