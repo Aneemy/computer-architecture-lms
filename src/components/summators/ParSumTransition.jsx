@@ -5,12 +5,11 @@ import {CSSTransition} from "react-transition-group";
 const ParSumTransition = (props) => {
     const transitionTime = 2500/(props.keyValue*2);
     const [transitionIt,setTransitionIt] = useState(0);
-    const [transitionArray,setTransitionArray] = useState(props.unitedArray .filter((number, index,array) => index < (props.keyValue)*2))
+    const [transitionArray,setTransitionArray] = useState(props.unitedArray .filter((number, index,array) => index >=props.unitedArray.length-(props.keyValue)*2))
     console.log(props.keyValue,transitionArray)
 
     function handleIteration(){
         setTransitionIt(transitionIt + 1);
-        // setTransitionArray(transitionArray.filter((number,index)=>index !==1))
     }
     return (
         <div className="parsum__transition" style={{width:`${(props.keyValue*2)*props.psi__width*1.7}px`,left:(props.psi__width)*5.2}}>

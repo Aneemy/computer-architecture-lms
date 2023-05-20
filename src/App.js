@@ -11,6 +11,8 @@ import {ReactComponent as MultiTail} from "./multipletail.svg";
 import {ReactComponent as ParHead} from "./parallelhead.svg";
 import {ReactComponent as ParBody} from "./parallelbody.svg";
 import {ReactComponent as ParTail} from "./paralleltail.svg";
+import {ReactComponent as GroupHead} from "./groupsum.svg";
+
 function App() {
     const [sumData,setSumData] = useState({first:'0',second:'0'})
     const [sumBinary,setSumBinary] = useState(sumData);
@@ -23,7 +25,9 @@ function App() {
         {id: 3, heading: 'Параллельного действия',links: [
             ParHead,ParBody,ParTail
             ]},
-        {id: 4, heading: 'С групповым переносом'}
+        {id: 4, heading: 'С групповым переносом',links:
+            [GroupHead,MultiBody]
+            }
     ])
     const [curSum,setCurSum] = useState(sums[0]);
     const [sumOutPut,setSumOutPut] = useState([])
@@ -47,7 +51,7 @@ function App() {
     const changeSumBuffer = (buffer) =>{
         setSumBuffer(buffer)
     }
-    // console.log(sumOutPut,sumBuffer,sumBinary)
+    console.log(sumOutPut,sumBuffer,sumBinary)
   return (
     <div className="App" >
         <Header/>

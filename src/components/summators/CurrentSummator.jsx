@@ -2,6 +2,7 @@ import React from 'react';
 import SinSum from "./SinSum";
 import MultiSum from "./MultiSum";
 import ParSum from "./ParSum";
+import GroupSum from "./GroupSum";
 const CurrentSummator = (props) => {
     switch (props.curSum.id){
         case 1:{
@@ -26,7 +27,11 @@ const CurrentSummator = (props) => {
             )
         }
         case 4:{
-
+            return (
+                <GroupSum sumBuffer = {props.sumBuffer} iteration = {props.iteration} changeIteration = {props.changeIteration}
+                          sumToggle = {props.sumToggle}   sumOutPut = {props.sumOutPut} curSum = {props.curSum}
+                          binary = {props.binary} bodyDimensions = {props.bodyDimensions}/>
+            )
         }
     }
 };

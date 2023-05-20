@@ -6,7 +6,7 @@ const ParSum = (props) => {
     const result = props.sumOutPut;
     function uniteArrays(){
         let united = [];
-        for (let i = 0;i<props.binary.first.length-1;i++){
+        for (let i = 0;i<props.binary.first.length;i++){
             united.push(props.binary.first[i]);
             united.push(props.binary.second[i]);
         }
