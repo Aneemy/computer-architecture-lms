@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import GroupSumInput from "./GroupSumInput";
 import GroupSumBlock from "./GroupSumBlock";
+import SumToggleButton from "./SumToggleButton";
+import SumResetButton from "./SumResetButton";
 
 const GroupSum = (props) => {
     const [inputData,setInputData] = useState(0)
@@ -34,16 +36,34 @@ const GroupSum = (props) => {
         return chunckedArr.map((value, index, array)=>
             <GroupSumBlock key = {index} keyValue = {index} value = {value} step = {inputData} cursum = {props.curSum}
                            sumBuffer = {props.sumBuffer} binary = {props.binary} sumOutPut = {props.sumOutPut}
-                           sumToggle = {props.sumToggle} width = {sumWidth} unitedArray = {unitedArray}
+                           sumToggle = {sumToggle} width = {sumWidth} unitedArray = {unitedArray}
                            result = {result} isFirst = {index === 0}
             />)
     }
+    const [sumToggle,setSumToggle] = useState(false);
+    const handleSumToggle = (toggle)=>{
+        setSumToggle(!toggle)
+    }
+    const [update,setUpdate] = useState(1);
+
+    const handleUpdate = (data) =>{
+        setUpdate(data)
+    }
+    useEffect(()=>{
+            if (!sumToggle){
+                setUpdate(update+1)
+                console.log(sumToggle,update)
+            }
+        },
+        [sumToggle])
     return (
         <div >
             <GroupSumInput changeInputData = {changeInputData}/>
-            <div className="groupsum__row" style={{width:props.bodyDimensions.width,'--gsi__height':gsi__height}}>
+            <div key = {update} className="groupsum__row" style={{width:props.bodyDimensions.width,'--gsi__height':gsi__height}}>
             {inputData!==0&&ChunckedResult(inputData)}
             </div>
+            {inputData&&<SumToggleButton handleSumToggle = {handleSumToggle} sumToggle = {sumToggle}/>}
+            {inputData&&<SumResetButton handleSumToggle={handleSumToggle} curSum = {4} update = {update} handleUpdate = {handleUpdate} changeIteration = {handleUpdate}/>}
         </div>
     );
 };

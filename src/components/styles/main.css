@@ -125,6 +125,25 @@ h6 {
   line-height: 1.75;
 }
 
+.sum__button {
+  position: relative;
+  float: right;
+  margin-top: 1.25%;
+  padding: 0 2.5%;
+  font-size: 25px;
+  background: #004d68;
+  border-radius: 25px;
+  color: white;
+  line-height: 1.75;
+}
+
+.sum__buttons {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 50px;
+}
+
 .sidebar {
   width: 100%;
   padding-left: 0.25%;
@@ -346,6 +365,9 @@ h6 {
 .multisum__block > .multisum__item:nth-child(2).enter-done {
   opacity: 1;
   transform: translate(340%, 420%);
+}
+.multisum__block > .multisum__item:nth-child(2).exit-done {
+  opacity: 0;
 }
 .multisum__block > .multisum__item:nth-child(3) {
   position: absolute;

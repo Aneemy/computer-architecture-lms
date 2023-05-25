@@ -17,6 +17,9 @@
       opacity: 1;
       transform: translate(340%,420%);
     }
+    &.exit-done{
+      opacity: 0;
+    }
   }
   &>.multisum__item:nth-child(3){
     position: absolute;
@@ -25,6 +28,9 @@
     opacity: 0;
     &.enter{
       animation: forwards 2s msi-buffer;
+    }
+    &.exit-done{
+
     }
   }
   &>.multisum__item:nth-child(4){

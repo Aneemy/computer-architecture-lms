@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CSSTransition, Transition} from "react-transition-group";
 import MultiSumItem from "./MultiSumItem";
 
@@ -12,7 +12,13 @@ const MultiSumBlock = (props) => {
     const [go,setGo] = useState(false);
     props.sumOutPut.length-props.sumBuffer.length===1 ? balance = 1 : balance = 0;
     props.sumOutPut.length-1-props.keyValue===0 ? last = true : last = false;
-
+    const [k,setK] = useState(1)
+    useEffect(()=>{
+        if(!props.sumToggle) {
+            setGo(false)
+            setK(k+1)
+        }
+    },[props.sumToggle])
 
     switch (props.keyValue){
         case 0:
@@ -30,7 +36,7 @@ const MultiSumBlock = (props) => {
             <Summator style = {{width:`${props.width}px`}}/>
             <CSSTransition
                 timeout = {1000}
-                in = {go}
+                in = {go&&props.sumToggle}
                 appear
                 onEntered = {()=>props.changeMsIteration(props.msIteration+1)}>
                 <MultiSumItem msiH = {msi__height} msiW = {msi__width}>
@@ -39,7 +45,7 @@ const MultiSumBlock = (props) => {
             </CSSTransition>
             <CSSTransition
                 timeout = {2000}
-                in = {go&&!(!balance&&last)&&!lastbuffer}
+                in = {go&&!(!balance&&last)&&!lastbuffer&&props.sumToggle}
                 appear
                 >
                 <MultiSumItem msiH = {msi__height} msiW = {msi__width}>
@@ -47,6 +53,7 @@ const MultiSumBlock = (props) => {
                 </MultiSumItem>
             </CSSTransition>
             <CSSTransition
+                key = {k}
                 timeout = {1000}
                 in = {props.sumToggle&&props.keyValue===props.msIteration}
                 appear
@@ -56,6 +63,7 @@ const MultiSumBlock = (props) => {
                 </MultiSumItem>
             </CSSTransition>
             <CSSTransition
+                key = {k+2}
                 timeout = {1000}
                 in = {props.sumToggle&&props.keyValue===props.msIteration}
                 appear

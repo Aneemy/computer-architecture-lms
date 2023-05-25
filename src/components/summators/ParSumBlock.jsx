@@ -38,7 +38,7 @@ const ParSumBlock = (props) => {
                 <div className="parsum__items">
             <CSSTransition
             timeout = {2500}
-            in = {go}
+            in = {go&&props.sumToggle}
             appear>
                 <ParSumItem psiH = {psi__height} psiW = {psi__width}>
                     {props.sumOutPut[props.sumOutPut.length-1-props.keyValue-balance]}

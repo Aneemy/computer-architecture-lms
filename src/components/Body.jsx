@@ -9,11 +9,6 @@ const Body = (props) => {
 
     const bodyRef = useRef(null);
 
-    function SwitchButton(){
-        return(
-            <button id = "bodyButton" onClick={()=> setSumToggle(!sumToggle)} style={{float:"right",marginTop:'25px'}}>{'Включить'}</button>
-        )
-    }
     useEffect(() => {
         if (bodyRef.current) {
             setBodyDimensions({
@@ -39,7 +34,6 @@ const Body = (props) => {
                             binary = {props.binary}
                             bodyDimensions = {bodyDimensions}
                         />
-                        <SwitchButton/>
                     </div>
                 </div>
             </div>
