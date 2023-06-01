@@ -101,8 +101,8 @@ h6 {
   display: flex;
   justify-content: center;
   background: white;
-  min-width: 90%;
   min-height: 100vh;
+  width: 100%;
 }
 
 .container {
@@ -129,8 +129,7 @@ h6 {
   position: relative;
   float: right;
   margin-top: 1.25%;
-  padding: 0 2.5%;
-  font-size: 25px;
+  font-size: 20px;
   background: #004d68;
   border-radius: 25px;
   color: white;
@@ -138,10 +137,18 @@ h6 {
 }
 
 .sum__buttons {
+  margin-top: 25px;
   position: absolute;
   display: flex;
   flex-direction: column;
   right: 50px;
+}
+
+.modal__opened {
+  width: 100%;
+  height: 100%;
+  background: grey;
+  opacity: 0.2;
 }
 
 .sidebar {
@@ -230,17 +237,17 @@ h6 {
 }
 .sinsum__row:first-child {
   position: relative;
-  left: 12.5%;
+  left: 7.5px;
 }
 .sinsum__row:first-child > .sinsum__item-enter-active:last-child {
-  animation: left 2000ms forwards;
+  animation: left calc(var(--ssi__time) * 1ms) forwards;
 }
 .sinsum__row:last-child {
   position: relative;
-  left: 40%;
+  left: 23.5px;
 }
 .sinsum__row:last-child > .sinsum__item-enter-active:last-child {
-  animation: right 2000ms forwards;
+  animation: right calc(var(--ssi__time) * 1ms) forwards;
 }
 
 .sinsum__result {
@@ -266,23 +273,23 @@ h6 {
   opacity: 1;
 }
 .sinsum__result > .sinsum__item-appear:first-child {
-  animation: appear 2000ms forwards;
+  animation: appear calc(var(--ssi__time) * 1ms) forwards;
 }
 
 .sinsum__buffer {
   position: absolute;
-  left: 46.5%;
-  top: 25%;
+  left: 140px;
+  top: 48px;
 }
 .sinsum__buffer > .sinsum__item {
   border: 1px #004d68 solid;
 }
 .sinsum__buffer > .sinsum__item-appear {
-  animation: cycle 1800ms forwards;
+  animation: cycle calc(var(--ssi__time) * 0.8ms) forwards;
 }
 .sinsum__item {
-  height: 27.5px;
-  width: 27.5px;
+  height: 27px;
+  width: 27px;
   font-size: 21px;
   text-align: center;
   color: #004d68;
@@ -320,37 +327,44 @@ h6 {
 }
 @keyframes left {
   50% {
-    transform: translateY(-535%);
+    transform: translateY(-148px);
   }
   75% {
-    transform: translate(482.5%, -535%);
+    transform: translate(132px, -148px);
     opacity: 1;
   }
   100% {
-    transform: translate(482.5%, -450%);
+    transform: translate(132px, -130px);
     opacity: 0;
   }
 }
 @keyframes right {
   50% {
-    transform: translateY(-385%);
+    transform: translateY(-106px);
   }
   75% {
-    transform: translate(330.5%, -385%);
+    transform: translate(88px, -106px);
     opacity: 1;
   }
   100% {
-    transform: translate(330.5%, -450%);
+    transform: translate(88px, -130px);
     opacity: 0;
   }
 }
 .multisum__row {
   display: flex;
   width: 100%;
+  position: relative;
+  align-items: flex-end;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .multisum__block {
   position: relative;
+  width: 100%;
 }
 .multisum__block > .multisum__item:nth-child(2) {
   position: absolute;
@@ -360,7 +374,7 @@ h6 {
   opacity: 0;
 }
 .multisum__block > .multisum__item:nth-child(2).enter {
-  animation: forwards 1s msi-result;
+  animation: forwards calc(var(--msi__time) * 1ms) msi-result;
 }
 .multisum__block > .multisum__item:nth-child(2).enter-done {
   opacity: 1;
@@ -376,7 +390,7 @@ h6 {
   opacity: 0;
 }
 .multisum__block > .multisum__item:nth-child(3).enter {
-  animation: forwards 2s msi-buffer;
+  animation: calc(var(--msi__time) * 2ms) msi-buffer;
 }
 .multisum__block > .multisum__item:nth-child(4) {
   position: absolute;
@@ -384,7 +398,7 @@ h6 {
   left: 2.5%;
 }
 .multisum__block > .multisum__item:nth-child(4).enter {
-  animation: forwards 1s msi-left;
+  animation: forwards calc(var(--msi__time) * 1ms) msi-left;
 }
 .multisum__block > .multisum__item:nth-child(4).enter-done {
   opacity: 0;
@@ -401,7 +415,7 @@ h6 {
   left: 16.5%;
 }
 .multisum__block > .multisum__item:nth-child(5).enter {
-  animation: forwards 1s msi-right;
+  animation: forwards calc(var(--msi__time) * 1ms) msi-right;
 }
 .multisum__block > .multisum__item:nth-child(5).enter-done {
   opacity: 0;
@@ -512,7 +526,7 @@ h6 {
   opacity: 0;
 }
 .parsum__sum .parsum__item:nth-child(1).enter {
-  animation: forwards 2500ms psi-result;
+  animation: calc(var(--psi__time) * 1ms) psi-result;
 }
 .parsum__sum .parsum__item:nth-child(1).enter-done {
   transform: translate(344%, 460%);
@@ -524,7 +538,7 @@ h6 {
   left: 2.5%;
 }
 .parsum__sum .parsum__item:nth-child(2).enter {
-  animation: forwards 2500ms psi-left;
+  animation: calc(var(--psi__time) * 1ms) psi-left;
 }
 .parsum__sum .parsum__item:nth-child(2).enter-done {
   opacity: 0;
@@ -541,7 +555,7 @@ h6 {
   left: 16.5%;
 }
 .parsum__sum .parsum__item:nth-child(3).enter {
-  animation: forwards 2500ms psi-right;
+  animation: calc(var(--psi__time) * 1ms) psi-right;
 }
 .parsum__sum .parsum__item:nth-child(3).enter-done {
   opacity: 0;
@@ -647,16 +661,12 @@ h6 {
   overflow-x: auto;
   overflow-y: hidden;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   margin-top: calc(var(--gsi__height) * 1px);
-}
-.groupsum__row + div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .groupsum__block {
+  width: 100%;
   position: relative;
   display: flex;
   border: 1px teal solid;
@@ -700,7 +710,7 @@ h6 {
   opacity: 0;
 }
 .groupsum__elem .groupsum__item:nth-child(2).enter {
-  animation: forwards 2500ms gsi-result;
+  animation: calc(var(--gsi__time) * 1ms) gsi-result;
 }
 .groupsum__elem .groupsum__item:nth-child(2).enter-done {
   transform: translate(335%, 415%);
@@ -712,7 +722,7 @@ h6 {
   left: 2.5%;
 }
 .groupsum__elem .groupsum__item:nth-child(3).enter {
-  animation: forwards 2500ms gsi-left;
+  animation: calc(var(--gsi__time) * 1ms) gsi-left;
 }
 .groupsum__elem .groupsum__item:nth-child(3).enter-done {
   opacity: 0;
@@ -729,7 +739,7 @@ h6 {
   left: 16.5%;
 }
 .groupsum__elem .groupsum__item:nth-child(4).enter {
-  animation: forwards 2500ms gsi-right;
+  animation: calc(var(--gsi__time) * 1ms) gsi-right;
 }
 .groupsum__elem .groupsum__item:nth-child(4).enter-done {
   opacity: 0;
@@ -747,7 +757,7 @@ h6 {
   opacity: 0;
 }
 .groupsum__elem .groupsum__item:nth-child(5).enter {
-  animation: forwards 2500ms gsi-buffer2;
+  animation: calc(var(--gsi__time) * 1ms) gsi-buffer2;
 }
 .groupsum__elem .groupsum__item:nth-child(5).enter-done {
   opacity: 0;
@@ -760,7 +770,7 @@ h6 {
 }
 .groupsum__elem .groupsum__item:nth-child(6).appear {
   opacity: 1;
-  animation: forwards 500ms gsi-buffer1;
+  animation: calc(var(--gsi__time) * 1ms) gsi-buffer1;
 }
 .groupsum__elem .groupsum__item:nth-child(6).appear-done {
   opacity: 0;
@@ -866,6 +876,74 @@ h6 {
     opacity: 1;
   }
 }
+.auth__block {
+  float: right;
+  border-left: #004d68 1px solid;
+  height: 75px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #004d68;
+}
+.auth__block:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.auth__form {
+  left: 40%;
+  top: 15%;
+  position: fixed;
+  background: white;
+  border: 2px #004d68 solid;
+  font-size: 26px;
+  color: #004d68;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.auth__form > span {
+  font-size: 20px;
+  padding: 1.25%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.auth__form > span > span {
+  font-weight: bold;
+}
+.auth__form > span > span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth__inputs {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.auth__inputs > input {
+  border: 0.25px solid #004d68;
+  font-size: 26px;
+  border-radius: 25px;
+  padding: 25px;
+  margin-top: 10px;
+}
+
+.auth__subbtn {
+  background: #004d68;
+  color: white;
+  font-size: 26px;
+  border-radius: 25px;
+  padding: 2.5%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 * {
   font-family: "montserrat", sans-serif;
 }

@@ -10,16 +10,12 @@
   overflow-x: auto;
   overflow-y: hidden;
   justify-content: center;
-  align-items: center;
-  &+div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  align-items: flex-end;
   margin-top: calc(var(--gsi__height)*1px);
 }
 
 .groupsum__block{
+  width: 100%;
   position: relative;
   display: flex;
   border: 1px teal solid;
@@ -60,7 +56,7 @@
     left: 45%;
     opacity: 0;
     &.enter{
-      animation: forwards 2500ms gsi-result;
+      animation: calc(var(--gsi__time)*1ms) gsi-result;
     }
     &.enter-done{
       transform: translate(335%,415%);
@@ -72,7 +68,7 @@
     top: 97.5%;
     left: 2.5%;
     &.enter{
-      animation: forwards 2500ms gsi-left;
+      animation: calc(var(--gsi__time)*1ms) gsi-left;
     }
     &.enter-done{
       opacity: 0;
@@ -89,7 +85,7 @@
     top: 97.5%;
     left: 16.5%;
     &.enter{
-      animation: forwards 2500ms gsi-right;
+      animation: calc(var(--gsi__time)*1ms) gsi-right;
     }
     &.enter-done{
       opacity: 0;
@@ -107,7 +103,7 @@
     left: 45%;
     opacity: 0;
     &.enter{
-      animation: forwards 2500ms gsi-buffer2;
+      animation: calc(var(--gsi__time)*1ms) gsi-buffer2;
     }
     &.enter-done{
   opacity: 0;
@@ -120,7 +116,7 @@
     opacity: 0;
     &.appear{
       opacity: 1;
-      animation: forwards 500ms gsi-buffer1;
+      animation: calc(var(--gsi__time)*1ms) gsi-buffer1;
     }
     &.appear-done{
       opacity: 0;

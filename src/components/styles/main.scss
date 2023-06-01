@@ -2,11 +2,12 @@
 @import "header";
 @import "body";
 @import "sidebar";
-@import "summators";
+@import "sinsum";
 @import url("https://use.typekit.net/luw8rqy.css");
 @import "multisum";
 @import "parsum";
 @import "groupsum";
+@import "auth";
 *{
   font-family: "montserrat",sans-serif;
 }

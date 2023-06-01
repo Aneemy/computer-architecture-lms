@@ -23,6 +23,7 @@ const ParSumBlock = (props) => {
     return (
             <div className='parsum__block'>
             <ParSumTransition
+                time = {props.time}
                 keyValue = {props.keyValue}
                 unitedArray = {props.unitedArray}
                 psi__width = {psi__width}
@@ -37,27 +38,31 @@ const ParSumBlock = (props) => {
             <ParSum style = {{width:`${props.width}px`}}/>
                 <div className="parsum__items">
             <CSSTransition
-            timeout = {2500}
+            timeout = {props.time}
             in = {go&&props.sumToggle}
-            appear>
-                <ParSumItem psiH = {psi__height} psiW = {psi__width}>
+            appear
+            onEntered = {()=>{
+                if(props.keyValue === props.binary.first.length-1)
+                    props.changeShowResult(true)
+            }}>
+                <ParSumItem  time = {props.time} psiH = {psi__height} psiW = {psi__width}>
                     {props.sumOutPut[props.sumOutPut.length-1-props.keyValue-balance]}
                 </ParSumItem>
             </CSSTransition>
             <CSSTransition
-                timeout = {2500}
+                timeout = {props.time}
                 in = {props.sumToggle}
                 appear>
-                <ParSumItem psiH = {psi__height} psiW = {psi__width}>
+                <ParSumItem time = {props.time} psiH = {psi__height} psiW = {psi__width}>
                     {props.binary.first[props.sumOutPut.length-1-props.keyValue-balance]}
                 </ParSumItem>
             </CSSTransition>
             <CSSTransition
-                timeout = {2500}
+                timeout = {props.time}
                 in = {props.sumToggle}
                 appear
                 onEntered = {()=>setGo(true)}>
-                <ParSumItem psiH = {psi__height} psiW = {psi__width}>
+                <ParSumItem time = {props.time} psiH = {psi__height} psiW = {psi__width}>
                     {props.binary.second[props.sumOutPut.length-1-props.keyValue-balance]}
                 </ParSumItem>
             </CSSTransition>

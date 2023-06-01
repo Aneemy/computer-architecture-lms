@@ -3,10 +3,9 @@ import ParSumItem from "./ParSumItem";
 import {CSSTransition} from "react-transition-group";
 
 const ParSumTransition = (props) => {
-    const transitionTime = 2500/(props.keyValue*2);
+    const transitionTime = (props.time)/(props.keyValue*2);
     const [transitionIt,setTransitionIt] = useState(0);
     const [transitionArray,setTransitionArray] = useState(props.unitedArray .filter((number, index,array) => index >=props.unitedArray.length-(props.keyValue)*2))
-    console.log(props.keyValue,transitionArray)
 
     function handleIteration(){
         setTransitionIt(transitionIt + 1);

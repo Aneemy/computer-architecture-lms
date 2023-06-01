@@ -8,11 +8,15 @@
 
   "dependencies": {
 
+    "@reduxjs/toolkit": "^1.9.5",
+
     "@testing-library/jest-dom": "^5.16.5",
 
     "@testing-library/react": "^13.4.0",
 
     "@testing-library/user-event": "^13.5.0",
+
+    "axios": "^1.4.0",
 
     "git": "^0.1.5",
 
@@ -20,11 +24,21 @@
 
     "react-dom": "^18.2.0",
 
+    "react-redux": "^8.0.7",
+
+    "react-router-dom": "^6.11.2",
+
     "react-scripts": "^5.0.1",
 
     "react-svg": "^16.1.6",
 
     "react-transition-group": "^4.4.5",
+
+    "redux": "^4.2.1",
+
+    "redux-devtools-extension": "^2.13.9",
+
+    "redux-thunk": "^2.4.2",
 
     "styled-components": "^5.3.9",
 

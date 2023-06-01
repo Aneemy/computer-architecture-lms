@@ -1,9 +1,16 @@
 .multisum__row{
   display: flex;
   width: 100%;
+  position: relative;
+  align-items: flex-end;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 .multisum__block{
   position: relative;
+  width: 100%;
   &>.multisum__item:nth-child(2){
     position: absolute;
     top: 41.5%;
@@ -11,7 +18,7 @@
     color: red;
     opacity: 0;
     &.enter{
-      animation: forwards 1s msi-result;
+      animation: forwards calc(var(--msi__time)*1ms) msi-result;
     }
     &.enter-done{
       opacity: 1;
@@ -27,7 +34,7 @@
     left: 45%;
     opacity: 0;
     &.enter{
-      animation: forwards 2s msi-buffer;
+      animation: calc(var(--msi__time)*2ms) msi-buffer;
     }
     &.exit-done{
 
@@ -38,7 +45,7 @@
     top: 97.5%;
     left: 2.5%;
     &.enter{
-      animation: forwards 1s msi-left;
+      animation: forwards calc(var(--msi__time)*1ms) msi-left;
     }
     &.enter-done{
       opacity: 0;
@@ -55,7 +62,7 @@
     top: 97.5%;
     left: 16.5%;
     &.enter{
-      animation: forwards 1s msi-right;
+      animation: forwards calc(var(--msi__time)*1ms) msi-right;
     }
     &.enter-done{
       opacity: 0;

@@ -1,8 +1,9 @@
 import React from 'react';
-const Header = () => {
+import AuthButton from "./userInterface/AuthButton";
+const Header = (props) => {
     return (
         <div className='header'>
-
+            <AuthButton openModal = {props.openModal} setOpenModal = {props.setOpenModal}/>
         </div>
     );
 };

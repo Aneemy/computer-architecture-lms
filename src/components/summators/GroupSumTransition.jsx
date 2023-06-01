@@ -3,7 +3,7 @@ import {CSSTransition} from "react-transition-group";
 import GroupSumItem from "./GroupSumItem";
 
 const GroupSumTransition = (props) => {
-    const transitionTime = 1500/props.unitedArray.length;
+    const transitionTime = props.time*0.6/props.unitedArray.length;
     const [transitionIt,setTransitionIt] = useState(0);
 
     function handleIteration(){

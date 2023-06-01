@@ -21,7 +21,7 @@
     left: 45%;
     opacity: 0;
     &.enter{
-      animation: forwards 2500ms psi-result;
+      animation: calc(var(--psi__time)*1ms) psi-result;
     }
     &.enter-done{
       transform: translate(344%,460%);
@@ -33,7 +33,7 @@
     top: 97.5%;
     left: 2.5%;
     &.enter{
-      animation: forwards 2500ms psi-left;
+      animation: calc(var(--psi__time)*1ms) psi-left;
     }
     &.enter-done{
       opacity: 0;
@@ -50,7 +50,7 @@
     top: 97.5%;
     left: 16.5%;
     &.enter{
-      animation: forwards 2500ms psi-right;
+      animation: calc(var(--psi__time)*1ms) psi-right;
     }
     &.enter-done{
       opacity: 0;

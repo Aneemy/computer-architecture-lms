@@ -4,6 +4,8 @@ import SumRowItem from "./SumRowItem";
 import SumRow from "./SumRow";
 import SumToggleButton from "./SumToggleButton";
 import SumResetButton from "./SumResetButton";
+import SumTimer from "./SumTimer";
+import SumResult from "./SumResult";
 
 const SinSum = (props) => {
     let decider = false;
@@ -14,6 +16,12 @@ const SinSum = (props) => {
     const [leftRow, setLeftRow] = useState(props.binary.first);
     const [rightRow, setRightRow] = useState(props.binary.second);
     const [update,setUpdate] = useState(1);
+    const [timer,setTimer] = useState(2500);
+    const [showResult,setShowResult] = useState(false);
+
+    const changeTimer = (time) =>{
+        setTimer(time)
+    }
 
     const handleUpdate = (data) =>{
         setUpdate(data)
@@ -46,12 +54,12 @@ const SinSum = (props) => {
                         appear
                         in={sumToggle}
                         timeout={{
-                            appear:2000,
+                            appear:timer,
                             enter:0
                         }}
                         onEntered = {handleBuffer}
                         classNames={classses.item}>
-                        <SumRowItem >
+                        <SumRowItem time = {timer}>
                             {result[i]}
                         </SumRowItem>
                     </CSSTransition>
@@ -69,15 +77,17 @@ const SinSum = (props) => {
                             appear
                             key={index}
                             timeout={{
-                                appear:2000,
+                                appear:timer,
                                 enter:0
                             }}
                             mountOnEnter
                             classNames={classses.item}
                             in={(index >= (props.sumOutPut.length - iteration.it) && sumToggle)}
-                            onEntering={() => {
+                            onEntered={() => {
+                                if (iteration.it === props.sumOutPut.length-1)
+                                    setShowResult(true)
                             }}>
-                            <SumRowItem key={index}>
+                            <SumRowItem time = {timer} key={index}>
                                 {number}
                             </SumRowItem>
                         </CSSTransition>
@@ -100,15 +110,17 @@ const SinSum = (props) => {
             </div>
             <div style={{display:"flex",position:'absolute'}}>
                 <SumRow key={update} iteration={iteration} ph='left'
-                        changeIteration={changeIteration} sumToggle={sumToggle} row={leftRow} />
+                        changeIteration={changeIteration} sumToggle={sumToggle} row={leftRow} time = {timer} />
                 <SumRow key={update+1} iteration={iteration} ph='right'
-                        changeIteration={changeIteration} sumToggle={sumToggle} row={rightRow} />
+                        changeIteration={changeIteration} sumToggle={sumToggle} row={rightRow} time = {timer}/>
 
             </div>
         </div>
             <div className="sum__buttons">
-            <SumToggleButton handleSumToggle = {handleSumToggle} sumToggle = {sumToggle}/>
+                <SumToggleButton handleSumToggle = {handleSumToggle} sumToggle = {sumToggle}/>
                 <SumResetButton handleSumToggle={handleSumToggle} changeIteration={changeIteration} resetRows={resetRows}  update = {update} handleUpdate = {handleUpdate} curSum = {1}/>
+                <SumTimer sumToggle = {sumToggle} timer = {timer} changeTimer = {changeTimer}/>
+                {showResult&&<SumResult sumResult = {props.sumResult}/>}
             </div>
         </div>
     );

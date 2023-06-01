@@ -7,30 +7,30 @@ const CurrentSummator = (props) => {
     switch (props.curSum.id){
         case 1:{
             return(
-            <SinSum sumBuffer = {props.sumBuffer}
+            <SinSum key = {props.sumOutPut} sumBuffer = {props.sumBuffer}
                     sumToggle = {props.sumToggle}   sumOutPut = {props.sumOutPut} curSum = {props.curSum}
-                    binary = {props.binary}/>
+                    binary = {props.binary} sumResult = {props.sumResult}/>
             )
         }
         case 2:{
             return(
-            <MultiSum sumBuffer = {props.sumBuffer} iteration = {props.iteration} changeIteration = {props.changeIteration}
+            <MultiSum key = {props.binary.first} sumBuffer = {props.sumBuffer} iteration = {props.iteration} changeIteration = {props.changeIteration}
                       sumToggle = {props.sumToggle}   sumOutPut = {props.sumOutPut} curSum = {props.curSum}
-                      binary = {props.binary} bodyDimensions = {props.bodyDimensions}/>
+                      binary = {props.binary} bodyDimensions = {props.bodyDimensions} sumResult = {props.sumResult}/>
             )
         }
         case 3:{
             return (
-                <ParSum sumBuffer = {props.sumBuffer} iteration = {props.iteration} changeIteration = {props.changeIteration}
+                <ParSum key = {props.binary.second} sumBuffer = {props.sumBuffer} iteration = {props.iteration} changeIteration = {props.changeIteration}
                         sumToggle = {props.sumToggle}   sumOutPut = {props.sumOutPut} curSum = {props.curSum}
-                        binary = {props.binary} bodyDimensions = {props.bodyDimensions}/>
+                        binary = {props.binary} bodyDimensions = {props.bodyDimensions} sumResult = {props.sumResult}/>
             )
         }
         case 4:{
             return (
-                <GroupSum sumBuffer = {props.sumBuffer} iteration = {props.iteration} changeIteration = {props.changeIteration}
+                <GroupSum key = {props.sumBuffer} sumBuffer = {props.sumBuffer} iteration = {props.iteration} changeIteration = {props.changeIteration}
                           sumToggle = {props.sumToggle}   sumOutPut = {props.sumOutPut} curSum = {props.curSum}
-                          binary = {props.binary} bodyDimensions = {props.bodyDimensions}/>
+                          binary = {props.binary} bodyDimensions = {props.bodyDimensions} sumResult = {props.sumResult}/>
             )
         }
     }

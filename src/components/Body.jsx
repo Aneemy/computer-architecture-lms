@@ -5,24 +5,11 @@ import CurrentSummator from "./summators/CurrentSummator";
 
 const Body = (props) => {
     const [sumToggle,setSumToggle]=useState(false);
-    const [bodyDimensions, setBodyDimensions] = useState({width: 0, height: 0});
-
-    const bodyRef = useRef(null);
-
-    useEffect(() => {
-        if (bodyRef.current) {
-            setBodyDimensions({
-                width: bodyRef.current.offsetWidth,
-                height: bodyRef.current.offsetHeight,
-            });
-            console.log(bodyRef.current.offsetWidth,bodyRef.current.offsetHeight)
-        }
-    }, [bodyRef.current]);
-
+    const [bodyDimensions, setBodyDimensions] = useState({width: Math.floor(1920*0.9), height: window.innerHeight});
 
     if(props.flag){
         return (
-            <div className="body" ref={bodyRef}>
+            <div className="body" style={{width:bodyDimensions.width}}>
                 <div className='container'>
                     {props.children}
                     <div>
@@ -33,6 +20,7 @@ const Body = (props) => {
                             curSum = {props.curSum}
                             binary = {props.binary}
                             bodyDimensions = {bodyDimensions}
+                            sumResult = {props.sumResult}
                         />
                     </div>
                 </div>
@@ -40,7 +28,7 @@ const Body = (props) => {
         )
     } else {
         return (
-            <div className="body" ref={bodyRef}>
+            <div className="body">
                 <div className='container'>
                     {props.children}
                 </div>

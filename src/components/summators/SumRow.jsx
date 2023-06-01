@@ -24,10 +24,10 @@ const SumRow = (props) => {
                     in={currentIndex===index&&props.sumToggle}
                     key={index}
                     classNames="sinsum__item"
-                    timeout={2000}
+                    timeout={props.time}
                     onEntered = {()=>itemIteration()}
                     >
-                    <SumRowItem key = {index}>{number}</SumRowItem>
+                    <SumRowItem key = {index} time = {props.time}>{number}</SumRowItem>
                 </CSSTransition>
             )}
         </div>

@@ -1,5 +1,8 @@
 import React from 'react';
 const SumInput = (props) => {
+    function isNumeric(value) {
+        return /^\d+$/.test(value);
+    }
     function convertToBinary(x) {
         let bin = 0;
         let rem, i = 1, step = 1;
@@ -62,6 +65,12 @@ const SumInput = (props) => {
 
     function getReadyBinary(props){
 
+        if (!isNumeric(props.data.first) || !isNumeric(props.data.second)) {
+            alert('Введите положительные целые числа');
+            return;
+        }
+
+
         var output = Number(props.data.first)+Number(props.data.second);
         var first = convertToBinary(props.data.first).toString().split('');
         var second = convertToBinary(props.data.second).toString().split('');
@@ -69,6 +78,7 @@ const SumInput = (props) => {
         var result = convertToBinary(output).toString().split('');
         result.length < maxlength ? result = elaborateArray(convertToBinary(output).toString().split(''),maxlength) : result = result;
 
+        props.changeSumResult(output);
         props.changeSumOutPut(result);
         props.changeSumBinary({first:elaborateArray(first,maxlength),second:elaborateArray(second,maxlength)});
         props.changeSumReady(true);

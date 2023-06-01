@@ -3,7 +3,7 @@ import {CSSTransition, Transition} from "react-transition-group";
 import MultiSumItem from "./MultiSumItem";
 
 const MultiSumBlock = (props) => {
-    let Summator;
+    let MulSum;
     let balance;
     let last;
     let lastbuffer = false;
@@ -22,53 +22,58 @@ const MultiSumBlock = (props) => {
 
     switch (props.keyValue){
         case 0:
-            Summator = props.cursum.links[0]
+            MulSum = props.cursum.links[0]
             break
         case props.binary.first.length-1:
-            Summator = props.cursum.links[2]
+            MulSum = props.cursum.links[2]
             lastbuffer = true;
             break
         default:
-            Summator = props.cursum.links[1]
+            MulSum = props.cursum.links[1]
     }
     return (
         <div className="multisum__block">
-            <Summator style = {{width:`${props.width}px`}}/>
+            <MulSum style = {{width:`${props.width}px`}}/>
             <CSSTransition
-                timeout = {1000}
+                timeout = {props.time}
                 in = {go&&props.sumToggle}
                 appear
-                onEntered = {()=>props.changeMsIteration(props.msIteration+1)}>
-                <MultiSumItem msiH = {msi__height} msiW = {msi__width}>
+                onEntered = {()=>{
+                    if (props.keyValue===props.binary.first.length-1){
+                        props.changeShowResult(true)
+                        }
+                    props.changeMsIteration(props.msIteration+1)
+                }}>
+                <MultiSumItem time = {props.time}  msiH = {msi__height} msiW = {msi__width}>
                     {props.sumOutPut[props.sumOutPut.length-1-props.keyValue]}
                 </MultiSumItem>
             </CSSTransition>
             <CSSTransition
-                timeout = {2000}
+                timeout = {props.time*2}
                 in = {go&&!(!balance&&last)&&!lastbuffer&&props.sumToggle}
                 appear
                 >
-                <MultiSumItem msiH = {msi__height} msiW = {msi__width}>
+                <MultiSumItem time = {props.time}  msiH = {msi__height} msiW = {msi__width}>
                     {props.sumBuffer[props.keyValue]}
                 </MultiSumItem>
             </CSSTransition>
             <CSSTransition
                 key = {k}
-                timeout = {1000}
+                timeout = {props.time}
                 in = {props.sumToggle&&props.keyValue===props.msIteration}
                 appear
             >
-                <MultiSumItem msiH = {msi__height} msiW = {msi__width}>
+                <MultiSumItem time = {props.time} msiH = {msi__height} msiW = {msi__width}>
                     {props.binary.first[props.sumOutPut.length-1-props.keyValue-balance]}
                 </MultiSumItem>
             </CSSTransition>
             <CSSTransition
                 key = {k+2}
-                timeout = {1000}
+                timeout = {props.time}
                 in = {props.sumToggle&&props.keyValue===props.msIteration}
                 appear
                 onEntered = {()=>setGo(true)}>
-                <MultiSumItem msiH = {msi__height} msiW = {msi__width}>
+                <MultiSumItem time = {props.time} msiH = {msi__height} msiW = {msi__width}>
                     {props.binary.second[props.sumOutPut.length-1-props.keyValue-balance]}
                 </MultiSumItem>
             </CSSTransition>
