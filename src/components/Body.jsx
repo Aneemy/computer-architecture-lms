@@ -6,6 +6,7 @@ import CurrentSummator from "./summators/CurrentSummator";
 const Body = (props) => {
     const [sumToggle,setSumToggle]=useState(false);
     const [bodyDimensions, setBodyDimensions] = useState({width: Math.floor(1920*0.9), height: window.innerHeight});
+    console.log(props.disabled,props.onClick)
 
     if(props.flag){
         return (
@@ -28,7 +29,7 @@ const Body = (props) => {
         )
     } else {
         return (
-            <div className="body">
+            <div disabled={props.disabled} onClick={props.onClick} className="body">
                 <div className='container'>
                     {props.children}
                 </div>

@@ -7,7 +7,7 @@ import SumResult from "./SumResult";
 import MultiSumBlock from "./MultiSumBlock";
 
 const ParSum = (props) => {
-    const sumWidth = Math.floor(props.bodyDimensions.width/8)
+    const sumWidth = props.binary.first.length>8 ? Math.floor(props.bodyDimensions.width/8) : Math.floor(props.bodyDimensions.width/props.binary.first.length)
     const result = props.sumOutPut;
     function uniteArrays(){
         let united = [];
@@ -43,6 +43,7 @@ const ParSum = (props) => {
     const changeShowResult  = (result) =>{
         setShowResult(result)
     }
+    console.log(sumWidth)
     if(props.sumOutPut.length>1)
         return (
             <div>

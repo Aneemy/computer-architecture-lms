@@ -10,7 +10,7 @@ const GroupSum = (props) => {
     const [inputData,setInputData] = useState(0)
     let result = props.sumOutPut.length!==props.binary.first.length ? props.sumOutPut.filter((number,index)=>index>0) : props.sumOutPut;
     let num_blocks = result !==null ? Math.ceil(result.length/inputData) : null;
-    const sumWidth = Math.floor(props.bodyDimensions.width/8)
+    const sumWidth = props.binary.first.length>8 ? Math.floor(props.bodyDimensions.width/8) : Math.floor(props.bodyDimensions.width/props.binary.first.length)
     const gsi__height = Math.floor(sumWidth/11*2);
     function uniteArrays(){
         let united = [];
@@ -70,7 +70,7 @@ const GroupSum = (props) => {
         <div >
             <GroupSumInput max ={result.length} changeInputData = {changeInputData}/>
             <div key = {update} className="groupsum__row" style={{width:props.bodyDimensions.width,'--gsi__height':gsi__height}}>
-            {inputData!==0&&ChunckedResult(inputData)}
+                {inputData!==0&&ChunckedResult(inputData)}
             </div>
             <div className="sum__buttons">
                 {inputData&&<SumToggleButton handleSumToggle = {handleSumToggle} sumToggle = {sumToggle}/>}

@@ -6,7 +6,7 @@ import SumTimer from "./SumTimer";
 import SumResult from "./SumResult";
 
 const MultiSum = (props) => {
-    const sumWidth = Math.floor(props.bodyDimensions.width/8)
+    const sumWidth = props.binary.first.length>8 ? Math.floor(props.bodyDimensions.width/8) : Math.floor(props.bodyDimensions.width/props.binary.first.length)
     const [msIteration,setMsIteration] = useState(0);
     const changeMsIteration  = (iteration) =>{
         setMsIteration(iteration)
@@ -29,11 +29,11 @@ const MultiSum = (props) => {
     const changeShowResult  = (result) =>{
         setShowResult(result)
     }
-
+    console.log(sumWidth)
     if(props.sumOutPut.length>1)
     return (
         <div>
-            <div className="multisum__row" key = {update}>
+            <div className="multisum__row" key = {update} style={{width:props.bodyDimensions.width}}>
                 {props.sumOutPut.filter((number,index)=>index<props.binary.first.length).map((number,index)=>
                     <MultiSumBlock time = {timer} width = {sumWidth} key = {update+index} keyValue = {index} cursum = {props.curSum} sumBuffer = {props.sumBuffer}
                                    binary = {props.binary} sumOutPut = {props.sumOutPut} sumToggle = {sumToggle}
