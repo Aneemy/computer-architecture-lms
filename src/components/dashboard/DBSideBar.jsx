@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 const DbSideBar = () => {
     const options = [
         { heading: 'Конструктор вопросов', path: '/questconst' },
-        { heading: 'Конструктор тестов', path: '/questconst' },
-        { heading: 'Провести тестирование', path: '/questconst' },
-        { heading: 'Пройти тестирование', path: '/questconst' },
+        { heading: 'Конструктор тестов', path: '/testconst' },
+        { heading: 'Провести тестирование', path: '/testlaunch' },
+        { heading: 'Пройти тестирование', path: '/test' },
         { heading: 'Результаты тестирования', path: '/questconst' },
     ];
 

@@ -18,7 +18,7 @@ const AuthForm = (props) => {
                     <AInput type = {"text"} placeholder ={"Логин"} changeData = {setEmail}  data= {email}/>
                     <AInput type = {"password"} placeholder ={"Пароль"} changeData = {setPassword}  data= {password}/>
                 </div>
-                <button className="auth__subbtn" onClick={()=>registration(name,surname,secondname,group,email,password)}>Отправить</button>
+                <button className="auth__subbtn" onClick={()=>dispatch(login(email,password))}>Отправить</button>
                 <span>Нет учетной записи? <span onClick={()=>setIsExisting(false)}>Зарегестрируйтесь!</span></span>
             </div> :
             <div className= "auth__form">
@@ -30,7 +30,7 @@ const AuthForm = (props) => {
                     <AInput type = {"text"} placeholder ={"Логин"}  changeData = {setEmail}  data= {email}/>
                     <AInput type = {"password"} placeholder ={"Пароль"}  changeData = {setPassword}  data= {password}/>
                 </div>
-                <button className="auth__subbtn" onClick={()=>dispatch(login(email,password))}>Отправить</button>
+                <button className="auth__subbtn" onClick={()=>(registration(surname,name,secondname,group,email,password))}>Отправить</button>
         </div>
     );
 };

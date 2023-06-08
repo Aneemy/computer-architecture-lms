@@ -12,6 +12,11 @@
     text-decoration: underline;
     cursor: pointer;
   }
+  >div{
+    display: none;
+    position: absolute;
+    top: 50px;
+  }
 }
 .auth__form{
   left: 40%;

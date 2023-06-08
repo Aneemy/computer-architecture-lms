@@ -1,10 +1,20 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 const AuthButton = (props) => {
     const isAuth = useSelector(state => state.user.isAuth)
-    function AuthComplete(data){
+    const data = useSelector(state => state.user.currentUser)
+    const [show,setShow] = useState(false)
+    function AuthComplete(){
+        const style = {display:'block'}
         return(
-            <div className="auth__block">
+            <div onClick={()=>{setShow(!show)}} className="auth__block">
+                {data}
+                <div style={show ? style : null}>
+                    <Link to='/dashboard'>
+                        Панель управления
+                    </Link>
+                </div>
             </div>
         )
     }

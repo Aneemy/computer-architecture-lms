@@ -2,13 +2,13 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import userReducer from "./userReducer";
-import fileReducer from "./fileReducer";
+import testReducer from "./testReducer";
 import { configureStore } from "@reduxjs/toolkit";
 
 
 const rootReducer = combineReducers({
     user:userReducer,
-    file:fileReducer,
+    test:testReducer,
 
 })
 

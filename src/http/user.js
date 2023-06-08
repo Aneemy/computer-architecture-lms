@@ -1,17 +1,21 @@
 import axios from "axios";
 import {setUser} from "../reducers/userReducer";
+import {createTest} from "../reducers/testReducer";
 
 export const registration = async (name,surname,secondname,group,email,password) =>{
     try {
-        const response = await axios.post("https://localhost:5000",{
-            name,
+        const response = await axios.post("http://127.0.0.1:7777/pisyapopa",{
             surname,
+            name,
             secondname,
             group,
             email,
             password
         })
-        alert(response.message)
+        if (response.status==201){
+            alert('Успешная регистрация')
+        }
+        else alert("Лечитесь")
     }
     catch (e){
         alert(e)
@@ -20,13 +24,11 @@ export const registration = async (name,surname,secondname,group,email,password)
 export const login = (email,password) =>{
     return async dispatch =>{
         try {
-            const response = await axios.post("https://localhost:5000",{
-                email,
-                password
+            const response = await axios.get("http://127.0.0.1:7777/pisyapopa",{
+                params: { email, password }
             })
             dispatch(setUser(response.data.user))
             localStorage.setItem('token',response.data.token)
-            console(response.data)
         }
         catch (e){
             alert(e.response.data.message)
@@ -36,18 +38,29 @@ export const login = (email,password) =>{
 export const auth = () =>{
     return async dispatch =>{
         try {
-            const response = await axios.get("https://localhost:5000", {
+            const response = await axios.get("http://127.0.0.1:7777/pisyapopa", {
             headers:{
                 token:`${localStorage.getItem('token')}`
             }
             })
             dispatch(setUser(response.data.user))
             localStorage.setItem('token',response.data.token)
-            console(response.data)
+            console.log(response.data)
         }
         catch (e){
             alert(e.response.data.message)
             localStorage.removeItem('token')
         }
+    }
+}
+export const question = async (pack) =>{
+    try {
+        const response = await axios.post("http://127.0.0.1:7777/pisyapopa", {
+            pack
+        })
+        alert(response.message)
+        }
+    catch (e){
+        alert(e)
     }
 }

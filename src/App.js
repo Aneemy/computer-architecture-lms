@@ -3,19 +3,21 @@
     import Main from "./components/Main";
     import {BrowserRouter, Route,Routes} from "react-router-dom";
     import {useDispatch, useSelector} from "react-redux";
-    import {auth} from "./http/user";
-    import dashboard from "./components/dashboard/Dashboard";
     import Dashboard from "./components/dashboard/Dashboard";
     import QuestConst from "./components/dashboard/QuestConst";
+    import TestConst from "./components/dashboard/TestConst";
+    import TestLaunch from "./components/dashboard/TestLaunch";
+    import Test from "./components/dashboard/Test";
 
 
     function App() {
         const isAuth = useSelector(state => state.user.isAuth)
         const dispatch = useDispatch();
 
-        useEffect(()=>{
-            dispatch(auth())
-        },[])
+
+        // useEffect(()=>{
+        //     dispatch(auth())
+        // },[])
 
 
       return (
@@ -25,6 +27,9 @@
                         <Route exact path="/" element={<Main isAuth = {isAuth}/>} />
                         <Route path="/dashboard" element={<Dashboard/>}/>
                         <Route path="/questconst" element={<QuestConst/>}/>
+                        <Route path="/testconst" element={<TestConst/>}/>
+                        <Route path = "/testlaunch" element = {<TestLaunch/>}/>
+                        <Route path="/test" element={<Test/>}/>
                     </Routes>
                 </div>
           </BrowserRouter>

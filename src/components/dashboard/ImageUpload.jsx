@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 const ImageUpload = ({ setPictures }) => {
     const [imageCaptionList, setImageCaptionList] = useState([]);
-    console.log(imageCaptionList)
 
     const handleImageChange = (event) => {
         const files = event.target.files;

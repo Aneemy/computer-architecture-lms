@@ -3,6 +3,7 @@ import Header from "../Header";
 import Body from "../Body";
 import DbSideBar from "./DBSideBar";
 import ImageUpload from "./ImageUpload";
+import {question} from "../../http/user";
 
 const QuestConst = () => {
     const [isMA, setIsMA] = useState(false);
@@ -92,7 +93,7 @@ const QuestConst = () => {
             setPack(packageData);
             setIsReady(false);
 
-            console.log(packageData);
+            question(packageData)
         };
 
         return (
