@@ -94,6 +94,7 @@ const QuestConst = () => {
             setIsReady(false);
 
             question(packageData)
+            console.log(packageData)
         };
 
         return (

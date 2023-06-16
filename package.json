@@ -18,9 +18,15 @@
 
     "axios": "^1.4.0",
 
+    "buffer": "^6.0.3",
+
+    "crypto-browserify": "^3.12.0",
+
     "git": "^0.1.5",
 
     "jsonwebtoken": "^9.0.0",
+
+    "jwt-decode": "^3.1.2",
 
     "react": "^18.2.0",
 
@@ -42,9 +48,13 @@
 
     "redux-thunk": "^2.4.2",
 
+    "stream-browserify": "^3.0.0",
+
     "styled-components": "^5.3.9",
 
     "svgo": "^3.0.2",
+
+    "util": "^0.12.5",
 
     "web-vitals": "^2.1.4"
 

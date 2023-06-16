@@ -8,6 +8,8 @@
     import TestConst from "./components/dashboard/TestConst";
     import TestLaunch from "./components/dashboard/TestLaunch";
     import Test from "./components/dashboard/Test";
+    import adminPanel from "./components/dashboard/AdminPanel";
+    import AdminPanel from "./components/dashboard/AdminPanel";
 
 
     function App() {
@@ -30,6 +32,7 @@
                         <Route path="/testconst" element={<TestConst/>}/>
                         <Route path = "/testlaunch" element = {<TestLaunch/>}/>
                         <Route path="/test" element={<Test/>}/>
+                        <Route path="/admin" element={<AdminPanel/>}/>
                     </Routes>
                 </div>
           </BrowserRouter>
