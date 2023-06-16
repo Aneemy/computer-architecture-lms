@@ -9,7 +9,7 @@ const AuthButton = (props) => {
         const style = {display:'block'}
         return(
             <div onClick={()=>{setShow(!show)}} className="auth__block">
-                {data}
+                {data.email}
                 <div style={show ? style : null}>
                     <Link to='/dashboard'>
                         Панель управления

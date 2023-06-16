@@ -11,8 +11,9 @@ const TestConst = () => {
     const [isReady, setIsReady] = useState(false);
 
     const getQuestionList = async () => {
+        let token = localStorage.getItem("token");
         try {
-            const response = await axios.get('');
+            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quests');
             setQuestionList(response.data);
             console.log(response.data);
         } catch (e) {
