@@ -4,6 +4,10 @@ import Body from "../Body";
 import DbSideBar from "./DBSideBar";
 import ImageUpload from "./ImageUpload";
 import {question} from "../../http/user";
+import {useDispatch, useSelector} from "react-redux";
+import AuthForm from "../userInterface/AuthForm";
+import {modalStyle} from "../Main";
+import {closeModal} from "../../reducers/uiReducer";
 
 const QuestConst = () => {
     const [isMA, setIsMA] = useState(false);
@@ -12,7 +16,8 @@ const QuestConst = () => {
     const [pack, setPack] = useState({ name: '', text: '', options: [], pictures: [] });
     const [questionText, setQuestionText] = useState('');
     const [pictures,setPictures] = useState([])
-
+    const openedModal = useSelector(state => state.modal)
+    const dispatch = useDispatch()
 
     const QuestInput = () => {
         const [posOption, setPosOption] = useState({ heading: '', isTrue: false });
@@ -120,7 +125,7 @@ const QuestConst = () => {
     return (
         <div>
             <Header />
-            <div style={{ display: 'flex' }}>
+            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
                 <DbSideBar />
                 <Body>
                     <input className="qc__input" placeholder="Формулировка вопроса" type="text" value={questionText}
@@ -140,6 +145,7 @@ const QuestConst = () => {
                     {isReady && <NameInput />}
                 </Body>
             </div>
+            {openedModal ? <AuthForm/> : null}
         </div>
     );
 };

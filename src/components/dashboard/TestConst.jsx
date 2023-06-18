@@ -4,6 +4,10 @@ import DbSideBar from "./DBSideBar";
 import Body from "../Body";
 import axios from "axios";
 import {question} from "../../http/user";
+import AuthForm from "../userInterface/AuthForm";
+import {modalStyle} from "../Main";
+import {closeModal} from "../../reducers/uiReducer";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const TestConst = () => {
@@ -12,6 +16,8 @@ const TestConst = () => {
     const [isReady, setIsReady] = useState(false);
     const [questionBodies,setQuestionBodies] = useState([])
     const token = localStorage.getItem("token");
+    const openedModal = useSelector(state => state.modal)
+    const dispatch = useDispatch()
     const requestCurrentQuestion = async (question,index) =>{
         console.log(question)
         try {
@@ -79,7 +85,7 @@ const TestConst = () => {
                         //     options:[]
                         // })
                         return(
-                            <div onClick={()=>prepareTest(question)} key={index}>
+                            <div className='question__item' onClick={()=>prepareTest(question)} key={index}>
                                 {question}
                                 <span onClick={()=>{requestCurrentQuestion(question,index)}}>Запросить</span>
                                 {/*<div>*/}
@@ -156,7 +162,7 @@ const TestConst = () => {
     return (
         <div>
             <Header />
-            <div style={{ display: 'flex' }}>
+            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
                 <DbSideBar />
                 <Body>
                     <PrintQuestionList/>
@@ -166,6 +172,7 @@ const TestConst = () => {
                     {isReady && <NameInput />}
                 </Body>
             </div>
+            {openedModal ? <AuthForm/> : null}
         </div>
     );
 };

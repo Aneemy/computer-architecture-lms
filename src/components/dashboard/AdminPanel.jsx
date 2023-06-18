@@ -1,9 +1,20 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import AuthForm from "../userInterface/AuthForm";
+import {useDispatch, useSelector} from "react-redux";
+import Header from "../Header";
+import {closeModal} from "../../reducers/uiReducer";
+import SideBar from "../SideBar";
+import Body from "../Body";
+import SumInput from "../summators/SumInput";
+import {modalStyle} from "../Main";
+import DbSideBar from "./DBSideBar";
 
 const AdminPanel = () => {
     const [group,setGroup] = useState('')
     const [student,setStudent] = useState('')
+    const openedModal = useSelector(state => state.modal)
+    const dispatch = useDispatch()
     const GroupPanel = () =>{
         return(
             <div>
@@ -92,8 +103,15 @@ const AdminPanel = () => {
     }
     return (
         <div>
-        <GroupPanel/>
-            <StudentPanel/>
+            <Header/>
+            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
+                <DbSideBar/>
+                <Body >
+                    <GroupPanel/>
+                    <StudentPanel/>
+                </Body>
+            </div>
+            {openedModal ? <AuthForm/> : null}
         </div>
     );
 };

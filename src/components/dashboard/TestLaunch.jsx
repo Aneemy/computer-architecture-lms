@@ -3,6 +3,10 @@ import axios from "axios";
 import Header from "../Header";
 import DbSideBar from "./DBSideBar";
 import Body from "../Body";
+import {useDispatch, useSelector} from "react-redux";
+import {modalStyle} from "../Main";
+import {closeModal} from "../../reducers/uiReducer";
+import AuthForm from "../userInterface/AuthForm";
 
 const TestLaunch = () => {
     const [testsList,setTestsList] = useState(null)
@@ -11,6 +15,8 @@ const TestLaunch = () => {
     const now = new Date();
     const [launchTime,setLaunchTime] = useState(now.toLocaleDateString())
     const [duration,setDuration] = useState(0);
+    const openedModal = useSelector(state => state.modal)
+    const dispatch = useDispatch()
 
     const getTestsList = async () =>{
         return async () => {
@@ -82,12 +88,13 @@ const TestLaunch = () => {
     return (
         <div>
             <Header />
-            <div style={{ display: 'flex' }}>
+            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
                 <DbSideBar />
                 <Body>
                     <PrintTestsList/>
                 </Body>
             </div>
+            {openedModal ? <AuthForm/> : null}
         </div>
     );
 };

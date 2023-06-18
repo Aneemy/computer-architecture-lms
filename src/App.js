@@ -10,6 +10,7 @@
     import Test from "./components/dashboard/Test";
     import adminPanel from "./components/dashboard/AdminPanel";
     import AdminPanel from "./components/dashboard/AdminPanel";
+    import {auth} from "./http/user";
 
 
     function App() {
@@ -17,9 +18,9 @@
         const dispatch = useDispatch();
 
 
-        // useEffect(()=>{
-        //     dispatch(auth())
-        // },[])
+        useEffect(()=>{
+            dispatch(auth())
+        },[])
 
 
       return (

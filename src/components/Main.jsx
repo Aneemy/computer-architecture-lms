@@ -12,7 +12,10 @@ import {ReactComponent as ParBody} from "../parallelbody.svg";
 import {ReactComponent as ParTail} from "../paralleltail.svg";
 import {ReactComponent as GroupHead} from "../groupsum.svg";
 import AuthForm from "./userInterface/AuthForm";
-
+import {useDispatch, useSelector} from "react-redux";
+import userReducer from "../reducers/userReducer";
+import {closeModal} from "../reducers/uiReducer";
+export const modalStyle = "modal__opened"
 const Main = (props) => {
     const [sumData,setSumData] = useState({first:'0',second:'0'})
     const [sumBinary,setSumBinary] = useState(sumData);
@@ -33,7 +36,6 @@ const Main = (props) => {
     const [sumOutPut,setSumOutPut] = useState([])
     const [sumBuffer,setSumBuffer] = useState([]);
     const [sumResult,setSumResult] = useState(null);
-    const [openModal,setOpenModal] = useState(false)
     const changeCurSum = (summ) =>{
         setCurSum(summ)
     }
@@ -55,14 +57,13 @@ const Main = (props) => {
     const changeSumResult = (result) =>{
         setSumResult(result)
     }
-    const modalStyle = "modal__opened"
-    const handleModal = () =>{
-        setOpenModal(false)
-    }
+
+    const openedModal = useSelector(state => state.modal)
+    const dispatch = useDispatch()
     return (
         <div >
-            <Header openModal = {openModal} setOpenModal = {setOpenModal}/>
-            <div className={openModal ? modalStyle : null} onClick={()=>{setOpenModal(false)}} style={{display:"flex"}}>
+            <Header/>
+            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
                 <SideBar sums = {sums} curSum = {curSum} changeSumm = {changeCurSum}/>
                 <Body sumBuffer = {sumBuffer} sumOutPut = {sumOutPut} binary = {sumBinary} flag = {sumReady} curSum = {curSum} sumResult = {sumResult} >
                     <SumInput data = {sumData} binary = {sumBinary} changeSumData = {changeSumData}  changeSumBinary = {changeSumBinary}
@@ -70,7 +71,7 @@ const Main = (props) => {
                               changeSumResult = {changeSumResult}/>
                 </Body>
             </div>
-            {openModal ? <AuthForm/> : null}
+            {openedModal ? <AuthForm/> : null}
         </div>
     );
 };

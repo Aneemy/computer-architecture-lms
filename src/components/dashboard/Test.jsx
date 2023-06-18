@@ -3,10 +3,16 @@ import Header from "../Header";
 import DbSideBar from "./DBSideBar";
 import Body from "../Body";
 import axios, {create} from "axios";
+import {modalStyle} from "../Main";
+import {closeModal} from "../../reducers/uiReducer";
+import {useDispatch, useSelector} from "react-redux";
+import AuthForm from "../userInterface/AuthForm";
 
 const Test = () => {
     const [test,setTest] = useState({name:'',test:[]})
     const [answers,setAnswers] = useState([])
+    const openedModal = useSelector(state => state.modal)
+    const dispatch = useDispatch()
     const requestTest  = async () =>{
         try {
             const response = await axios.get('',{
@@ -101,12 +107,13 @@ const Test = () => {
     return (
         <div>
             <Header />
-            <div style={{ display: 'flex' }}>
+            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
                 <DbSideBar />
                 <Body>
                 <TestBody/>
                 </Body>
             </div>
+            {openedModal ? <AuthForm/> : null}
         </div>
     );
 };
