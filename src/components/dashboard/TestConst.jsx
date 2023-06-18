@@ -10,21 +10,36 @@ const TestConst = () => {
     const [questionList,setQuestionList] = useState(null)
     const [testList,setTestList] = useState([]);
     const [isReady, setIsReady] = useState(false);
-    const getQuestionList = async () =>{
-        return async () => {
-            try {
-                const response = await axios.get("", {})
-                setQuestionList(response.data)
-                console.log(response.data)
-            }
-            catch (e){
-                alert(e)
-            }
+    const [questionBodies,setQuestionBodies] = useState([])
+    const token = localStorage.getItem("token");
+    const requestCurrentQuestion = async (question,index) =>{
+        console.log(question)
+        try {
+            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quest/'+question)
+            const newArray = [...questionBodies]
+            newArray[index] = response.data
+            setQuestionBodies(newArray)
+        }
+        catch (e){
+            alert(e)
         }
     }
+    const getQuestionList = async () =>{
+        try {
+            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quests')
+            setQuestionList(response.data)
+            const mocha=Object.keys(response.data).length;
+            const mocha2=new Array(mocha);
+            setQuestionBodies(mocha2);
+        }
+        catch (e){
+            alert(e)
+        }
+    }
+    console.log(testList)
     const sendTest = async (name,list) =>{
         try {
-            const response = await axios.post('',{
+            const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/tests',{
                 name:name,
                 value:list
             })
@@ -64,8 +79,9 @@ const TestConst = () => {
                         //     options:[]
                         // })
                         return(
-                            <div onClick={(question)=>prepareTest(question)} key={index}>
-                                {question.name}
+                            <div onClick={()=>prepareTest(question)} key={index}>
+                                {question}
+                                <span onClick={()=>{requestCurrentQuestion(question,index)}}>Запросить</span>
                                 {/*<div>*/}
                                 {/*    <span onClick={()=>{getRequiredQuestion(question,setCurrentQuestion)}}>Запросить вопрос</span>*/}
                                 {/*    <div>*/}
