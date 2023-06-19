@@ -17,18 +17,18 @@ const TestLaunch = () => {
     const [duration,setDuration] = useState(0);
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
+    const token = localStorage.getItem("token");
 
     const getTestsList = async () =>{
-        return async () => {
             try {
-                const response = await axios.get("", {})
+                const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/tests')
+                console.log(response)
                 setTestsList(response.data)
                 console.log(response.data)
             }
             catch (e){
                 alert(e)
             }
-        }
     }
     useEffect(()=>{
         getTestsList()
@@ -41,7 +41,7 @@ const TestLaunch = () => {
                     {testsList.map((test,index)=>{
                         return(
                             <div onClick={()=>setSelectedTestIndex(index)} key={index}>
-                                {test.name}
+                                {test}
                                 {selectedTestIndex === index && (
                                     <TestLaunchModal test={test} index={index} />)}
                             </div>
@@ -52,11 +52,12 @@ const TestLaunch = () => {
             )
         }
     }
-    const TestLaunchModal = (test,index) =>{
+    const TestLaunchModal = (props) =>{
+        console.log('123')
         const handleTestSubmit = async () =>{
             try {
                 const response = await axios.post('',{
-                    test:test,
+                    test:props.test,
                     start:launchTime,
                     duration:duration
                 }
@@ -71,7 +72,7 @@ const TestLaunch = () => {
                 alert(e)
             }
         }
-        if (index)
+        if (props.index)
         return(
             <div className="qc__modal">
                 <span>Закрыть</span>
