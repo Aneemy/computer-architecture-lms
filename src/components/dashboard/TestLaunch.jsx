@@ -37,10 +37,10 @@ const TestLaunch = () => {
 
         if (testsList!==null){
             return(
-                <div>
+                <div className="tests__list">
                     {testsList.map((test,index)=>{
                         return(
-                            <div onClick={()=>setSelectedTestIndex(index)} key={index}>
+                            <div className="tests__item" onClick={()=>setSelectedTestIndex(index)} key={index}>
                                 {test}
                                 {selectedTestIndex === index && (
                                     <TestLaunchModal test={test} index={index} />)}
@@ -53,15 +53,15 @@ const TestLaunch = () => {
         }
     }
     const TestLaunchModal = (props) =>{
-        console.log('123')
         const handleTestSubmit = async () =>{
             try {
                 const response = await axios.post('',{
                     test:props.test,
                     start:launchTime,
-                    duration:duration
+                    duration:Number(duration)
                 }
                 )
+                console.log(response)
                 if (response.status==201){
                     setSelectedTestIndex('')
                     alert('Успешная регистрация')
@@ -72,16 +72,15 @@ const TestLaunch = () => {
                 alert(e)
             }
         }
-        if (props.index)
         return(
             <div className="qc__modal">
-                <span>Закрыть</span>
+                <span onClick={()=>setSelectedTestIndex(0)}>Закрыть</span>
                 <h1>Окно запуска теста</h1>
-                {test}
+                {props.test}
                 <span>Выберите время начала теста</span>
                 <input value={launchTime} onChange={(e)=>setLaunchTime(e.target.value)} type="datetime-local"/>
                 <span>Введите продолжительность теста в минутах</span>
-                <input value={duration} onChange={(e)=>setDuration(Number(e.target.value))} type="text"/>
+                <input value={duration} onChange={(e)=>setDuration(e.target.value)} type="text"/>
                 <span onClick={()=>handleTestSubmit()}> Запустить тест </span>
             </div>
         )

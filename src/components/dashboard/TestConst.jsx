@@ -29,11 +29,6 @@ const TestConst = () => {
             alert(e)
         }
     }
-    console.log(questionBodies.at(0))
-    console.log(questionBodies.at(1))
-    console.log(questionBodies.at(2))
-    console.log(questionBodies.at(3))
-    console.log(questionBodies)
     const getQuestionList = async () =>{
         try {
             const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quests')
