@@ -11,8 +11,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 
 const TestConst = () => {
-    const [questionList,setQuestionList] = useState(null)
-    const [testList,setTestList] = useState([]);
+    const [questionList,setQuestionList] = useState(['1','2'])
+    const [testList,setTestList] = useState([])
     const [isReady, setIsReady] = useState(false);
     const [questionBodies,setQuestionBodies] = useState([])
     const token = localStorage.getItem("token");
@@ -126,9 +126,10 @@ const TestConst = () => {
     }
 
     const prepareTest = (question) => {
-        if(testList.includes(question))
-            testList.push(question)
-        else setTestList(testList.filter((quest,index)=>quest!==question))
+        if(!testList.includes(question)){
+           setTestList([...testList,question])
+            }
+        else setTestList( testList.filter((quest,index)=>quest!==question))
     }
     const NameInput = () => {
         const [name, setName] = useState('');
