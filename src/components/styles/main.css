@@ -1068,15 +1068,13 @@ h6 {
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 10%;
-  left: 27.5%;
+  top: 25%;
   border: #004d68 1px solid;
   width: 800px;
   background: white;
 }
 .qc__xclose {
   position: relative;
-  left: 90%;
 }
 .qc__xclose:hover {
   cursor: pointer;
@@ -1098,9 +1096,8 @@ h6 {
   color: white;
   cursor: pointer;
 }
-.question__item .selected {
-  background: #004d68;
-  color: white;
+.question__item:hover > span {
+  border: 0.25px solid white;
 }
 .question__item > span {
   width: 12%;

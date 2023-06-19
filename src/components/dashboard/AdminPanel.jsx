@@ -104,7 +104,7 @@ const AdminPanel = () => {
     return (
         <div>
             <Header/>
-            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
+            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex",justifyContent:"center"}}>
                 <DbSideBar/>
                 <Body >
                     <GroupPanel/>

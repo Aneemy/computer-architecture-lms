@@ -87,34 +87,7 @@ const TestConst = () => {
                             <div className="question__item" onClick={()=>prepareTest(question)} key={index}>
                                 {question}
                                 <span onClick={()=>{requestCurrentQuestion(question,index)}}>Запросить</span>
-                                {/*<div>*/}
-                                {/*    <span onClick={()=>{getRequiredQuestion(question,setCurrentQuestion)}}>Запросить вопрос</span>*/}
-                                {/*    <div>*/}
-                                {/*        <span>{currentQuestion.name}</span>*/}
-                                {/*        <span>{currentQuestion.text}</span>*/}
-                                {/*        <div>*/}
-                                {/*            {currentQuestion.pictures.map((picture,index)=>{*/}
-                                {/*                return(*/}
-                                {/*                    <div>*/}
-                                {/*                        <div>*/}
-                                {/*                            {picture.picture}*/}
-                                {/*                        </div>*/}
-                                {/*                        <span>{picture.caption}</span>*/}
-                                {/*                    </div>*/}
-                                {/*                )*/}
-                                {/*            })}*/}
-                                {/*        </div>*/}
-                                {/*        <div>*/}
-                                {/*            {currentQuestion.options.map((option,index)=>{*/}
-                                {/*                return(*/}
-                                {/*                    <div>*/}
-                                {/*                        {option.heading}*/}
-                                {/*                    </div>*/}
-                                {/*                )*/}
-                                {/*            })}*/}
-                                {/*        </div>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                    <QuestionBody index = {index}/>
                             </div>
                         )
                     })
@@ -123,7 +96,36 @@ const TestConst = () => {
             )
         }
     }
-
+    const QuestionBody = (index) =>{
+        if (questionBodies[index]!=undefined)
+        return(
+            <div>
+                <span>{questionBodies[index].name}</span>
+                <span>{questionBodies[index].text}</span>
+                <div>
+                    {questionBodies[index].pictures.map((picture,index)=>{
+                        return(
+                            <div>
+                                <div>
+                                    {picture.picture}
+                                </div>
+                                <span>{picture.caption}</span>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div>
+                    {questionBodies[index].options.map((option,index)=>{
+                        return(
+                            <div>
+                                {option.heading}
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }
     const prepareTest = (question) => {
         if(!testList.includes(question)){
            setTestList([...testList,question])
@@ -160,6 +162,7 @@ const TestConst = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         type="text"
+                        placeholder="Введите название теста"
                     />
                     <button className="qi__button" type="button" onClick={()=>{
                         sendTest(name,testList)
@@ -174,7 +177,7 @@ const TestConst = () => {
     return (
         <div>
             <Header />
-            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
+            <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex",justifyContent:"center"}}>
                 <DbSideBar />
                 <Body>
                     <PrintQuestionList/>

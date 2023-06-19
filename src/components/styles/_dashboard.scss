@@ -107,8 +107,7 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 10%;
-  left: 27.5%;
+  top: 25%;
   border: #004d68 1px solid;
   width: 800px;
   background: white;
@@ -118,7 +117,6 @@
 }
 .qc__xclose{
   position: relative;
-  left: 90%;
   &:hover{
     cursor: pointer;
     text-decoration: underline;
@@ -137,10 +135,9 @@
     background: #004d68;
     color: white;
     cursor: pointer;
-  }
-  & .selected{
-    background: #004d68;
-    color: white;
+    &>span{
+      border: 0.25px solid white;
+    }
   }
   &>span{
     width: 12%;
