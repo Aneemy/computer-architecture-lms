@@ -19,7 +19,6 @@ const TestConst = () => {
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
     const requestCurrentQuestion = async (question,index) =>{
-        console.log(question)
         try {
             const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quest/'+question)
             const newArray = [...questionBodies]
@@ -76,7 +75,7 @@ const TestConst = () => {
         }
         if (questionList!==null){
             return(
-                <div>
+                <div className="tests__list">
                     {questionList.map((question,index)=>{
                         // const [currentQuestion,setCurrentQuestion] = useState({
                         //     name:'',
@@ -85,7 +84,7 @@ const TestConst = () => {
                         //     options:[]
                         // })
                         return(
-                            <div className='question__item' onClick={()=>prepareTest(question)} key={index}>
+                            <div className="question__item" onClick={()=>prepareTest(question)} key={index}>
                                 {question}
                                 <span onClick={()=>{requestCurrentQuestion(question,index)}}>Запросить</span>
                                 {/*<div>*/}
@@ -129,7 +128,9 @@ const TestConst = () => {
         if(!testList.includes(question)){
            setTestList([...testList,question])
             }
-        else setTestList( testList.filter((quest,index)=>quest!==question))
+        else {
+            setTestList(testList.filter((quest, index) => quest !== question))
+        }
     }
     const NameInput = () => {
         const [name, setName] = useState('');
@@ -143,6 +144,16 @@ const TestConst = () => {
                 <span className="qc__xclose" onClick={() => setIsReady(false)}>
                     Закрыть
                 </span>
+                <div className="quest__list">
+                    Состав теста
+                    {testList.map((quest,index)=>{
+                        return(
+                            <div className="question__item" key = {index}>
+                                {quest}
+                            </div>
+                        )
+                    })}
+                </div>
                 <form onSubmit={handleSubmit}>
                     <input
                         className="qc__input"

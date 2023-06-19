@@ -1065,12 +1065,13 @@ h6 {
 .qc__modal {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 10%;
   left: 27.5%;
   border: #004d68 1px solid;
   width: 800px;
-  height: 175px;
   background: white;
 }
 .qc__xclose {
@@ -1080,6 +1081,44 @@ h6 {
 .qc__xclose:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.question__item {
+  position: relative;
+  justify-content: space-between;
+  display: flex;
+  width: 700px;
+  padding: 2.5%;
+  border: #004d68 1px solid;
+  border-radius: 25px;
+  margin-top: 10px;
+}
+.question__item:hover {
+  background: #004d68;
+  color: white;
+  cursor: pointer;
+}
+.question__item .selected {
+  background: #004d68;
+  color: white;
+}
+.question__item > span {
+  width: 12%;
+  border-radius: 12px;
+  padding: 0.5%;
+  border: #004d68 0.25px solid;
+}
+.question__item > span:hover {
+  background: #004d68;
+  color: white;
+  cursor: pointer;
+}
+
+.quest__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 * {
