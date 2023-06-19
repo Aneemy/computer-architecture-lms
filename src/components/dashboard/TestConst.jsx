@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Header from "../Header";
 import DbSideBar from "./DBSideBar";
 import Body from "../Body";
-import axios from "axios";
+import axios, {options} from "axios";
 import {question} from "../../http/user";
 import AuthForm from "../userInterface/AuthForm";
 import {modalStyle} from "../Main";
@@ -29,6 +29,11 @@ const TestConst = () => {
             alert(e)
         }
     }
+    console.log(questionBodies.at(0))
+    console.log(questionBodies.at(1))
+    console.log(questionBodies.at(2))
+    console.log(questionBodies.at(3))
+    console.log(questionBodies)
     const getQuestionList = async () =>{
         try {
             const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quests')
@@ -87,7 +92,7 @@ const TestConst = () => {
                             <div className="question__item" onClick={()=>prepareTest(question)} key={index}>
                                 {question}
                                 <span onClick={()=>{requestCurrentQuestion(question,index)}}>Запросить</span>
-                                    <QuestionBody index = {index}/>
+                                    <div> <QuestionBody index={index}/> </div>
                             </div>
                         )
                     })
@@ -96,33 +101,49 @@ const TestConst = () => {
             )
         }
     }
-    const QuestionBody = (index) =>{
-        if (questionBodies[index]!=undefined)
-        return(
-            <div>
-                <span>{questionBodies[index].name}</span>
-                <span>{questionBodies[index].text}</span>
-                <div>
-                    {questionBodies[index].pictures.map((picture,index)=>{
-                        return(
-                            <div>
+    const QuestionBody = props =>{
+        const PicturesRow = (array)=>{
+            console.log(array)
+            if (array.array!==undefined)
+                return(
+                    <div>
+                        {array.array.map((picture,index)=>{
+                            return(
                                 <div>
-                                    {picture.picture}
+                                    <div>
+                                        {picture.picture}
+                                    </div>
+                                    <span>{picture.caption}</span>
                                 </div>
-                                <span>{picture.caption}</span>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div>
-                    {questionBodies[index].options.map((option,index)=>{
+                            )
+                        })}
+                    </div>
+                )
+        }
+        const OptionsRow = (options)=>{
+            console.log(options)
+            if (options!=undefined)
+                return(
+                    <div>
+                        {options.options.map((option,index)=>{
                         return(
                             <div>
                                 {option.heading}
                             </div>
                         )
-                    })}
-                </div>
+                        })
+                        }
+                    </div>
+                )
+        }
+        console.log(props.index)
+        if (questionBodies[props.index]!=undefined)
+        return(
+            <div>
+                <span>{questionBodies[props.index].name}</span>
+                <span>{questionBodies[props.index].text}</span>
+                <PicturesRow array = {questionBodies[props.index].pictures}/>
+                <OptionsRow options = {questionBodies[props.index].options}/>
             </div>
         )
     }
