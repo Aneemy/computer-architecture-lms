@@ -7,12 +7,24 @@ import {modalStyle} from "../Main";
 import {closeModal} from "../../reducers/uiReducer";
 import {useDispatch, useSelector} from "react-redux";
 import AuthForm from "../userInterface/AuthForm";
+import {notInitialized} from "react-redux/es/utils/useSyncExternalStore";
 
 const Test = () => {
     const [test,setTest] = useState({name:'',test:[]})
+    const [testList,setTestList] = useState(null)
     const [answers,setAnswers] = useState([])
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
+    const token = localStorage.getItem('token')
+    const requestLaunchedTests = async () =>{
+        try {
+            const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/tests')
+            console.log(response.data)
+        }
+        catch (e) {
+            alert(e)
+        }
+    }
     const requestTest  = async () =>{
         try {
             const response = await axios.get('',{
@@ -27,8 +39,7 @@ const Test = () => {
         }
     }
     useEffect(()=>{
-        requestTest()
-    },[])
+        requestLaunchedTests()},[])
     const TestBody = ()=>{
         if(test.test!==[])
             return(

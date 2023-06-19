@@ -13,6 +13,7 @@ import DbSideBar from "./DBSideBar";
 const AdminPanel = () => {
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
+    const token = localStorage.getItem('token')
     const GroupPanel = () =>{
         const [group,setGroup] = useState('')
         return(
@@ -21,8 +22,8 @@ const AdminPanel = () => {
                 <div>
                     <div onClick={async ()=>{
                         try {
-                            const response = await axios.post("",
-                                {group:group})
+                            const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/group',
+                                {name:group})
                         }
                         catch (e) {
                             alert(e.response.data)
@@ -66,7 +67,7 @@ const AdminPanel = () => {
                     <div onClick={async ()=>{
                         try {
                             const response = await axios.post("",
-                                {name:student,group:group})
+                                {name:student})
                         }
                         catch (e) {
                             alert(e.response.data)
