@@ -11,11 +11,10 @@ import {modalStyle} from "../Main";
 import DbSideBar from "./DBSideBar";
 
 const AdminPanel = () => {
-    const [group,setGroup] = useState('')
-    const [student,setStudent] = useState('')
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
     const GroupPanel = () =>{
+        const [group,setGroup] = useState('')
         return(
             <div>
                 <input type="text" value={group} onChange={(e)=>setGroup(e.target.value)}/>
@@ -59,6 +58,7 @@ const AdminPanel = () => {
         )
     }
     const StudentPanel = () =>{
+        const [student,setStudent] = useState('')
         return(
             <div>
                 <input type="text" value={student} onChange={(e)=>setStudent(e.target.value)}/>
