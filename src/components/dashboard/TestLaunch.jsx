@@ -55,10 +55,9 @@ const TestLaunch = () => {
     const TestLaunchModal = (props) =>{
         const handleTestSubmit = async () =>{
             try {
-                const response = await axios.post('',{
-                    test:props.test,
+                const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/'+props.test,{
                     start:launchTime,
-                    duration:Number(duration)
+                    duration:duration
                 }
                 )
                 console.log(response)
@@ -69,7 +68,7 @@ const TestLaunch = () => {
                 else alert("Лечитесь")
             }
             catch (e){
-                alert(e)
+                console.log(e.response)
             }
         }
         return(
