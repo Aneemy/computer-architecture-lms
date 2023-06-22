@@ -15,9 +15,12 @@ const AdminPanel = () => {
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
-    const [studentsList,setStudentsList] = useState([{name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"},
-        {name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"},{name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"}])
-    const [testsList,setTestLists] = useState([{id:1,name:"хуй"},{id:1,name:"хуй"}])
+    const [studentsList,setStudentsList] = useState(null)
+    let tempStudentsList = [{name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"},
+        {name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"},{name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"}]
+    let tempTestsList = [{id:1,name:"хуй"},{id:1,name:"хуй"}]
+    let tempGroupsList = null
+    const [testsList,setTestLists] = useState(null)
     const [groupsList,setGroupsList] = useState(null)
     const [groupFlag,setGroupFlag] = useState(false)
     const [curTest,setCurTest] = useState([])
