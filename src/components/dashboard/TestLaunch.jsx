@@ -19,9 +19,7 @@ const TestLaunch = () => {
     const getTestsList = async () =>{
             try {
                 const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/tests')
-                console.log(response)
                 setTestsList(response.data)
-                console.log(response.data)
             }
             catch (e){
                 alert(e)
@@ -39,7 +37,7 @@ const TestLaunch = () => {
                     {testsList.map((test,index)=>{
                         return(
                             <div className="testlaunch__question" onClick={()=>setSelectedTestIndex(index)} key={index}>
-                                {test}
+                                {test.name}
                             </div>
                         )
                     })
@@ -55,7 +53,7 @@ const TestLaunch = () => {
 
         const handleTestSubmit = async () =>{
             try {
-                const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/'+testsList[selectedTestIndex],{
+                const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/'+testsList[selectedTestIndex].id,{
                     start:launchTime,
                     duration:duration
                 }

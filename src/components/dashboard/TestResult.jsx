@@ -16,7 +16,7 @@ const TestResult = () => {
     const dispatch = useDispatch()
     const studentTestsRequest = async (email) =>{
         try {
-            const response = await axios.get('')
+            const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/completed')
             setTestLists(response.data)
             const length = response.data.length;
             const array = new Array(length)
@@ -86,6 +86,7 @@ const TestResult = () => {
                             <div key={index} className="testresult__row">
                                 <div>
                                     {test.name}
+                                    <span>{test.date_time}</span>
                                     <div onClick={()=>studentTestRequest(test.id,index)}>
                                         Запросить тест
                                     </div>

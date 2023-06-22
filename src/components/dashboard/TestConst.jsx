@@ -62,25 +62,16 @@ const TestConst = () => {
         getQuestionList()
     },[])
     const PrintQuestionList = () =>{
-        const getRequiredQuestion = async (question,setQuestion) =>{
-            try {
-                const response = await axios.get("",
-                    {question:question})
-                setQuestion(response.data)
-            }
-            catch (e){
-                alert(e.response.message)
-            }
-        }
+
         if (questionList!==null){
             return(
                 <div className="testconst__list">
                     {questionList.map((question,index)=>{
                         return(
                             <div className="testconst__quest">
-                                <div className="testconst__item" onClick={()=>prepareTest(question)} key={index}>
-                                    {question}
-                                    <span onClick={()=>{requestCurrentQuestion(question,index)}}>Запросить</span>
+                                <div className="testconst__item" onClick={()=>prepareTest(question.id)} key={index}>
+                                    {question.name}
+                                    <span onClick={()=>{requestCurrentQuestion(question.id,index)}}>Запросить</span>
                                 </div>
                                 <QuestionBody index={index}/>
                             </div>

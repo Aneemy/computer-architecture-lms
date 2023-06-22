@@ -18,32 +18,40 @@ const AdminPanel = () => {
     const [studentsList,setStudentsList] = useState([{name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"},
         {name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"},{name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"}])
     const [testsList,setTestLists] = useState([{id:1,name:"хуй"},{id:1,name:"хуй"}])
+    const [groupsList,setGroupsList] = useState(null)
+    const [groupFlag,setGroupFlag] = useState(false)
     const [curTest,setCurTest] = useState([])
+    const [curMail,setCurMail] = useState('')
 
-    const APInput = ({value,setValue}) =>{
-        return(
-            <input className="adminpanel__input" type="text" value={value} onChange={(e)=>{setValue(e.currentTarget.value)}}/>
-        )
-    }
-    const APElement = () =>{
-        return(
-            <div className="adminpanel__element">
-            <APInput/>
-
-            </div>
-
-        )
-    }
     const studentTestsRequest = async (email) =>{
         try {
-            const response = await axios.get('')
+            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/student/'+email+'/tests')
             setTestLists(response.data)
             const length = response.data.length;
             const array = new Array(length)
             setCurTest(array)
+            setCurMail(email)
         }
         catch (e){
             alert(e)
+        }
+    }
+    const studentsListRequest = async (group) =>{
+        try {
+            const gId = groupsList[groupsList.indexOf(group)].id
+            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/group/'+gId)
+        }
+        catch (e) {
+            alert(e.response.data)
+        }
+    }
+    const getGroupsList = async () =>{
+        try {
+            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/groups')
+            setGroupsList(response.data)
+        }
+        catch (e) {
+            alert(e.response.data)
         }
     }
     const GroupPanel = () =>{
@@ -81,7 +89,7 @@ const AdminPanel = () => {
                                 return;
                             }
                             try {
-                                const response = await axios.delete("")
+                                const response = await axios.delete('http://192.168.56.101:8080/teacher/'+token+'/group/'+data2)
                             }
                             catch (e) {
                                 alert(e.response.data)
@@ -99,15 +107,16 @@ const AdminPanel = () => {
                                 alert('Проверьте правильность введенных данных');
                                 return;
                             }
-                            try {
-                                const response = await axios.get("",
-                                    {group:data3})
-                            }
-                            catch (e) {
-                                alert(e.response.data)
-                            }
+                            studentsListRequest(data3)
                         }}>
                             Получить список студентов группы
+                        </div>
+                    </div>
+                </div>
+                <div className="adminpanel__element">
+                    <div>
+                        <div onClick={()=>setGroupFlag(!groupFlag)}>
+                            {!groupFlag ? 'Получить список групп' : 'Закрыть список групп'}
                         </div>
                     </div>
                 </div>
@@ -130,7 +139,7 @@ const AdminPanel = () => {
                                 return;
                             }
                             try {
-                                const response = await axios.delete("")
+                                const response = await axios.delete('http://192.168.56.101:8080/teacher/'+token+'/student/'+data1)
                             }
                             catch (e) {
                                 alert(e.response.data)
@@ -164,9 +173,9 @@ const AdminPanel = () => {
                                 return;
                             }
                             try {
-                                const response = await axios.post("",
+                                const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/students',
                                     {email:data3,
-                                group:data4})
+                                group:groupsList[groupsList.indexOf(data4)].id})
                             }
                             catch (e) {
                                 alert(e.response.data)
@@ -240,9 +249,9 @@ const AdminPanel = () => {
                 </div>
             )
         }
-        const studentTestRequest = async (id,index) =>{
+        const studentTestRequest = async (email,id,index) =>{
             try {
-                const response = await axios.get('')
+                const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/student/'+curMail+'/'+id)
                 let temparr = curTest;
                 temparr[index] = response.data;
                 setCurTest(temparr)
@@ -270,6 +279,25 @@ const AdminPanel = () => {
                 </div>
             )
     }
+
+    const GroupsList = () =>{
+        if (groupsList!==null??groupFlag)
+        return(
+            <div className="adminpanel__result">
+            {groupsList.map((group,index)=>{
+                return(
+                    <div className="adminpanel__titem">
+                        {group}
+                        <div onClick={()=>studentsListRequest(group)}>
+                            Запросить всех студентов
+                        </div>
+                    </div>
+                )
+                })}
+            </div>
+        )
+    }
+    getGroupsList()
     return (
         <div>
             <Header/>
@@ -284,6 +312,7 @@ const AdminPanel = () => {
                         <div className="adminpanel__tables">
                             <StudentsList/>
                             <TestsList/>
+                            <GroupsList/>
                         </div>
                     </div>
                 </Body>

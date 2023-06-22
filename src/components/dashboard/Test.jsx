@@ -10,7 +10,9 @@ import AuthForm from "../userInterface/AuthForm";
 import {notInitialized} from "react-redux/es/utils/useSyncExternalStore";
 
 const Test = () => {
-    const [test,setTest] = useState({name:'',test:[]})
+    const [test,setTest] = useState([{id:'1',text:'123',options:[{heading:'1',isTrue:false},{heading:'2',isTrue:false},{heading:'3',isTrue:true}]},
+        {id:'2',text:'123321',options:[{heading:'4',isTrue:false},{heading:'5',isTrue:true},{heading:'3',isTrue:true}]},
+        {id:'3',text:'123321123321',options:null}])
     const [testList,setTestList] = useState(null)
     const [answers,setAnswers] = useState([])
     const openedModal = useSelector(state => state.modal)
@@ -21,17 +23,18 @@ const Test = () => {
             const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/tests')
             console.log(response.data)
             setTestList(response.data)
+            setAnswers(response.data.options)
         }
         catch (e) {
             alert(e)
         }
     }
-    const requestTest  = async (name) =>{
+    const requestTest  = async (id) =>{
         try {
-            const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/'+name)
-            setTest({...test,name:response.data.test_name,test: response.data.test})
-            localStorage.setItem('test_name',response.data.test_name)
-            localStorage.setItem('test',response.data.test)
+            const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/'+id)
+            setTest(response.data)
+            localStorage.setItem('test',response.data)
+            setTestList(null)
         }
         catch (e){
             alert(e)
@@ -40,13 +43,12 @@ const Test = () => {
     useEffect(()=>{
         requestLaunchedTests()},[])
     const TestBody = ()=>{
-        if(test.test!==[])
+        if(test!==undefined)
             return(
             <div>
-                <span>{test.name}</span>
-                {test.test.map((question,index)=>{
+                {test.map((question,index)=>{
                     return(
-                <TestQuestion question = {question}/>
+                <TestQuestion key = {index} question = {question}/>
                     )})}
             </div>
         )
@@ -63,8 +65,8 @@ const Test = () => {
 
         setAnswers(updatedAnswers);
     };
-    const TestQuestion = (question) =>{
-        const [answer, setAnswer] = useState(null);
+    const TestQuestion = ({question}) =>{
+        const [answer, setAnswer] = useState('');
         const handleInputChange = (e) => {
             setAnswer(e.target.value);
             handleAnswer(question.name, e.target.value);
@@ -75,23 +77,26 @@ const Test = () => {
             handleAnswer(question.name, option);
         };
 
-        const OptionsList = (options) =>{
-            if(options!==null){
-                options.map((option,index)=>{
+        const OptionsList = ({options}) =>{
+            if(options!==undefined&&options!==null){
+                return (
+                    <div>
+                        {options.map((option,index)=>{
                     return(
                         <div onClick={()=>handleOptionChange(option)} key={index}>
-                            {option}
+                            {option.heading}
                         </div>
                     )
                 })
-            }
+                        }
+                    </div>)}
             else
                 return(
                     <input type="text" value={answer} onChange={(e)=>handleInputChange(e)}/>
                 )
         }
-        const ImageList = (images) =>{
-            if (images!==null){
+        const ImageList = ({images}) =>{
+            if (images!==undefined){
                 images.map((image,index)=>{
                     return(
                         <div key={index}>
@@ -104,7 +109,7 @@ const Test = () => {
         }
         return(
             <div >
-                <span>{question.name}</span>
+                <span>{question.id}</span>
                 <ImageList images = {question.pictures}/>
                 <div>
                     {question.text}
@@ -123,7 +128,7 @@ const Test = () => {
                 <TestBody/>
                     {testList==null?null:testList.map((test,index)=>{
                     return(
-                        <div onClick={()=>{requestTest(test.test_name)
+                        <div onClick={()=>{requestTest(test.id)
                         }
                         } key={index}>
                             {test.test_name}
