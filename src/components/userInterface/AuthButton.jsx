@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {openModal} from "../../reducers/uiReducer";
+import {delUser} from "../../reducers/userReducer";
 const AuthButton = (props) => {
     const isAuth = useSelector(state => state.user.isAuth)
     const data = useSelector(state => state.user.currentUser)
     const [show,setShow] = useState(false)
     const dispatch = useDispatch();
+
     function AuthComplete(){
         const style = {display:'block'}
         return(
@@ -16,6 +18,10 @@ const AuthButton = (props) => {
                     <Link to={props.loc ? '/dashboard' : '/'}>
                         {props.loc ? 'Панель управления' : 'Главная'}
                     </Link>
+                    <div onClick={()=>{dispatch(delUser())}
+                    }>
+                        Выход
+                    </div>
                 </div>
             </div>
         )

@@ -93,14 +93,14 @@ const TestConst = () => {
     }
     const QuestionBody = props =>{
         const PicturesRow = (array)=>{
-            if (array.array!==undefined)
+            if (array.array!==null)
                 return(
                     <div>
                         {array.array.map((picture,index)=>{
                             return(
                                 <div>
                                     <div>
-                                        {picture.picture}
+                                        <img src={picture.img} alt=""/>
                                     </div>
                                     <span>{picture.caption}</span>
                                 </div>

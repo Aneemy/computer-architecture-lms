@@ -20,16 +20,15 @@ const Test = () => {
         try {
             const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/tests')
             console.log(response.data)
+            setTestList(response.data)
         }
         catch (e) {
             alert(e)
         }
     }
-    const requestTest  = async () =>{
+    const requestTest  = async (name) =>{
         try {
-            const response = await axios.get('',{
-            },
-            )
+            const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/'+name)
             setTest({...test,name:response.data.test_name,test: response.data.test})
             localStorage.setItem('test_name',response.data.test_name)
             localStorage.setItem('test',response.data.test)
@@ -122,6 +121,15 @@ const Test = () => {
                 <DbSideBar />
                 <Body>
                 <TestBody/>
+                    {testList==null?null:testList.map((test,index)=>{
+                    return(
+                        <div onClick={()=>{requestTest(test.test_name)
+                        }
+                        } key={index}>
+                            {test.test_name}
+                        </div>
+                    )})
+                    }
                 </Body>
             </div>
             {openedModal ? <AuthForm/> : null}

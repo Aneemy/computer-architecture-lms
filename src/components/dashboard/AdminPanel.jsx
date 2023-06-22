@@ -14,6 +14,7 @@ import {question} from "../../http/user";
 const AdminPanel = () => {
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
+    const token = localStorage.getItem('token')
     const [studentsList,setStudentsList] = useState([{name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"},
         {name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"},{name:'Сергей',surname:'Зверев',secondname:'Хуесосович',email:"Piska@gmail.com"}])
     const [testsList,setTestLists] = useState([{id:1,name:"хуй"},{id:1,name:"хуй"}])
