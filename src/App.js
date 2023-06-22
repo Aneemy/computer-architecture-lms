@@ -11,6 +11,7 @@
     import adminPanel from "./components/dashboard/AdminPanel";
     import AdminPanel from "./components/dashboard/AdminPanel";
     import {auth} from "./http/user";
+    import TestResult from "./components/dashboard/TestResult";
 
 
     function App() {
@@ -32,6 +33,7 @@
                         <Route path="/questconst" element={<QuestConst/>}/>
                         <Route path="/testconst" element={<TestConst/>}/>
                         <Route path = "/testlaunch" element = {<TestLaunch/>}/>
+                        <Route path="/testresult" element={<TestResult/>}/>
                         <Route path="/test" element={<Test/>}/>
                         <Route path="/admin" element={<AdminPanel/>}/>
                     </Routes>

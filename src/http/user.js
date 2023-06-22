@@ -25,10 +25,11 @@ export const registration = async (name,surname,secondname,group,email,password)
         alert(e)
     }
 }
-export const login = (email,password) =>{
+export const login = (email,password,flag) =>{
+    const url = flag ? "http://192.168.56.101:8080/teacher" : "http://192.168.56.101:8080/student"
     return async dispatch =>{
         try {
-            const response = await axios.post("http://192.168.56.101:8080/student",{
+            const response = await axios.post(url,{
                  email:email,
                 password:password
             })

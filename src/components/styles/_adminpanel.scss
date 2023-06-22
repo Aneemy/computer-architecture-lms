@@ -1,0 +1,44 @@
+.adminpanel__body{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.adminpanel__functions{
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px #004d68 solid;
+}
+.adminpanel__student{
+  width: 45%;
+}
+.adminpanel__group{
+  width: 45%;
+}
+.adminpanel__element{
+  >div{
+    padding: 1.25%;
+    &:hover{
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+.adminpanel__input{
+  border: 1px #004d68 solid;
+  padding: 1.25%;
+  font-size: 25px;
+  border-radius: 25px;
+}
+.adminpanel__tables{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.adminpanel__table{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.adminpanel__titem{
+  border: #004d68 0.25px solid;
+}

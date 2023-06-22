@@ -952,86 +952,6 @@ h6 {
   margin-bottom: 10px;
 }
 
-.qc__input {
-  margin-top: 10px;
-  width: 800px;
-  height: 100px;
-  border: #004d68 2px solid;
-  font-size: 26px;
-  padding: 0.5%;
-  border-radius: 25px;
-  text-align: left;
-}
-
-.qc__buttons {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-.qc__buttons > button {
-  font-size: 20px;
-  border-radius: 25px;
-  padding: 1.25%;
-  background: #004d68;
-  color: white;
-}
-.qc__buttons > button:last-child {
-  margin-left: 10px;
-}
-
-.qc__list {
-  border: #004d68;
-  font-size: 20px;
-  margin-left: 30px;
-}
-.qc__list > li {
-  list-style: circle outside;
-}
-
-.qi__block {
-  padding: 1%;
-  margin-top: 10px;
-  border-radius: 25px;
-  border: #004d68 solid 2px;
-  font-size: 26px;
-  color: #004d68;
-  display: flex;
-  flex-direction: column;
-}
-.qi__block > span {
-  margin-top: 10px;
-}
-.qi__block > span > input {
-  margin-left: 10px;
-}
-
-.qi__button {
-  margin-top: 10px;
-  font-size: 26px;
-  border-radius: 25px;
-  padding: 1.25%;
-  background: #004d68;
-  color: white;
-}
-
-.qi__input {
-  margin-top: 10px;
-  font-size: 26px;
-  border-radius: 25px;
-  border: 2px #004d68 solid;
-  padding: 1.25%;
-  color: #004d68;
-}
-
-.qi__cb {
-  width: 30px;
-  height: 30px;
-}
-.qi__cb:checked {
-  background: #004d68;
-  color: white;
-}
-
 .iu-grid {
   display: flex;
   flex-wrap: wrap;
@@ -1062,7 +982,107 @@ h6 {
   opacity: 0.8;
 }
 
-.qc__modal {
+.questconst__body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.questconst__box {
+  display: flex;
+  width: 45%;
+  justify-content: space-between;
+}
+
+.questconst__form {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.questconst__form > span {
+  font-size: 25px;
+}
+.questconst__form > .questconst__input {
+  width: 100%;
+}
+
+.questconst__input {
+  width: 50%;
+  margin-top: 10px;
+  border: #004d68 2px solid;
+  font-size: 26px;
+  padding: 0.5%;
+  border-radius: 25px;
+  text-align: left;
+}
+
+.questconst__buttons {
+  margin-top: 10px;
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+}
+.questconst__buttons > div > button {
+  font-size: 20px;
+  border-radius: 25px;
+  padding: 1.25%;
+  background: #004d68;
+  color: white;
+}
+
+.questconst__list {
+  border: #004d68;
+  font-size: 20px;
+  width: 45%;
+  overflow: hidden;
+}
+.questconst__list > li {
+  list-style: circle outside;
+}
+
+.questconst__block {
+  padding: 1%;
+  margin-top: 10px;
+  border-radius: 25px;
+  border: #004d68 solid 2px;
+  font-size: 26px;
+  color: #004d68;
+  display: flex;
+  flex-direction: column;
+}
+.questconst__block > span {
+  margin-top: 10px;
+}
+.questconst__block > span > input {
+  margin-left: 10px;
+}
+
+.questconst__button {
+  margin-top: 10px;
+  font-size: 26px;
+  border-radius: 25px;
+  padding: 1.25%;
+  background: #004d68;
+  color: white;
+}
+
+.questconst__cb {
+  width: 30px;
+  height: 30px;
+}
+.questconst__cb:checked {
+  background: #004d68;
+  color: white;
+}
+
+.questconst__option:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.questconst__modal {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1073,67 +1093,273 @@ h6 {
   width: 800px;
   background: white;
 }
-.qc__xclose {
+.questconst__xclose {
+  justify-self: right;
   position: relative;
 }
-.qc__xclose:hover {
+.questconst__xclose:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-.question__item {
-  position: relative;
-  justify-content: space-between;
+.testconst__body {
   display: flex;
-  width: 700px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.testconst__list {
+  font-size: 21px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.testconst__quest {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.testconst__item {
+  display: flex;
+  justify-content: space-between;
   padding: 2.5%;
   border: #004d68 1px solid;
   border-radius: 25px;
   margin-top: 10px;
 }
-.question__item:hover {
+.testconst__item:hover {
   background: #004d68;
   color: white;
   cursor: pointer;
 }
-.question__item:hover > span {
+.testconst__item:hover > span {
   border: 0.25px solid white;
 }
-.question__item > span {
-  width: 12%;
+.testconst__item > span {
   border-radius: 12px;
-  padding: 0.5%;
+  padding: 1.25%;
   border: #004d68 0.25px solid;
 }
-.question__item > span:hover {
+.testconst__item > span:hover {
   background: #004d68;
   color: white;
   cursor: pointer;
 }
 
-.quest__list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.testconst__content > span {
+  font-size: 26px;
 }
 
-.tests__list {
+.testconst__row {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.tests__item {
+.testconst__modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 25%;
+  border: #004d68 1px solid;
+  width: 800px;
+  background: white;
+}
+.testconst__xclose {
+  justify-self: right;
   position: relative;
-  justify-content: space-between;
+}
+.testconst__xclose:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.testconst__button {
+  margin-top: 10px;
+  font-size: 26px;
+  border-radius: 25px;
+  padding: 1.25%;
+  background: #004d68;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.testconst__form {
+  width: 50%;
   display: flex;
-  width: 700px;
-  padding: 2.5%;
+  align-items: center;
+  flex-direction: column;
+}
+.testconst__form > span {
+  font-size: 25px;
+}
+.testconst__form > .questconst__input {
+  width: 100%;
+}
+
+.testconst__input {
+  width: 100%;
+  margin-top: 10px;
+  border: #004d68 2px solid;
+  font-size: 26px;
+  padding: 1.25%;
+  border-radius: 25px;
+  text-align: left;
+}
+
+.testlaunch__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.testlaunch__list {
+  margin-top: 10px;
+  font-size: 21px;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.testlaunch__question {
+  margin-top: 10px;
+  width: 100%;
   border: #004d68 1px solid;
   border-radius: 25px;
-  margin-top: 12px;
+  padding: 1.25%;
+}
+
+.testlaunch__modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 25%;
+  font-size: 24px;
+  letter-spacing: 0.25px;
+  border: #004d68 1px solid;
+  width: 800px;
+  background: white;
+}
+.testlaunch__modal > input {
+  font-size: 26px;
+  border: #004d68 0.25px solid;
+}
+
+.testlaunch__xclose {
+  justify-self: right;
+  position: relative;
+}
+.testlaunch__xclose:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.testlaunch__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.testlaunch__list {
+  margin-top: 10px;
+  font-size: 21px;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.testlaunch__question {
+  margin-top: 10px;
+  width: 100%;
+  border: #004d68 1px solid;
+  border-radius: 25px;
+  padding: 1.25%;
+}
+
+.testlaunch__modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 25%;
+  font-size: 24px;
+  letter-spacing: 0.25px;
+  border: #004d68 1px solid;
+  width: 800px;
+  background: white;
+}
+.testlaunch__modal > input {
+  font-size: 26px;
+  border: #004d68 0.25px solid;
+}
+
+.testlaunch__xclose {
+  justify-self: right;
+  position: relative;
+}
+.testlaunch__xclose:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.adminpanel__body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.adminpanel__functions {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px #004d68 solid;
+}
+
+.adminpanel__student {
+  width: 45%;
+}
+
+.adminpanel__group {
+  width: 45%;
+}
+
+.adminpanel__element > div {
+  padding: 1.25%;
+}
+.adminpanel__element > div:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.adminpanel__input {
+  border: 1px #004d68 solid;
+  padding: 1.25%;
+  font-size: 25px;
+  border-radius: 25px;
+}
+
+.adminpanel__tables {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.adminpanel__table {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.adminpanel__titem {
+  border: #004d68 0.25px solid;
 }
 
 * {

@@ -11,14 +11,20 @@ const AuthForm = (props) => {
     const [secondname,setSecondName] = useState('');
     const [group,setGroup] = useState('');
     const dispatch = useDispatch()
+    const [isTeacher,setIsTeacher] = useState(false)
+    console.log(isTeacher)
     return (
         isExisting ?
             <div className= "auth__form">
                 <div className="auth__inputs">
                     <AInput type = {"text"} placeholder ={"Логин"} changeData = {setEmail}  data= {email}/>
                     <AInput type = {"password"} placeholder ={"Пароль"} changeData = {setPassword}  data= {password}/>
+                    <div>
+                        Предподаватель?
+                    <input type="checkbox" checked={isTeacher} onChange={(e)=>{setIsTeacher(e.currentTarget.checked)}}/>
+                    </div>
                 </div>
-                <button className="auth__subbtn" onClick={()=>dispatch(login(email,password))}>Отправить</button>
+                <button className="auth__subbtn" onClick={()=>dispatch(login(email,password,isTeacher))}>Отправить</button>
                 <span>Нет учетной записи? <span onClick={()=>setIsExisting(false)}>Зарегестрируйтесь!</span></span>
             </div> :
             <div className= "auth__form">

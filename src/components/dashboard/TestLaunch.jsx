@@ -9,12 +9,9 @@ import {closeModal} from "../../reducers/uiReducer";
 import AuthForm from "../userInterface/AuthForm";
 
 const TestLaunch = () => {
-    const [testsList,setTestsList] = useState(null)
+    const [testsList,setTestsList] = useState([1,2])
     const [isReady, setIsReady] = useState(false);
     const [selectedTestIndex, setSelectedTestIndex] = useState(null);
-    const now = new Date();
-    const [launchTime,setLaunchTime] = useState(now.toLocaleDateString())
-    const [duration,setDuration] = useState(0);
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
     const token = localStorage.getItem("token");
@@ -37,13 +34,12 @@ const TestLaunch = () => {
 
         if (testsList!==null){
             return(
-                <div className="tests__list">
+                <div className="testlaunch__list">
+                    Перечень всех существующих тестов:
                     {testsList.map((test,index)=>{
                         return(
-                            <div className="tests__item" onClick={()=>setSelectedTestIndex(index)} key={index}>
+                            <div className="testlaunch__question" onClick={()=>setSelectedTestIndex(index)} key={index}>
                                 {test}
-                                {selectedTestIndex === index && (
-                                    <TestLaunchModal test={test} index={index} />)}
                             </div>
                         )
                     })
@@ -52,10 +48,14 @@ const TestLaunch = () => {
             )
         }
     }
-    const TestLaunchModal = (props) =>{
+    const TestLaunchModal = () =>{
+        const now = new Date();
+        const [launchTime,setLaunchTime] = useState(now.toLocaleDateString())
+        const [duration,setDuration] = useState(0);
+
         const handleTestSubmit = async () =>{
             try {
-                const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/'+props.test,{
+                const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/'+testsList[selectedTestIndex],{
                     start:launchTime,
                     duration:duration
                 }
@@ -72,10 +72,10 @@ const TestLaunch = () => {
             }
         }
         return(
-            <div className="qc__modal">
-                <span onClick={()=>setSelectedTestIndex(0)}>Закрыть</span>
+            <div className="testlaunch__modal">
+                <span className="testlaunch__xclose" onClick={()=>setSelectedTestIndex(null)}>Закрыть</span>
                 <h1>Окно запуска теста</h1>
-                {props.test}
+                 Тест: {testsList[selectedTestIndex]}
                 <span>Выберите время начала теста</span>
                 <input value={launchTime} onChange={(e)=>setLaunchTime(e.target.value)} type="datetime-local"/>
                 <span>Введите продолжительность теста в минутах</span>
@@ -90,7 +90,10 @@ const TestLaunch = () => {
             <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex",justifyContent:"center"}}>
                 <DbSideBar />
                 <Body>
+                    <div className={selectedTestIndex!==null ? "modal__opened testlaunch__body" :"testlaunch__body"}>
                     <PrintTestsList/>
+                    </div>
+                    {selectedTestIndex!==null&&<TestLaunchModal/>}
                 </Body>
             </div>
             {openedModal ? <AuthForm/> : null}

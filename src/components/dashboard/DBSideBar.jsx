@@ -7,7 +7,7 @@ const DbSideBar = () => {
         { heading: 'Конструктор тестов', path: '/testconst' },
         { heading: 'Провести тестирование', path: '/testlaunch' },
         { heading: 'Пройти тестирование', path: '/test' },
-        { heading: 'Результаты тестирования', path: '/questconst' },
+        { heading: 'Результаты тестирования', path: '/testresult' },
         {heading: 'Панель управления',path: '/admin'}
     ];
 

@@ -14,7 +14,7 @@ const AuthButton = (props) => {
                 {data.email}
                 <div style={show ? style : null}>
                     <Link to={props.loc ? '/dashboard' : '/'}>
-                        {props.loc ? 'Панель управления' : 'Главна'}
+                        {props.loc ? 'Панель управления' : 'Главная'}
                     </Link>
                 </div>
             </div>

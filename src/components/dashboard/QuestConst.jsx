@@ -27,9 +27,9 @@ const QuestConst = () => {
         };
 
         return (
-            <div className="qi__block">
+            <div className="questconst__form">
                 <input
-                    className="qi__input"
+                    className="questconst__input"
                     type="text"
                     value={posOption.heading}
                     onChange={(e) => setPosOption({ ...posOption, heading: e.target.value })}
@@ -37,7 +37,7 @@ const QuestConst = () => {
                 <span>
                     Правильный?
                     <input
-                        className="qi__cb"
+                        className="questconst__checkbox"
                         type="checkbox"
                         value="Правильный?"
                         checked={posOption.isTrue == null ? false : posOption.isTrue}
@@ -45,7 +45,7 @@ const QuestConst = () => {
                     />
                 </span>
                 <button
-                    className="qi__button"
+                    className="questconst__button"
                     onClick={() =>
                         checkSubmit()
                             ? setOptions([...options, posOption])
@@ -65,13 +65,11 @@ const QuestConst = () => {
     };
 
     const OptionsDisplay = () => (
-        <ul className="qc__list">
+        <ul className="questconst__list">
+            <li>Варианты ответа</li>
             {options.map((option, index) => (
-                <li key={index}>
+                <li style={option.isTrue ?{color:"green"}:null} className="questconst__option" onClick={() => handleOptionDelete(index)} key={index}>
                     {option.heading}
-                    <span className="option-delete" onClick={() => handleOptionDelete(index)}>
-                        &times;
-                    </span>
                 </li>
             ))}
         </ul>
@@ -103,18 +101,19 @@ const QuestConst = () => {
         };
 
         return (
-            <div className="qc__modal">
-                <span className="qc__xclose" onClick={() => setIsReady(false)}>
+            <div className="questconst__modal">
+                <span className="questconst__xclose" onClick={() => setIsReady(false)}>
                     Закрыть
                 </span>
-                <form onSubmit={handleSubmit}>
+                <form className="questconst__form" onSubmit={handleSubmit}>
                     <input
-                        className="qc__input"
+                        className="questconst__input"
+                        placeholder="Введите название вопроса"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         type="text"
                     />
-                    <button className="qi__button" type="submit">
+                    <button style={{marginBottom:'20px'}} className="questconst__button" type="submit">
                         Загрузить вопрос на сервер
                     </button>
                 </form>
@@ -128,20 +127,26 @@ const QuestConst = () => {
             <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex",justifyContent:"center"}}>
                 <DbSideBar />
                 <Body>
-                    <input className="qc__input" placeholder="Формулировка вопроса" type="text" value={questionText}
-                           onChange={(e) => setQuestionText(e.target.value)}/>
-                    <div className="qc__buttons">
-                        <button onClick={() => setIsMA(false)}>Со свободным ответом</button>
-                        <button onClick={() => setIsMA(true)}>С выбором ответа</button>
+                    <div className={isReady ? "modal__opened questconst__body" : "questconst__body"}>
+                            <input className="questconst__input" placeholder="Формулировка вопроса" type="text" value={questionText}
+                            onChange={(e) => setQuestionText(e.target.value)}/>
+                    <div className="questconst__buttons">
+                        <div>
+                            <button onClick={() => setIsMA(false)}>Со свободным ответом</button>
+                        </div>
+                        <div>
+                            <button onClick={() => setIsMA(true)}>С выбором ответа</button>
+                        </div>
                     </div>
                     <ImageUpload setPictures={setPictures} />
-                    <div style={{ display: 'flex' }}>
+                    <div className="questconst__box">
                         {isMA && <QuestInput />}
                         {isMA && <OptionsDisplay />}
                     </div>
-                    <button className="qi__button" onClick={() => setIsReady(true)}>
+                    <button className="questconst__button" onClick={() => setIsReady(true)}>
                         Завершить формирование вопроса
                     </button>
+                    </div>
                     {isReady && <NameInput />}
                 </Body>
             </div>

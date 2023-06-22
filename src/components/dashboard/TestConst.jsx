@@ -33,15 +33,14 @@ const TestConst = () => {
         try {
             const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quests')
             setQuestionList(response.data)
-            const mocha=Object.keys(response.data).length;
-            const mocha2=new Array(mocha);
-            setQuestionBodies(mocha2);
+            const arrlength=Object.keys(response.data).length;
+            const tempArr=new Array(arrlength);
+            setQuestionBodies(tempArr);
         }
         catch (e){
             alert(e)
         }
     }
-    console.log(testList)
     const sendTest = async (name,list) =>{
         try {
             const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/tests',{
@@ -75,19 +74,15 @@ const TestConst = () => {
         }
         if (questionList!==null){
             return(
-                <div className="tests__list">
+                <div className="testconst__list">
                     {questionList.map((question,index)=>{
-                        // const [currentQuestion,setCurrentQuestion] = useState({
-                        //     name:'',
-                        //     text:'',
-                        //     pictures:[],
-                        //     options:[]
-                        // })
                         return(
-                            <div className="question__item" onClick={()=>prepareTest(question)} key={index}>
-                                {question}
-                                <span onClick={()=>{requestCurrentQuestion(question,index)}}>Запросить</span>
-                                    <div> <QuestionBody index={index}/> </div>
+                            <div className="testconst__quest">
+                                <div className="testconst__item" onClick={()=>prepareTest(question)} key={index}>
+                                    {question}
+                                    <span onClick={()=>{requestCurrentQuestion(question,index)}}>Запросить</span>
+                                </div>
+                                <QuestionBody index={index}/>
                             </div>
                         )
                     })
@@ -98,7 +93,6 @@ const TestConst = () => {
     }
     const QuestionBody = props =>{
         const PicturesRow = (array)=>{
-            console.log(array)
             if (array.array!==undefined)
                 return(
                     <div>
@@ -116,10 +110,9 @@ const TestConst = () => {
                 )
         }
         const OptionsRow = (options)=>{
-            console.log(options)
-            if (options!=undefined)
+            if (options!==undefined)
                 return(
-                    <div>
+                    <div className="testconst__row">
                         {options.options.map((option,index)=>{
                         return(
                             <div>
@@ -131,11 +124,9 @@ const TestConst = () => {
                     </div>
                 )
         }
-        console.log(props.index)
-        if (questionBodies[props.index]!=undefined)
+        if (questionBodies[props.index]!==undefined)
         return(
-            <div>
-                <span>{questionBodies[props.index].name}</span>
+            <div className="testconst__content">
                 <span>{questionBodies[props.index].text}</span>
                 <PicturesRow array = {questionBodies[props.index].pictures}/>
                 <OptionsRow options = {questionBodies[props.index].options}/>
@@ -158,29 +149,29 @@ const TestConst = () => {
         };
 
         return (
-            <div className="qc__modal">
-                <span className="qc__xclose" onClick={() => setIsReady(false)}>
+            <div className="testconst__modal">
+                <span className="testconst__xclose" onClick={() => setIsReady(false)}>
                     Закрыть
                 </span>
-                <div className="quest__list">
+                <div className="testconst__list">
                     Состав теста
                     {testList.map((quest,index)=>{
                         return(
-                            <div className="question__item" key = {index}>
+                            <div className="testconst__quest testconst__item" key = {index}>
                                 {quest}
                             </div>
                         )
                     })}
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form className="testconst__form" onSubmit={handleSubmit}>
                     <input
-                        className="qc__input"
+                        className="testconst__input"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         type="text"
                         placeholder="Введите название теста"
                     />
-                    <button className="qi__button" type="button" onClick={()=>{
+                    <button className="testconst__button" type="button" onClick={()=>{
                         sendTest(name,testList)
                     }
                     }>
@@ -195,11 +186,13 @@ const TestConst = () => {
             <Header />
             <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex",justifyContent:"center"}}>
                 <DbSideBar />
-                <Body>
-                    <PrintQuestionList/>
-                    <button className="qi__button" onClick={() => setIsReady(true)}>
-                        Завершить формирование теста
-                    </button>
+                <Body >
+                    <div className={isReady ? "modal__opened testconst__body" : "testconst__body"} >
+                        <PrintQuestionList/>
+                        <button className="testconst__button" onClick={() => setIsReady(true)}>
+                            Завершить формирование теста
+                        </button>
+                    </div>
                     {isReady && <NameInput />}
                 </Body>
             </div>

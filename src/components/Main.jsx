@@ -62,7 +62,7 @@ const Main = (props) => {
     const dispatch = useDispatch()
     return (
         <div >
-            <Header/>
+            <Header loc = "false"/>
             <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex"}}>
                 <SideBar sums = {sums} curSum = {curSum} changeSumm = {changeCurSum}/>
                 <Body sumBuffer = {sumBuffer} sumOutPut = {sumOutPut} binary = {sumBinary} flag = {sumReady} curSum = {curSum} sumResult = {sumResult} >

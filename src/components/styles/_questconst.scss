@@ -1,0 +1,124 @@
+.questconst__body{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.questconst__box{
+  display: flex;
+  width: 45%;
+  justify-content: space-between;
+}
+.questconst__form{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  >span{
+    font-size: 25px;
+  }
+  > .questconst__input{
+    width: 100%;
+  }
+}
+.questconst__input{
+  width: 50%;
+  margin-top: 10px;
+  border: #004d68 2px solid;
+  font-size: 26px;
+  padding: 0.5%;
+  border-radius: 25px;
+  text-align: left;
+}
+.questconst__buttons{
+  margin-top: 10px;
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+  &>div{
+    &>button{
+      font-size: 20px;
+      border-radius: 25px;
+      padding:1.25%;
+      background: #004d68;
+      color:white;
+    }
+  }
+}
+.questconst__list{
+  border: #004d68;
+  font-size: 20px;
+  width: 45%;
+  overflow: hidden;
+  &>li{
+    list-style: circle outside;
+  }
+}
+.questconst__block{
+  padding: 1%;
+  margin-top: 10px;
+  border-radius: 25px;
+  border: #004d68 solid 2px;
+  font-size: 26px;
+  color: #004d68;
+  display: flex;
+  flex-direction: column;
+  &>span{
+    margin-top: 10px;
+    &>input{
+      margin-left: 10px;
+    }
+  }
+}
+.questconst__button{
+  margin-top: 10px;
+  font-size: 26px;
+  border-radius: 25px;
+  padding:1.25%;
+  background: #004d68;
+  color:white;
+}
+//.questconst__input{
+//  margin-top: 10px;
+//  font-size: 26px;
+//  border-radius: 25px;
+//  border: 2px #004d68 solid;
+//  padding: 1.25%;
+//  color:#004d68;
+//}
+.questconst__cb{
+  width: 30px;
+  height: 30px;
+  &:checked{
+    background: #004d68;
+    color: white;
+  }
+}
+.questconst__option{
+  &:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+.questconst__modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 25%;
+  border: #004d68 1px solid;
+  width: 800px;
+  background: white;
+  &>{
+    font-size: 26px;
+  }
+}
+.questconst__xclose{
+  justify-self: right;
+  position: relative;
+  &:hover{
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
