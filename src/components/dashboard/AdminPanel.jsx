@@ -271,8 +271,9 @@ const AdminPanel = () => {
                 </div>
             )
         }
-        const studentTestRequest = async (email,id,index) =>{
+        const studentTestRequest = async (id,index) =>{
             try {
+                console.log(id,index,curMail)
                 const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/student/'+curMail+'/'+id)
                 let temparr = curTest;
                 temparr[index] = response.data;

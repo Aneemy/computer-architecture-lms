@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import AuthForm from "../userInterface/AuthForm";
 
 const Test = () => {
-    const [test, setTest] = useState([
+    const [test, setTest] = useState();
+    let temptest = [
         {
             id: '1',
             text: '123',
@@ -33,7 +34,7 @@ const Test = () => {
             text: '123321123321',
             options: null
         }
-    ]);
+    ]
     const [testList, setTestList] = useState(null);
     const [answers, setAnswers] = useState([]);
     const openedModal = useSelector(state => state.modal);
@@ -43,6 +44,7 @@ const Test = () => {
 
     const requestLaunchedTests = async () => {
         try {
+            console.log('123')
             const response = await axios.get(`http://192.168.56.101:8080/student/${token}/tests`);
             console.log(response.data);
             setTestList(response.data);
@@ -55,9 +57,11 @@ const Test = () => {
     const requestTest = async (id) => {
         try {
             const response = await axios.get(`http://192.168.56.101:8080/student/${token}/${id}`);
+            console.log(response.data)
             setTest(response.data);
             localStorage.setItem('test', response.data);
             setTestList(null);
+            setCurTest(id)
         } catch (e) {
             alert(e);
         }
@@ -70,15 +74,15 @@ const Test = () => {
     const TestBody = () => {
         const submitTest = async () =>{
             try {
+
                 const response = await axios.post('http://192.168.56.101:8080/student/'+token+'/'+curTest+'/results',
-                    {answers:answers,dateTime:new Date()})
+                    {answers:answers,date_time:new Date()})
                 console.log(response.data)
             }
             catch (e){
                 alert(e)
             }
         }
-        console.log(answers);
         if (test !== undefined) {
             return (
                 <div>
@@ -179,7 +183,7 @@ const Test = () => {
 
 
         const ImageList = ({ images }) => {
-            if (images !== undefined) {
+            if (images !== undefined && images!==null) {
                 return images.map((image, index) => (
                     <div key={index}>
                         <img src={image.img} alt="" />
@@ -216,7 +220,7 @@ const Test = () => {
                         ? null
                         : testList.map((test, index) => (
                             <div onClick={() => requestTest(test.id)} key={index}>
-                                {test.test_name}
+                                {test.name}
                             </div>
                         ))}
                 </Body>

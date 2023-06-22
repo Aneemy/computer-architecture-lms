@@ -18,6 +18,7 @@ const TestResult = () => {
         try {
             const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/completed')
             setTestLists(response.data)
+            console.log(response.data)
             const length = response.data.length;
             const array = new Array(length)
             setCurTest(array)
@@ -85,7 +86,7 @@ const TestResult = () => {
                         return(
                             <div key={index} className="testresult__row">
                                 <div>
-                                    {test.name}
+                                    <h1>{test.name}</h1>
                                     <span>{test.date_time}</span>
                                     <div onClick={()=>studentTestRequest(test.id,index)}>
                                         Запросить тест
