@@ -83,11 +83,11 @@ const TestConst = () => {
         }
     }
     const QuestionBody = props =>{
-        const PicturesRow = (array)=>{
-            if (array.array!==null)
+        const PicturesRow = ({array})=>{
+            if (array!==null)
                 return(
                     <div>
-                        {array.array.map((picture,index)=>{
+                        {array.map((picture,index)=>{
                             return(
                                 <div>
                                     <div>
@@ -100,11 +100,11 @@ const TestConst = () => {
                     </div>
                 )
         }
-        const OptionsRow = (options)=>{
-            if (options!==undefined)
+        const OptionsRow = ({options})=>{
+            if (options!==undefined&&options!==null)
                 return(
                     <div className="testconst__row">
-                        {options.options.map((option,index)=>{
+                        {options.map((option,index)=>{
                         return(
                             <div>
                                 {option.heading}
@@ -117,7 +117,7 @@ const TestConst = () => {
             else
                 return (
                     <div>
-                        Free answer
+                        Со свободным ответом
                     </div>
                 )
         }

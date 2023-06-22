@@ -8,6 +8,7 @@ import {closeModal} from "../../reducers/uiReducer";
 import {useDispatch, useSelector} from "react-redux";
 import AuthForm from "../userInterface/AuthForm";
 import {notInitialized} from "react-redux/es/utils/useSyncExternalStore";
+import {question} from "../../http/user";
 
 const Test = () => {
     const [test,setTest] = useState([{id:'1',text:'123',options:[{heading:'1',isTrue:false},{heading:'2',isTrue:false},{heading:'3',isTrue:true}]},
@@ -23,7 +24,7 @@ const Test = () => {
             const response = await axios.get('http://192.168.56.101:8080/student/'+token+'/tests')
             console.log(response.data)
             setTestList(response.data)
-            setAnswers(response.data.options)
+            let tempArr = [];
         }
         catch (e) {
             alert(e)
