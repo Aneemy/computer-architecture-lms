@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {modalStyle} from "../Main";
 import {closeModal} from "../../reducers/uiReducer";
 import AuthForm from "../userInterface/AuthForm";
+import {type} from "@testing-library/user-event/dist/type";
 
 const TestLaunch = () => {
     const [testsList,setTestsList] = useState([1,2])
@@ -15,7 +16,9 @@ const TestLaunch = () => {
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
     const token = localStorage.getItem("token");
-
+    console.log(testsList)
+    console.log(selectedTestIndex)
+    console.log(testsList[0].id)
     const getTestsList = async () =>{
             try {
                 const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/tests')
@@ -54,6 +57,7 @@ const TestLaunch = () => {
         const handleTestSubmit = async () =>{
             try {
                 const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/'+testsList[selectedTestIndex].id,{
+                    name:testsList[selectedTestIndex].name,
                     start:launchTime,
                     duration:duration
                 }
@@ -73,7 +77,7 @@ const TestLaunch = () => {
             <div className="testlaunch__modal">
                 <span className="testlaunch__xclose" onClick={()=>setSelectedTestIndex(null)}>Закрыть</span>
                 <h1>Окно запуска теста</h1>
-                 Тест: {testsList[selectedTestIndex]}
+                 Тест: {testsList[selectedTestIndex].name}
                 <span>Выберите время начала теста</span>
                 <input value={launchTime} onChange={(e)=>setLaunchTime(e.target.value)} type="datetime-local"/>
                 <span>Введите продолжительность теста в минутах</span>

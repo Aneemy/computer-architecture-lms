@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import AuthForm from "../userInterface/AuthForm";
 import {useDispatch, useSelector} from "react-redux";
@@ -22,7 +22,6 @@ const AdminPanel = () => {
     const [groupFlag,setGroupFlag] = useState(false)
     const [curTest,setCurTest] = useState([])
     const [curMail,setCurMail] = useState('')
-
     const studentTestsRequest = async (email) =>{
         try {
             const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/student/'+email+'/tests')
@@ -38,16 +37,24 @@ const AdminPanel = () => {
     }
     const studentsListRequest = async (group) =>{
         try {
-            const gId = groupsList[groupsList.indexOf(group)].id
-            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/group/'+gId)
+            let temp;
+             groupsList.map((grouppa,index)=>{
+                if (grouppa.name === group){
+                    temp = grouppa.id
+                }
+            })
+            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/group/'+temp)
+            console.log(response.data)
+            setStudentsList(response.data)
         }
         catch (e) {
-            alert(e.response.data)
+            alert(e.response)
         }
     }
     const getGroupsList = async () =>{
         try {
             const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/groups')
+            console.log(response.data)
             setGroupsList(response.data)
         }
         catch (e) {
@@ -69,7 +76,7 @@ const AdminPanel = () => {
                             return;
                         }
                         try {
-                            const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/group',
+                            const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/groups',
                                 {name:data1})
                         }
                         catch (e) {
@@ -89,7 +96,13 @@ const AdminPanel = () => {
                                 return;
                             }
                             try {
-                                const response = await axios.delete('http://192.168.56.101:8080/teacher/'+token+'/group/'+data2)
+                                let gId;
+                                groupsList.map((grouppa,index)=>{
+                                    if (grouppa.name === data2){
+                                        gId = grouppa.id
+                                    }
+                                })
+                                const response = await axios.delete('http://192.168.56.101:8080/teacher/'+token+'/group/'+gId)
                             }
                             catch (e) {
                                 alert(e.response.data)
@@ -172,10 +185,16 @@ const AdminPanel = () => {
                                 alert('Проверьте правильность введенных данных');
                                 return;
                             }
+                            let gId;
+                            groupsList.map((grouppa,index)=>{
+                                if (grouppa.name === data4){
+                                    gId = grouppa.id
+                                }
+                            })
                             try {
                                 const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/students',
                                     {email:data3,
-                                group:groupsList[groupsList.indexOf(data4)].id})
+                                group:Number(gId)})
                             }
                             catch (e) {
                                 alert(e.response.data)
@@ -287,8 +306,8 @@ const AdminPanel = () => {
             {groupsList.map((group,index)=>{
                 return(
                     <div className="adminpanel__titem">
-                        {group}
-                        <div onClick={()=>studentsListRequest(group)}>
+                        {group.name}
+                        <div onClick={()=>studentsListRequest(group.name)}>
                             Запросить всех студентов
                         </div>
                     </div>
@@ -297,7 +316,9 @@ const AdminPanel = () => {
             </div>
         )
     }
-    getGroupsList()
+    useEffect(()=>{
+        getGroupsList()
+    },[])
     return (
         <div>
             <Header/>

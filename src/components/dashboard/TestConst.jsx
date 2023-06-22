@@ -114,6 +114,12 @@ const TestConst = () => {
                         }
                     </div>
                 )
+            else
+                return (
+                    <div>
+                        Free answer
+                    </div>
+                )
         }
         if (questionBodies[props.index]!==undefined)
         return(
@@ -126,7 +132,7 @@ const TestConst = () => {
     }
     const prepareTest = (question) => {
         if(!testList.includes(question)){
-           setTestList([...testList,question])
+           setTestList([...testList,Number(question)])
             }
         else {
             setTestList(testList.filter((quest, index) => quest !== question))
