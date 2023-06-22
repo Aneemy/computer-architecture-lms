@@ -60,7 +60,7 @@ const AdminPanel = () => {
                             return;
                         }
                         try {
-                            const response = await axios.post("",
+                            const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/group',
                                 {name:data1})
                         }
                         catch (e) {
