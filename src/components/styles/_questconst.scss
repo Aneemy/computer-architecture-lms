@@ -115,8 +115,9 @@
   }
 }
 .questconst__xclose{
-  justify-self: right;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
   &:hover{
     cursor: pointer;
     text-decoration: underline;

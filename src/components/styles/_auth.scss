@@ -1,22 +1,19 @@
 .auth__block{
+  position: relative;
   float: right;
   border-left: #004d68 1px solid;
   height: 75px;
-  width: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
+  font-size: 25px;
   color: #004d68;
+  padding: 0 2.5%;
   &:hover{
     text-decoration: underline;
     cursor: pointer;
   }
-  >div{
-    display: none;
-    position: absolute;
-    top: 50px;
-  }
+
 }
 .auth__form{
   left: 40%;
@@ -70,3 +67,20 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.auth__list{
+  border: 1px #004d68 solid;
+  width: 100%;
+  position: absolute;
+  display: block;
+  top: 75px;
+  &>div{
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+.hidden{
+  display: none;
+}
+

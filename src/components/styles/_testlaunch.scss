@@ -37,10 +37,19 @@
     font-size: 26px;
     border: #004d68 0.25px solid;
   }
+  &>span{
+    &:last-child:hover{
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    font-size: 26px;
+    letter-spacing: 1px;
+  }
 }
 .testlaunch__xclose{
-  justify-self: right;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
   &:hover{
     cursor: pointer;
     text-decoration: underline;

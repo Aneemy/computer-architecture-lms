@@ -16,20 +16,26 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border: #004d68 1px solid;
+  border-radius: 25px;
+  margin-top: 10px;
+  padding: 2.5%;
+
 }
 .testconst__item{
   display: flex;
   justify-content: space-between;
-  padding: 2.5%;
-  border: #004d68 1px solid;
   border-radius: 25px;
-  margin-top: 10px;
+  padding: 1.25%;
+  font-weight: 600;
+  letter-spacing: 1px;
   &:hover{
     background: #004d68;
     color: white;
     cursor: pointer;
     &>span{
       border: 0.25px solid white;
+      color: white;
     }
   }
   &>span{
@@ -43,6 +49,14 @@
     }
   }
 }
+.selected{
+  background: #004d68;
+  color: white;
+  &>span{
+    border: 0.25px solid white;
+    color: white;
+  }
+}
 .testconst__content{
   >span{
     font-size: 26px;
@@ -50,6 +64,7 @@
 }
 .testconst__row{
   display: flex;
+  flex-direction: column;
 }
 .testconst__modal{
   display: flex;
@@ -65,8 +80,9 @@
   }
 }
 .testconst__xclose{
-  justify-self: right;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
   &:hover{
     cursor: pointer;
     text-decoration: underline;

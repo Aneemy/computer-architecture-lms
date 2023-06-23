@@ -3,7 +3,8 @@ const DEL_USER = "DEL_USER"
 
 const defaultState = {
     currentUser: {},
-    isAuth:false
+    isAuth:false,
+    isTeacher: false
 }
 
 export default function userReducer (state = defaultState,action){
@@ -11,16 +12,20 @@ export default function userReducer (state = defaultState,action){
         case SET_USER:
             return{
                 ...state,
-                currentUser: action.payload,
-                isAuth: true
+                currentUser: action.payload.user,
+                isAuth: true,
+                isTeacher:action.payload.isTeacher
             }
-        case DEL_USER:
+        case DEL_USER:{
+            localStorage.removeItem('token')
+            localStorage.removeItem('isTeacher')
             return {
                 ...defaultState
+            }
             }
         default:
             return state
     }
 }
-export const setUser = user => ({type:SET_USER,payload:user})
+export const setUser = (user,isTeacher) => ({type:SET_USER,payload:{user:user,isTeacher:isTeacher}})
 export const delUser = () =>({type:DEL_USER})

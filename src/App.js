@@ -17,13 +17,11 @@
     function App() {
         const isAuth = useSelector(state => state.user.isAuth)
         const dispatch = useDispatch();
-
+        const isTeacher = useSelector(state => state.user.isTeacher)
 
         useEffect(()=>{
             dispatch(auth())
         },[])
-
-
       return (
           <BrowserRouter>
                 <div className="App" >

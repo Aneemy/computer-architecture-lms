@@ -3,15 +3,15 @@ import Header from "../Header";
 import DbSideBar from "./DBSideBar";
 import Body from "../Body";
 import axios, {options} from "axios";
-import {question} from "../../http/user";
+import {$url, question} from "../../http/user";
 import AuthForm from "../userInterface/AuthForm";
 import {modalStyle} from "../Main";
 import {closeModal} from "../../reducers/uiReducer";
 import {useDispatch, useSelector} from "react-redux";
-
+import { Redirect } from 'react-router-dom';
 
 const TestConst = () => {
-    const [questionList,setQuestionList] = useState(['1','2'])
+    const [questionList,setQuestionList] = useState(null)
     const [testList,setTestList] = useState([])
     const [isReady, setIsReady] = useState(false);
     const [questionBodies,setQuestionBodies] = useState([])
@@ -20,7 +20,7 @@ const TestConst = () => {
     const dispatch = useDispatch()
     const requestCurrentQuestion = async (question,index) =>{
         try {
-            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quest/'+question)
+            const response = await axios.get($url+'/teacher/'+token+'/quest/'+question)
             const newArray = [...questionBodies]
             newArray[index] = response.data
             setQuestionBodies(newArray)
@@ -31,7 +31,7 @@ const TestConst = () => {
     }
     const getQuestionList = async () =>{
         try {
-            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/quests')
+            const response = await axios.get($url+'/teacher/'+token+'/quests')
             setQuestionList(response.data)
             const arrlength=Object.keys(response.data).length;
             const tempArr=new Array(arrlength);
@@ -43,15 +43,15 @@ const TestConst = () => {
     }
     const sendTest = async (name,list) =>{
         try {
-            const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/tests',{
+            const response = await axios.post($url+'/teacher/'+token+'/tests',{
                 name:name,
                 value:list
             })
             if (response.status!=='201') {
-                alert("Cool")
+                alert('Вопрос успешно отправлен')
             }
             else{
-                alert("ad")
+                alert("Ужас")
             }
         }
         catch (e) {
@@ -68,19 +68,32 @@ const TestConst = () => {
                 <div className="testconst__list">
                     {questionList.map((question,index)=>{
                         return(
-                            <div className="testconst__quest">
-                                <div className="testconst__item" onClick={()=>prepareTest(question.id)} key={index}>
-                                    {question.name}
-                                    <span onClick={()=>{requestCurrentQuestion(question.id,index)}}>Запросить</span>
-                                </div>
-                                <QuestionBody index={index}/>
-                            </div>
+                             <Question key={index} index={index} question={question}/>
                         )
                     })
                     }
                 </div>
             )
         }
+    }
+    const prepareTest = (question) => {
+        if(!testList.includes(Number(question))){
+            setTestList([...testList,Number(question)])
+        }
+        else {
+            setTestList(testList.filter((quest, index) => Number(quest) !== Number(question)))
+        }
+    }
+    const Question = ({question,index}) =>{
+        return(
+            <div key={index} className="testconst__quest">
+                <div className={testList.includes(Number(question.id))?"testconst__item selected":"testconst__item"} onClick={()=>prepareTest(question.id)} key={index}>
+                    {question.name}
+                    <span onClick={()=>{requestCurrentQuestion(question.id,index)}}>Запросить</span>
+                </div>
+                <QuestionBody index={index}/>
+            </div>
+        )
     }
     const QuestionBody = props =>{
         const PicturesRow = ({array})=>{
@@ -103,15 +116,18 @@ const TestConst = () => {
         const OptionsRow = ({options})=>{
             if (options!==undefined&&options!==null)
                 return(
-                    <div className="testconst__row">
+                    <div>
+                        <span>Варианты ответа:</span>
+                        <div className="testconst__row">
                         {options.map((option,index)=>{
                         return(
-                            <div>
+                            <div key={index} style={option.isTrue ? {textDecoration:"underline"}:null}>
                                 {option.heading}
                             </div>
                         )
                         })
                         }
+                        </div>
                     </div>
                 )
             else
@@ -124,25 +140,19 @@ const TestConst = () => {
         if (questionBodies[props.index]!==undefined)
         return(
             <div className="testconst__content">
-                <span>{questionBodies[props.index].text}</span>
+                <span><span style={{fontStyle:"italic"}}>Формулировка:</span> {questionBodies[props.index].text}</span>
                 <PicturesRow array = {questionBodies[props.index].pictures}/>
                 <OptionsRow options = {questionBodies[props.index].options}/>
             </div>
         )
     }
-    const prepareTest = (question) => {
-        if(!testList.includes(question)){
-           setTestList([...testList,Number(question)])
-            }
-        else {
-            setTestList(testList.filter((quest, index) => quest !== question))
-        }
-    }
     const NameInput = () => {
         const [name, setName] = useState('');
 
-        const handleSubmit = (event) => {
-            event.preventDefault();
+        const handleSubmit = () => {
+            if (testList.length!==0&&name.trim()!=='')
+                sendTest(name,testList)
+            else alert('Название не введено или тест пуст')
         };
 
         return (
@@ -160,7 +170,7 @@ const TestConst = () => {
                         )
                     })}
                 </div>
-                <form className="testconst__form" onSubmit={handleSubmit}>
+                <form className="testconst__form">
                     <input
                         className="testconst__input"
                         value={name}
@@ -168,10 +178,7 @@ const TestConst = () => {
                         type="text"
                         placeholder="Введите название теста"
                     />
-                    <button className="testconst__button" type="button" onClick={()=>{
-                        sendTest(name,testList)
-                    }
-                    }>
+                    <button onClick={()=>handleSubmit()} className="testconst__button" type="button">
                         Загрузить тест на сервер
                     </button>
                 </form>

@@ -6,9 +6,10 @@ import {closeModal} from "../reducers/uiReducer";
 
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 const secretKey = "Grib"
+export const $url = 'http://192.168.1.101:8080'
 export const registration = async (name,surname,secondname,group,email,password) =>{
     try {
-        const response = await axios.post("http://192.168.56.101:8080/students",{
+        const response = await axios.post($url+'/students',{
             surname:surname,
             name:name,
             secondname:secondname,
@@ -26,7 +27,7 @@ export const registration = async (name,surname,secondname,group,email,password)
     }
 }
 export const login = (email,password,flag) =>{
-    const url = flag ? "http://192.168.56.101:8080/teacher" : "http://192.168.56.101:8080/student"
+    const url = flag ? $url+"/teacher" : $url+"/student"
     return async dispatch =>{
         try {
             const response = await axios.post(url,{
@@ -36,8 +37,9 @@ export const login = (email,password,flag) =>{
             const info = jwtDecode(response.data)
             const user = {email:info.email,
                                             fio: info.fio}
-            dispatch(setUser(user))
+            dispatch(setUser(user,flag))
             localStorage.setItem('token',response.data)
+            localStorage.setItem('isTeacher',flag)
             dispatch(closeModal())
         }
         catch (e){
@@ -71,13 +73,14 @@ export const auth = ()=>{
         const info = jwtDecode(token)
         const user = {email:info.email,
             fio: info.fio}
-        dispatch(setUser(user))
+        const isTeacher = localStorage.getItem('isTeacher')
+        dispatch(setUser(user,isTeacher))
     }
 }
 export const question = async (pack) =>{
     let token = localStorage.getItem("token");
     try {
-        const response = await axios.post("http://192.168.56.101:8080/teacher/"+token+"/quests", {
+        const response = await axios.post($url+"/teacher/"+token+"/quests", {
         name:pack.name,
             text:pack.text,
             options:pack.options,

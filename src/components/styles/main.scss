@@ -14,6 +14,14 @@
 @import "testlaunch";
 @import "testlaunch";
 @import "adminpanel";
+@import "test";
 *{
   font-family: "montserrat",sans-serif;
+  color: #004d68;
+}
+a{
+  text-decoration: none;
+  &:visited{
+    color: #004d68;
+  }
 }

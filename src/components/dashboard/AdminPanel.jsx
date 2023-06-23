@@ -9,7 +9,7 @@ import Body from "../Body";
 import SumInput from "../summators/SumInput";
 import {modalStyle} from "../Main";
 import DbSideBar from "./DBSideBar";
-import {question} from "../../http/user";
+import {$url, question} from "../../http/user";
 
 const AdminPanel = () => {
     const openedModal = useSelector(state => state.modal)
@@ -23,15 +23,13 @@ const AdminPanel = () => {
     const [testsList,setTestLists] = useState(null)
     const [groupsList,setGroupsList] = useState(null)
     const [groupFlag,setGroupFlag] = useState(false)
-    const [curTest,setCurTest] = useState([])
+    const [curTest,setCurTest] = useState(null)
     const [curMail,setCurMail] = useState('')
+    const [curIndex,setCurIndex] = useState(null)
     const studentTestsRequest = async (email) =>{
         try {
-            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/student/'+email+'/tests')
+            const response = await axios.get($url+'/teacher/'+token+'/student/'+email+'/tests')
             setTestLists(response.data)
-            const length = response.data.length;
-            const array = new Array(length)
-            setCurTest(array)
             setCurMail(email)
         }
         catch (e){
@@ -46,7 +44,7 @@ const AdminPanel = () => {
                     temp = grouppa.id
                 }
             })
-            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/group/'+temp)
+            const response = await axios.get($url+'/teacher/'+token+'/group/'+temp)
             console.log(response.data)
             setStudentsList(response.data)
         }
@@ -56,7 +54,7 @@ const AdminPanel = () => {
     }
     const getGroupsList = async () =>{
         try {
-            const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/groups')
+            const response = await axios.get($url+'/teacher/'+token+'/groups')
             console.log(response.data)
             setGroupsList(response.data)
         }
@@ -79,7 +77,7 @@ const AdminPanel = () => {
                             return;
                         }
                         try {
-                            const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/groups',
+                            const response = await axios.post($url+'/teacher/'+token+'/groups',
                                 {name:data1})
                         }
                         catch (e) {
@@ -105,7 +103,7 @@ const AdminPanel = () => {
                                         gId = grouppa.id
                                     }
                                 })
-                                const response = await axios.delete('http://192.168.56.101:8080/teacher/'+token+'/group/'+gId)
+                                const response = await axios.delete($url+'/teacher/'+token+'/group/'+gId)
                             }
                             catch (e) {
                                 alert(e.response.data)
@@ -129,13 +127,13 @@ const AdminPanel = () => {
                         </div>
                     </div>
                 </div>
-                <div className="adminpanel__element">
-                    <div>
-                        <div onClick={()=>setGroupFlag(!groupFlag)}>
-                            {!groupFlag ? 'Получить список групп' : 'Закрыть список групп'}
-                        </div>
-                    </div>
-                </div>
+                {/*<div className="adminpanel__element">*/}
+                {/*    <div>*/}
+                {/*        <div onClick={()=>setGroupFlag(!groupFlag)}>*/}
+                {/*            {!groupFlag ? 'Получить список групп' : 'Закрыть список групп'}*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         )
     }
@@ -155,7 +153,7 @@ const AdminPanel = () => {
                                 return;
                             }
                             try {
-                                const response = await axios.delete('http://192.168.56.101:8080/teacher/'+token+'/student/'+data1)
+                                const response = await axios.delete($url+'/teacher/'+token+'/student/'+data1)
                             }
                             catch (e) {
                                 alert(e.response.data)
@@ -195,7 +193,7 @@ const AdminPanel = () => {
                                 }
                             })
                             try {
-                                const response = await axios.post('http://192.168.56.101:8080/teacher/'+token+'/students',
+                                const response = await axios.post($url+'/teacher/'+token+'/students',
                                     {email:data3,
                                 group:Number(gId)})
                             }
@@ -210,7 +208,9 @@ const AdminPanel = () => {
             </div>
         )
     }
+    const groupStringToId = () =>{
 
+    }
     const StudentsList = () =>{
         if (studentsList!==null)
             return(
@@ -224,7 +224,7 @@ const AdminPanel = () => {
                                 <div>
                                     {student.email}
                                 </div>
-                                <div className="popup" onClick={()=>studentTestsRequest(student.email)}>
+                                <div className="adminpanel__request" onClick={()=>studentTestsRequest(student.email)}>
                                     Запросить все тесты
                                 </div>
                             </div>
@@ -235,11 +235,61 @@ const AdminPanel = () => {
     }
     const TestsList = () =>{
 
-        const TestBody = ({index}) =>{
-            if (curTest[index]!==undefined)
+        const studentTestRequest = async (email,id) =>{
+            try {
+                const response = await axios.get($url+'/teacher/'+token+'/student/'+curMail+'/'+id)
+                setCurTest(response.data)
+            }
+            catch (e){
+                alert(e)
+            }
+        }
+        if (testsList!==null)
             return(
-                <div className="adminpanel__result">
-                    {curTest[index].test.map((question,index)=>{
+                <div className="adminpanel__table">
+                    {testsList.map((test,index)=>{
+                        return(
+                            <div key={index} className="adminpanel__titem">
+                                <div>
+                                    {test.name}
+                                    <div className="adminpanel__request" onClick={()=>studentTestRequest(test.id)}>
+                                        Запросить тест
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            )
+    }
+
+    const GroupsList = () =>{
+        if (groupsList!==null??groupFlag)
+        return(
+            <div className="adminpanel__result">
+            {groupsList.map((group,index)=>{
+                return(
+                    <div className="adminpanel__titem">
+                        {group.name}
+                        <div className="adminpanel__request" onClick={()=>studentsListRequest(group.name)}>
+                            Запросить всех студентов
+                        </div>
+                    </div>
+                )
+                })}
+            </div>
+        )
+    }
+    useEffect(()=>{
+        getGroupsList()
+    },[])
+    const TestModal = () =>{
+        if (curTest==null)
+            return(
+                <div className="adminpanel__modal">
+                    <span onClick={()=>setCurTest(null)} className="adminpanel__xclose">Закрыть</span>
+                    <div className="adminpanel__list">
+                    {curTest.test.map((question,index)=>{
                         return(
                             <div key={index}>
                                 <span>{question.text}</span>
@@ -267,68 +317,18 @@ const AdminPanel = () => {
                                 </div>
                             </div>)
                     })}
-                    {curTest[index].score}
-                </div>
-            )
-        }
-        const studentTestRequest = async (email,id,index) =>{
-            try {
-                const response = await axios.get('http://192.168.56.101:8080/teacher/'+token+'/student/'+curMail+'/'+id)
-                let temparr = curTest;
-                temparr[index] = response.data;
-                setCurTest(temparr)
-            }
-            catch (e){
-                alert(e)
-            }
-        }
-        if (testsList!==null)
-            return(
-                <div className="adminpanel__table">
-                    {testsList.map((test,index)=>{
-                        return(
-                            <div key={index} className="adminpanel__titem">
-                                <div>
-                                    {test.name}
-                                    <div onClick={()=>studentTestRequest(test.id,index)}>
-                                        Запросить тест
-                                    </div>
-                                </div>
-                                <TestBody index={index}/>
-                            </div>
-                        )
-                    })}
-                </div>
-            )
-    }
-
-    const GroupsList = () =>{
-        if (groupsList!==null??groupFlag)
-        return(
-            <div className="adminpanel__result">
-            {groupsList.map((group,index)=>{
-                return(
-                    <div className="adminpanel__titem">
-                        {group.name}
-                        <div onClick={()=>studentsListRequest(group.name)}>
-                            Запросить всех студентов
-                        </div>
                     </div>
-                )
-                })}
-            </div>
-        )
+                    {curTest.score}
+                </div>
+            )
     }
-    useEffect(()=>{
-        getGroupsList()
-    },[])
     return (
         <div>
             <Header/>
             <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex",justifyContent:"center"}}>
                 <DbSideBar/>
                 <Body >
-                    <div className="adminpanel__body">
+                    <div className={`adminpanel__body ${curTest!==null?'ap_modal_opened':''}`}>
                         <div className="adminpanel__functions">
                         <GroupPanel/>
                         <StudentPanel/>
@@ -339,6 +339,7 @@ const AdminPanel = () => {
                             <GroupsList/>
                         </div>
                     </div>
+                    {curTest!==null&&TestModal}
                 </Body>
             </div>
             {openedModal ? <AuthForm/> : null}

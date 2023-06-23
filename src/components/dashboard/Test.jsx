@@ -7,33 +7,12 @@ import { modalStyle } from "../Main";
 import { closeModal } from "../../reducers/uiReducer";
 import { useDispatch, useSelector } from "react-redux";
 import AuthForm from "../userInterface/AuthForm";
+import {$url} from "../../http/user";
+import {useNavigate} from "react-router-dom";
 
 const Test = () => {
-    const [test, setTest] = useState([
-        {
-            id: '1',
-            text: '123',
-            options: [
-                { heading: '1', isTrue: false },
-                { heading: '2', isTrue: false },
-                { heading: '3', isTrue: true }
-            ]
-        },
-        {
-            id: '2',
-            text: '123321',
-            options: [
-                { heading: '4', isTrue: false },
-                { heading: '5', isTrue: true },
-                { heading: '3', isTrue: true }
-            ]
-        },
-        {
-            id: '5',
-            text: '123321123321',
-            options: null
-        }
-    ]);
+    const navigate = useNavigate()
+    const [test, setTest] = useState(undefined);
     const [testList, setTestList] = useState(null);
     const [answers, setAnswers] = useState([]);
     const openedModal = useSelector(state => state.modal);
@@ -43,7 +22,7 @@ const Test = () => {
 
     const requestLaunchedTests = async () => {
         try {
-            const response = await axios.get(`http://192.168.56.101:8080/student/${token}/tests`);
+            const response = await axios.get($url+`/student/${token}/tests`);
             console.log(response.data);
             setTestList(response.data);
             let tempArr = [];
@@ -54,9 +33,10 @@ const Test = () => {
 
     const requestTest = async (id) => {
         try {
-            const response = await axios.get(`http://192.168.56.101:8080/student/${token}/${id}`);
+            const response = await axios.get($url+`/student/${token}/${id}`);
             setTest(response.data);
             localStorage.setItem('test', response.data);
+            setCurTest(id)
             setTestList(null);
         } catch (e) {
             alert(e);
@@ -66,13 +46,23 @@ const Test = () => {
     useEffect(() => {
         requestLaunchedTests();
     }, []);
-
+    const TestsList = () =>{
+        return(
+            <div className="test__testlist">
+                {testList.map((test, index) => (
+                <div onClick={() => requestTest(test.id)} key={index}>
+                    {test.name}
+                </div>
+            ))}
+            </div>
+        )
+    }
     const TestBody = () => {
         const submitTest = async () =>{
             try {
-                const response = await axios.post('http://192.168.56.101:8080/student/'+token+'/'+curTest+'/results',
-                    {answers:answers,dateTime:new Date()})
-                console.log(response.data)
+                const response = await axios.post($url+'/student/'+token+'/'+curTest+'/results',
+                    {answers:answers,date_time:new Date()})
+                    navigate('/')
             }
             catch (e){
                 alert(e)
@@ -81,13 +71,13 @@ const Test = () => {
         console.log(answers);
         if (test !== undefined) {
             return (
-                <div>
-                    <div>
+                <div className="test__body">
+                    <div className="test__questionslist">
                     {test.map((question, index) => (
                         <TestQuestion key={index} question={question} />
                     ))}
                     </div>
-                    <button onClick={()=>submitTest()}>Князь гей</button>
+                    <button className="test__subbtn" onClick={()=>submitTest()}>Завершить тест</button>
                 </div>
             );
         }
@@ -121,19 +111,14 @@ const Test = () => {
         setAnswers(updatedAnswers);
     };
 
-
-
-
     const TestQuestion = ({ question }) => {
         const [answer, setAnswer] = useState('');
         useEffect(() => {
             const existingAnswer = answers.find(ans => ans.id === question.id);
             if (existingAnswer) {
                 if (Array.isArray(existingAnswer.answers)) {
-                    // Set initial answer for options as an array
                     setAnswer(existingAnswer.answers[0]);
                 } else {
-                    // Set initial answer for input as a string
                     setAnswer(existingAnswer.answers);
                 }
             }
@@ -153,9 +138,10 @@ const Test = () => {
             const [babaji,setBabaji] =useState(answer)
             if (options !== undefined && options !== null) {
                 return (
-                    <div>
+                    <div className="test__options__row">
                         {options.map((option, index) => (
-                            <div onClick={() => handleOptionChange(option, index)} key={index}>
+                            <div className={`test__option ${answers.some(ans => ans.id === question.id && ans.answers.includes(index)) ? 'selected' : ''}`}
+                                 onClick={() => handleOptionChange(option, index)} key={index}>
                                 {option.heading}
                             </div>
                         ))}
@@ -163,23 +149,18 @@ const Test = () => {
                 );
             } else {
                 return (
-                    <div>
                     <input
                         type="text"
                         value={babaji}
+                        placeholder="Введите ответ"
                         onChange={e => setBabaji(e.currentTarget.value)}
                         onBlur={e => handleInputChange(e)}
                     />
-                    </div>
                 );
             }
         };
-
-
-
-
         const ImageList = ({ images }) => {
-            if (images !== undefined) {
+            if (images !== undefined&&images!==null) {
                 return images.map((image, index) => (
                     <div key={index}>
                         <img src={image.img} alt="" />
@@ -190,8 +171,7 @@ const Test = () => {
         };
 
         return (
-            <div>
-                <span>{question.id}</span>
+            <div className="test__question">
                 <ImageList images={question.pictures} />
                 <div>{question.text}</div>
                 <OptionsList options={question.options} />
@@ -211,14 +191,9 @@ const Test = () => {
             >
                 <DbSideBar />
                 <Body>
-                    <TestBody />
-                    {testList == null
-                        ? null
-                        : testList.map((test, index) => (
-                            <div onClick={() => requestTest(test.id)} key={index}>
-                                {test.test_name}
-                            </div>
-                        ))}
+                    <div className="test__body">
+                    {testList == null ? <TestBody/> : <TestsList/>}
+                    </div>
                 </Body>
             </div>
             {openedModal ? <AuthForm /> : null}

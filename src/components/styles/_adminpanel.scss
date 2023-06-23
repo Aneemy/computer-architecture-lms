@@ -41,4 +41,33 @@
 }
 .adminpanel__titem{
   border: #004d68 0.25px solid;
+  padding: 0.25%;
+}
+.adminpanel__modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 25%;
+  border: #004d68 1px solid;
+  width: 800px;
+  background: white;
+  &>{
+    font-size: 26px;
+  }
+}
+.adminpanel__xclose{
+  position: absolute;
+  top: 0;
+  right: 0;
+  &:hover{
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+.adminpanel__request{
+  &:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }

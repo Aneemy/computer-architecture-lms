@@ -27,3 +27,14 @@
 .iu-container:hover .image {
   opacity: 0.8;
 }
+.db__list{
+  >li{
+    font-size: 20px;
+    margin-top: 10px;
+    letter-spacing: 2px;
+    &:hover{
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}

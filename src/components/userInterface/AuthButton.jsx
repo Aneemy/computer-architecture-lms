@@ -14,10 +14,12 @@ const AuthButton = (props) => {
         return(
             <div onClick={()=>{setShow(!show)}} className="auth__block">
                 {data.email}
-                <div style={show ? style : null}>
-                    <Link to={props.loc ? '/dashboard' : '/'}>
-                        {props.loc ? 'Панель управления' : 'Главная'}
-                    </Link>
+                <div className={show ?"auth__list" : "auth__list hidden"}>
+                    <div>
+                        <Link to={props.loc ? '/dashboard' : '/'}>
+                            {props.loc ? 'Панель управления' : 'Главная'}
+                        </Link>
+                    </div>
                     <div onClick={()=>{dispatch(delUser())}
                     }>
                         Выход
