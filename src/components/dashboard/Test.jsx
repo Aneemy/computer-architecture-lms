@@ -34,10 +34,12 @@ const Test = () => {
     const requestTest = async (id) => {
         try {
             const response = await axios.get($url+`/student/${token}/${id}`);
+
             setTest(response.data);
             localStorage.setItem('test', response.data);
             setCurTest(id)
             setTestList(null);
+            setCurTest(id)
         } catch (e) {
             alert(e);
         }
@@ -68,7 +70,6 @@ const Test = () => {
                 alert(e)
             }
         }
-        console.log(answers);
         if (test !== undefined) {
             return (
                 <div className="test__body">
