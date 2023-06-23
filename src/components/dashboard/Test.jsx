@@ -75,7 +75,7 @@ const Test = () => {
                 <div className="test__body">
                     <div className="test__questionslist">
                     {test.map((question, index) => (
-                        <TestQuestion key={index} question={question} />
+                        <TestQuestion key={index} question={question} gindex={index} />
                     ))}
                     </div>
                     <button className="test__subbtn" onClick={()=>submitTest()}>Завершить тест</button>
@@ -89,7 +89,7 @@ const Test = () => {
         const existingAnswerIndex = updatedAnswers.findIndex(ans => ans.id === questionId);
 
         if (existingAnswerIndex !== -1) {
-            if (test[questionId - 1] && test[questionId - 1].options) {
+            if (test.find(quest => quest.id === questionId) && test.find(quest => quest.id === questionId).options) {
                 // Update answer as an array
                 const questionAnswers = updatedAnswers[existingAnswerIndex].answers;
                 const answerPosition = questionAnswers.indexOf(answerIndex);
@@ -104,7 +104,7 @@ const Test = () => {
         } else {
             const newAnswer = {
                 id: questionId,
-                answers: test[questionId - 1] && test[questionId - 1].options ? [answerIndex] : answerIndex
+                answers: test.find(quest => quest.id === questionId) && test.find(quest => quest.id === questionId).options ? [answerIndex] : answerIndex
             };
             updatedAnswers.push(newAnswer);
         }
@@ -112,7 +112,7 @@ const Test = () => {
         setAnswers(updatedAnswers);
     };
 
-    const TestQuestion = ({ question }) => {
+    const TestQuestion = ({ question,gindex }) => {
         const [answer, setAnswer] = useState('');
         useEffect(() => {
             const existingAnswer = answers.find(ans => ans.id === question.id);

@@ -37,7 +37,7 @@ export const login = (email,password,flag) =>{
             const info = jwtDecode(response.data)
             const user = {email:info.email,
                                             fio: info.fio}
-            dispatch(setUser(user,flag))
+            dispatch(setUser(user,Boolean(flag)))
             localStorage.setItem('token',response.data)
             localStorage.setItem('isTeacher',flag)
             dispatch(closeModal())
@@ -74,7 +74,7 @@ export const auth = ()=>{
         const user = {email:info.email,
             fio: info.fio}
         const isTeacher = localStorage.getItem('isTeacher')
-        dispatch(setUser(user,isTeacher))
+        dispatch(setUser(user,isTeacher==='true'))
     }
 }
 export const question = async (pack) =>{
