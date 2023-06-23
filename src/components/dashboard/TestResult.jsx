@@ -32,17 +32,7 @@ const TestResult = () => {
         useEffect(()=>{
             studentTestsRequest(token)
         },[])
-        const TestsList = () =>{
-            const getQuestionsList = async () =>{
-                try {
-                    const response = await axios.get($url+'/teacher/'+token+'/1/1/choose')
-                    console.log(response.data)
-                }
-                catch (e){
-                    alert(e)
-                }
-            }
-            useEffect((()=>{getQuestionsList()}),[])
+        const TestList = () =>{
             const TestBody = ({index}) =>{
                 if (curTest[index]!==undefined)
                     return(
@@ -118,7 +108,7 @@ const TestResult = () => {
                     <DbSideBar/>
                     <Body >
                         <div className="testresult__body">
-                            <TestsList/>
+                            <TestList/>
                         </div>
                     </Body>
                 </div>
@@ -127,7 +117,101 @@ const TestResult = () => {
         );
     }
     const TeacherResult = () =>{
+        const [testsList,setTestsList] = useState(null)
+        const [ulist,setUList] = useState(null)
+        const [curTest,setCurTest] = useState(null)
+        const [testsDisplay,setTestsDisplay] = useState(true)
+        const getUncheckedTests = async () =>{
+            try {
+                const response = await axios.get($url+'/'+token+'/test/check')
+                setTestsList(response.data)
+            }
+            catch (e){
+                alert(e)
+            }
+        }
+        useEffect(()=>{
+            getUncheckedTests()
+        },)
+        const getUncheckedTest = async (id)=>{
+            try {
+                const response = await axios.get($url+'/teacher/'+token+'/'+id +'results')
+                setUList(response.data)
+                setCurTest(id)
+                setTestsDisplay(false)
+            }
+            catch (e){
+                alert(e)
+            }
+        }
 
+        const PrintTestsList = () =>{
+            return(
+                <div>
+                    {testsList.map((quest,index)=>{
+                        return(
+                            <div onClick={()=>getUncheckedTest(quest.id)}>
+                                {quest.name}
+                            </div>
+                        )
+                    })}
+                </div>
+            )
+        }
+        const PrintUList = () =>{
+            const Student = ({student}) =>{
+                const submitStudent = async ()=>{
+                    try {
+                        const response = await axios.post($url+'/teacher/'+token+'/student/'+curTest+'/choose/results',{
+                            email:student.email,
+                            estimation:estimation,
+                            score:score
+                        })
+                    }
+                    catch (e){
+                        alert(e)
+                    }
+                }
+                let estimation =  student.answers.map((answer,index)=>{
+                    return false
+                })
+                const [score,setScore] =useState('')
+                const handleAnswer = (index) =>{
+                    if (estimation[index]===false)
+                        estimation[index] = true
+                    else
+                        estimation[index] = false
+                }
+                return(
+                    <div>
+                        <span>{student.email}</span>
+                        <div>
+                            {student.answers.quest.map((quest,index)=>{
+                                return(
+                                    <div>
+                                        <span>{quest.text}</span>
+                                        <span onClick={()=>handleAnswer(index)}>{quest.answer}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <input value={score} onChange={(e)=>setScore(e.currentTarget.value)} type="text" placeholder="Введите оценку"/>
+                        <button onClick={()=>submitStudent()}> Отправить в ад</button>
+                    </div>
+                )
+            }
+            if (ulist!==null)
+                return(
+                    <div>
+                        {
+                            ulist.map((student,index)=>{
+                                return(
+                                <Student student={student}/>
+                                )})
+                        }
+                    </div>
+                )
+        }
         return (
             <div>
                 <Header/>
@@ -135,6 +219,8 @@ const TestResult = () => {
                     <DbSideBar/>
                     <Body >
                         <div className="testresult__body">
+                            {testsDisplay&&<PrintTestsList/>}
+                            {!testsDisplay&&<PrintUList/>}
                         </div>
                     </Body>
                 </div>
@@ -142,6 +228,10 @@ const TestResult = () => {
             </div>
         )
     }
+
+
+
+
     return(
         <div>
             {isTeacher?<TeacherResult/>:<StudentResult/>}
