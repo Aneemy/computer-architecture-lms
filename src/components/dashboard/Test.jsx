@@ -19,6 +19,7 @@ const Test = () => {
     const dispatch = useDispatch();
     const token = localStorage.getItem('token');
     const [curTest,setCurTest] = useState();
+    console.log(answers)
 
     const requestLaunchedTests = async () => {
         try {

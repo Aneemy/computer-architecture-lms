@@ -29,6 +29,7 @@ const AdminPanel = () => {
     const studentTestsRequest = async (email) =>{
         try {
             const response = await axios.get($url+'/teacher/'+token+'/student/'+email+'/tests')
+            console.log('123',response)
             setTestLists(response.data)
             setCurMail(email)
         }
@@ -235,10 +236,11 @@ const AdminPanel = () => {
     }
     const TestsList = () =>{
 
-        const studentTestRequest = async (email,id) =>{
+        const studentTestRequest = async (id) =>{
             try {
                 const response = await axios.get($url+'/teacher/'+token+'/student/'+curMail+'/'+id)
                 setCurTest(response.data)
+                console.log(response.data)
             }
             catch (e){
                 alert(e)
@@ -284,39 +286,51 @@ const AdminPanel = () => {
         getGroupsList()
     },[])
     const TestModal = () =>{
-        if (curTest==null)
+        const OptionsList = ({answers}) =>{
+            console.log(answers)
+            if (Array.isArray(answers))
             return(
+                <div>
+                    {answers.map((answer,index)=>{
+                    return(
+                        <div>
+                            <span style={{textDecoration:`${answer.isTrue ? 'underline':null}`,color:`${answer.isSelected ? 'greenyellow':'red'}`}}>{answer.heading}</span>
+                        </div>
+                    )
+                    })
+                    }
+                </div>
+            )
+            else {
+                return (
+                    <div>
+                        <span>{answers.text}</span>
+                        <span>{answers.isTrue}</span>
+                    </div>
+                )
+            }
+        }
+            return (
                 <div className="adminpanel__modal">
-                    <span onClick={()=>setCurTest(null)} className="adminpanel__xclose">Закрыть</span>
+                    <span onClick={() => setCurTest(null)} className="adminpanel__xclose">Закрыть</span>
                     <div className="adminpanel__list">
-                    {curTest.test.map((question,index)=>{
-                        return(
-                            <div key={index}>
-                                <span>{question.text}</span>
-                                <div>
-                                    {question.pictures===undefined ? null : question.pictures.map((picture,index)=>{
-                                        return(
-                                            <div key={index}>
-                                                {picture.img}
-                                                {picture.caption}
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                                <div>
-                                    {question.answers===undefined ? null :question.answers.map((answer,index)=>{
-                                        return(
-                                            <div key={index}>
-                                                {answer.heading}
-                                                {answer.isTrue}
-                                                {answer.isSelected}
-                                                {answer.text}
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>)
-                    })}
+                        {curTest.test.map((question, index) => {
+                            return (
+                                <div key={index}>
+                                    <span>{question.quest.text}</span>
+                                    <div>
+                                        {question.quest.pictures === null ? null : question.quest.pictures.map((picture, index) => {
+                                            return (
+                                                <div key={index}>
+                                                    {picture.img}
+                                                    {picture.caption}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                    {question.answers!==undefined&&question.answers!==null ? <OptionsList answers = {question.answers}/>:null}
+                                </div>)
+                        })}
                     </div>
                     {curTest.score}
                 </div>
@@ -339,7 +353,7 @@ const AdminPanel = () => {
                             <GroupsList/>
                         </div>
                     </div>
-                    {curTest!==null&&TestModal}
+                    {curTest!==null&&<TestModal/>}
                 </Body>
             </div>
             {openedModal ? <AuthForm/> : null}

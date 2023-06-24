@@ -20,21 +20,25 @@ const TeacherResult = () => {
     const dispatch = useDispatch()
     const getUncheckedTests = async () =>{
         try {
-            const response = await axios.get($url+'/teacher/'+token+'/tests/check')
+            const response = await axios.get(`${$url}/teacher/${token}/tests/check`)
             setTestsList(response.data)
+            console.log(response)
         }
         catch (e){
             alert(e)
         }
     }
-    useEffect(()=>{
+    useEffect((()=>{
         getUncheckedTests()
-    },)
+    }),[])
     const getUncheckedTest = async (id)=>{
+        console.log('1')
         try {
-            const response = await axios.get($url+'/teacher/'+token+'/'+id +'results')
+            console.log('entered')
+            const response = await axios.get($url+'/teacher/'+token+'/'+id +'/choose')
             setUList(response.data)
             setCurTest(id)
+            console.log(response.data)
             setTestsDisplay(false)
         }
         catch (e){
@@ -48,7 +52,7 @@ const TeacherResult = () => {
                 <div>
                     {testsList.map((quest,index)=>{
                         return(
-                            <div onClick={()=>getUncheckedTest(quest.id)}>
+                            <div key = {index} onClick={()=>getUncheckedTest(quest.id)}>
                                 {quest.name}
                             </div>
                         )
@@ -63,7 +67,7 @@ const TeacherResult = () => {
                     const response = await axios.post($url + '/teacher/' + token + '/student/' + curTest + '/choose/results', {
                         email: student.email,
                         estimation: estimation,
-                        score: score
+                        score: Number(score)
                     })
                 } catch (e) {
                     alert(e)
@@ -83,10 +87,11 @@ const TeacherResult = () => {
                 <div>
                     <span>{student.email}</span>
                     <div>
-                        {student.answers.quest.map((quest, index) => {
+                        {student.answers.map((quest, index) => {
+                            console.log(quest.answer)
                             return (
                                 <div>
-                                    <span>{quest.text}</span>
+                                    <span>{quest.quest.text}</span>
                                     <span onClick={() => handleAnswer(index)}>{quest.answer}</span>
                                 </div>
                             )

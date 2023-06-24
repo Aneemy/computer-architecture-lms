@@ -6,7 +6,7 @@ import {closeModal} from "../reducers/uiReducer";
 
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 const secretKey = "Grib"
-export const $url = 'http://192.168.1.101:8080'
+export const $url = 'http://192.168.56.101:8080'
 export const registration = async (name,surname,secondname,group,email,password) =>{
     try {
         const response = await axios.post($url+'/students',{

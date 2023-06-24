@@ -16,7 +16,7 @@ const TestResult = () => {
     const openedModal = useSelector(state => state.modal)
     const isTeacher = useSelector(state => state.user.isTeacher)
     const dispatch = useDispatch()
-
+    console.log('rerender')
     return(
         <div>
             {isTeacher?<TeacherResult/>:<StudentResult/>}

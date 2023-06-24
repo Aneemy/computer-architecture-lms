@@ -1445,6 +1445,18 @@ h6 {
   cursor: pointer;
 }
 
+.adminpanel__option {
+  font-weight: 600;
+}
+
+.isTrue {
+  text-decoration: underline;
+}
+
+.isSelected {
+  color: greenyellow;
+}
+
 .test__body {
   display: flex;
   width: 100%;
