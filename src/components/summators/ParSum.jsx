@@ -59,7 +59,7 @@ const ParSum = (props) => {
                     <SumToggleButton handleSumToggle = {handleSumToggle} sumToggle = {sumToggle}/>
                     <SumResetButton handleSumToggle={handleSumToggle} curSum = {3} update = {update} handleUpdate = {handleUpdate} changeIteration = {handleUpdate}/>
                     <SumTimer sumToggle = {sumToggle} timer = {timer} changeTimer = {changeTimer}/>
-                    {/*{showResult&&<SumResult sumResult = {props.sumResult}/>}*/}
+                    {showResult&&<SumResult sumResult = {props.sumResult}/>}
                 </div>
             </div>
         );

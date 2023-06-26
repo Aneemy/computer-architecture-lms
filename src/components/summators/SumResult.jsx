@@ -2,7 +2,7 @@ import React from 'react';
 
 const SumResult = (props) => {
     return (
-        <div>
+        <div className="sum__result">
             Итоговый результат : {props.sumResult}
         </div>
     );

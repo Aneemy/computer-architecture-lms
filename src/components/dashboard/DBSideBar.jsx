@@ -7,7 +7,7 @@ const DbSideBar = () => {
     const options = isTeacher? [
         { heading: 'Конструктор вопросов', path: '/questconst' },
         { heading: 'Конструктор тестов', path: '/testconst' },
-        { heading: 'Провести тестирование', path: '/testlaunch' }, ,
+        { heading: 'Провести тестирование', path: '/testlaunch' },
         { heading: 'Результаты тестирования', path: '/testresult' },
         {heading: 'Панель управления',path: '/admin'}]
         :

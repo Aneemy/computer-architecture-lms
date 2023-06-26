@@ -154,7 +154,6 @@ const TestConst = () => {
                 sendTest(name,testList)
             else alert('Название не введено или тест пуст')
         };
-
         return (
             <div className="testconst__modal">
                 <span className="testconst__xclose" onClick={() => setIsReady(false)}>

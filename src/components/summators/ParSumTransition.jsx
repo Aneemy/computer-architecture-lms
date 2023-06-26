@@ -12,7 +12,7 @@ const ParSumTransition = (props) => {
     }
     return (
         <div className="parsum__transition" style={{width:`${(props.keyValue*2)*props.psi__width*1.7}px`,left:(props.psi__width)*5.2}}>
-            {transitionArray
+            {transitionArray.filter((item,index)=>index<=8)
                 .map((filterednumber,index,array) => (
                     <CSSTransition
                         key = {index}

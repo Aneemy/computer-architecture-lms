@@ -22,7 +22,6 @@ const TeacherResult = () => {
         try {
             const response = await axios.get(`${$url}/teacher/${token}/tests/check`)
             setTestsList(response.data)
-            console.log(response)
         }
         catch (e){
             alert(e)
@@ -32,9 +31,7 @@ const TeacherResult = () => {
         getUncheckedTests()
     }),[])
     const getUncheckedTest = async (id)=>{
-        console.log('1')
         try {
-            console.log('entered')
             const response = await axios.get($url+'/teacher/'+token+'/'+id +'/choose')
             setUList(response.data)
             setCurTest(id)

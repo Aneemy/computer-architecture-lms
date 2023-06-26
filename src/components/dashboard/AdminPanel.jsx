@@ -220,7 +220,7 @@ const AdminPanel = () => {
                         return(
                             <div key={index} className="adminpanel__titem">
                                 <div>
-                                    {student.surname}{student.name}{student.secondname}
+                                    {student.surname} {student.name} {student.secondname}
                                 </div>
                                 <div>
                                     {student.email}

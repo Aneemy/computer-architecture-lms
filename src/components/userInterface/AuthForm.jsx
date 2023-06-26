@@ -33,7 +33,7 @@ const AuthForm = (props) => {
                     <AInput type = {"text"} placeholder ={"Имя"}  changeData = {setName} data = {name}/>
                     <AInput type = {"text"} placeholder ={"Отчество"}  changeData = {setSecondName}  data= {secondname}/>
                     <AInput type = {"text"} placeholder ={"Группа"}  changeData = {setGroup}  data= {group}/>
-                    <AInput type = {"text"} placeholder ={"Логин"}  changeData = {setEmail}  data= {email}/>
+                    <AInput type = {"text"} placeholder ={"Email"}  changeData = {setEmail}  data= {email}/>
                     <AInput type = {"password"} placeholder ={"Пароль"}  changeData = {setPassword}  data= {password}/>
                 </div>
                 <button className="auth__subbtn" onClick={()=>(registration(surname,name,secondname,group,email,password))}>Отправить</button>

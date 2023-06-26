@@ -49,7 +49,7 @@ const QuestConst = () => {
                     onClick={() =>
                         checkSubmit()
                             ? setOptions([...options, posOption])
-                            : alert("Проверьте правильность введенных данных")
+                            : alert("Вариант ответа не может быть пустым")
                     }
                 >
                     Добавить
@@ -74,7 +74,11 @@ const QuestConst = () => {
             ))}
         </ul>
     );
-
+    const handleIsReady = () =>{
+        if (questionText.trim()!=='')
+    setIsReady(true)
+        else alert('Введите формулировку вопроса')
+    }
     const NameInput = () => {
         const [name, setName] = useState('');
 
@@ -82,7 +86,7 @@ const QuestConst = () => {
             event.preventDefault();
 
             if (name.trim() === '') {
-                alert('Введите имя пакета');
+                alert('Вопрос без названия');
                 return;
             }
 
@@ -143,7 +147,7 @@ const QuestConst = () => {
                         {isMA && <QuestInput />}
                         {isMA && <OptionsDisplay />}
                     </div>
-                    <button className="questconst__button" onClick={() => setIsReady(true)}>
+                    <button className="questconst__button" onClick={() => handleIsReady()}>
                         Завершить формирование вопроса
                     </button>
                     </div>

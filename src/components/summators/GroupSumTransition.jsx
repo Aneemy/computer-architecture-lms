@@ -14,7 +14,7 @@ const GroupSumTransition = (props) => {
     }
     return (
         <div className="groupsum__transition">
-            {props.unitedArray
+            {props.unitedArray.filter((item,index)=>index<=8)
                 .map((filterednumber,index) => (
                     <CSSTransition
                         key = {index}
