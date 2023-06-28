@@ -19,9 +19,9 @@ const TeacherResult = () => {
     const isTeacher = useSelector(state => state.user.isTeacher)
     const dispatch = useDispatch()
     const getUncheckedTests = async () =>{
-        console.log('GUT')
         try {
             const response = await axios.get(`${$url}/teacher/${token}/tests/check`)
+            console.log(response.data)
             setTestsList(response.data)
         }
         catch (e){
@@ -60,7 +60,9 @@ const TeacherResult = () => {
             )
     }
     const PrintUList = () => {
+        const [currentStudent,setCurrentStudent] = useState(0)
         const Student = ({student}) => {
+            const  [currentQuestion,setCurrentQuestion] = useState(0)
             const submitStudent = async () => {
                 try {
                     const response = await axios.post($url + '/teacher/' + token + '/student/' + curTest + '/choose/results', {
@@ -82,36 +84,41 @@ const TeacherResult = () => {
                 else
                     estimation[index] = false
             }
+            const Question = ({question,index}) =>{
+                return (
+                    <div>
+                        <span>{question.quest.text}</span>
+                        <span onClick={() => handleAnswer(index)}>{question.answer}</span>
+                    </div>
+                )
+            }
             return (
                 <div>
                     <span>{student.email}</span>
                     <div>
-                        {student.answers.map((quest, index) => {
-                            console.log(quest.answer)
-                            return (
-                                <div>
-                                    <span>{quest.quest.text}</span>
-                                    <span onClick={() => handleAnswer(index)}>{quest.answer}</span>
-                                </div>
-                            )
-                        })}
+                        <Question question={student.answers[currentQuestion]} index={currentQuestion}/>
                     </div>
-                    <input value={score} onChange={(e) => setScore(e.currentTarget.value)} type="text"
+                    <div className="teacherresult__buttons">
+                        {currentQuestion!==0&&<div onClick={()=>setCurrentQuestion(currentQuestion-1)}>
+                            Назад
+                        </div>}
+                        {currentQuestion!==student.answers.length-1&&<div onClick={()=>setCurrentQuestion(currentQuestion+1)}>
+                            Вперед
+                        </div>}
+                    </div>
+                    {currentQuestion===student.answers.length-1&&
+                        <div>
+                        <input value={score} onChange={(e) => setScore(e.currentTarget.value)} type="text"
                            placeholder="Введите оценку"/>
                     <button onClick={() => submitStudent()}> Отправить в ад</button>
+                        </div>}
                 </div>
             )
         }
         if (ulist !== null)
             return (
                 <div>
-                    {
-                        ulist.map((student, index) => {
-                            return (
-                                <Student student={student}/>
-                            )
-                        })
-                    }
+                    <Student student={ulist[currentStudent]}/>
                 </div>
             )
     }

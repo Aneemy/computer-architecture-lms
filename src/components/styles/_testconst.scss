@@ -6,7 +6,7 @@
 }
 .testconst__list{
   font-size: 21px;
-  width: 50%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,16 +19,18 @@
   border: #004d68 1px solid;
   border-radius: 25px;
   margin-top: 10px;
-  padding: 2.5%;
+  padding: 10px;
 
 }
 .testconst__item{
   display: flex;
   justify-content: space-between;
   border-radius: 25px;
+  align-items: center;
   padding: 1.25%;
   font-weight: 600;
   letter-spacing: 1px;
+  height: 50px;
   &:hover{
     background: #004d68;
     color: white;
@@ -40,7 +42,7 @@
   }
   &>span{
     border-radius: 12px;
-    padding: 1.25%;
+    padding: 0.5%;
     border: #004d68 0.25px solid;
     &:hover{
       background: #004d68;
@@ -117,4 +119,30 @@
   padding: 1.25%;
   border-radius: 25px;
   text-align: left;
+}
+.testconst__imagerow{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+}
+.testconst__subrow{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  &>div{
+    max-width: 33%;
+    &>img{
+      width: 100%;
+    }
+  }
+}
+.testconst__image{
+  width: 100%;
+  >div{
+    width: 100%;
+    &>img {
+      width: 100%;
+    }
+  }
 }

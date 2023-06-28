@@ -30,7 +30,6 @@ const StudentResult = () => {
         }
     }
     useEffect(()=>{
-        if (!isTeacher&&token)
         studentTestsRequest(token)
     },[])
     const TestList = () =>{

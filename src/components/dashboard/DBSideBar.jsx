@@ -8,12 +8,12 @@ const DbSideBar = () => {
         { heading: 'Конструктор вопросов', path: '/questconst' },
         { heading: 'Конструктор тестов', path: '/testconst' },
         { heading: 'Провести тестирование', path: '/testlaunch' },
-        { heading: 'Результаты тестирования', path: '/testresult' },
+        { heading: 'Результаты тестирования', path: '/teacherresult' },
         {heading: 'Панель управления',path: '/admin'}]
         :
         [
             { heading: 'Пройти тестирование', path: '/test' },
-            { heading: 'Результаты тестирования', path: '/testresult' }
+            { heading: 'Результаты тестирования', path: '/studentresult' }
         ];
 
     return (

@@ -9,22 +9,28 @@ import {modalStyle} from "../Main";
 import {closeModal} from "../../reducers/uiReducer";
 import {useDispatch, useSelector} from "react-redux";
 import { Redirect } from 'react-router-dom';
+import {config} from "react-transition-group";
 
 const TestConst = () => {
     const [questionList,setQuestionList] = useState(null)
     const [testList,setTestList] = useState([])
     const [isReady, setIsReady] = useState(false);
     const [questionBodies,setQuestionBodies] = useState([])
+    const [questionImages,setQuestionImages] = useState([])
+    const [questionBodyFlags,setQuestionBodyFlags] = useState([])
     const token = localStorage.getItem("token");
     const openedModal = useSelector(state => state.modal)
     const dispatch = useDispatch()
+
     const requestCurrentQuestion = async (question,index) =>{
         try {
             const response = await axios.get($url+'/teacher/'+token+'/quest/'+question)
             const newArray = [...questionBodies]
             newArray[index] = response.data
             setQuestionBodies(newArray)
-            console.log(response.data)
+            let flags = [...questionBodyFlags]
+            flags[index] = true
+            setQuestionBodyFlags(flags)
         }
         catch (e){
             alert(e)
@@ -37,6 +43,8 @@ const TestConst = () => {
             const arrlength=Object.keys(response.data).length;
             const tempArr=new Array(arrlength);
             setQuestionBodies(tempArr);
+            setQuestionImages(tempArr)
+            setQuestionBodyFlags(tempArr)
         }
         catch (e){
             alert(e)
@@ -62,6 +70,11 @@ const TestConst = () => {
     useEffect(()=>{
         getQuestionList()
     },[])
+    const closeCurrentQuestion = (index) =>{
+        let flag = [...questionBodyFlags]
+        flag[index] = undefined;
+        setQuestionBodyFlags(flag)
+    }
     const PrintQuestionList = () =>{
 
         if (questionList!==null){
@@ -90,29 +103,82 @@ const TestConst = () => {
             <div key={index} className="testconst__quest">
                 <div className={testList.includes(Number(question.id))?"testconst__item selected":"testconst__item"} onClick={()=>prepareTest(question.id)} key={index}>
                     {question.name}
-                    <span onClick={()=>{requestCurrentQuestion(question.id,index)}}>Запросить</span>
+                    {(questionBodyFlags[index]===undefined)?
+                        <span onClick={()=>{requestCurrentQuestion(question.id,index)}}>Запросить</span>:
+                        <span onClick={()=>closeCurrentQuestion(index)}>Закрыть</span>
+                    }
                 </div>
-                <QuestionBody index={index}/>
+                {questionBodyFlags[index]&&<QuestionBody index={index}/>}
             </div>
         )
     }
     const QuestionBody = props =>{
-        const PicturesRow = ({array})=>{
-            if (array!==null)
-                return(
-                    <div>
-                        {array.map((picture,index)=>{
-                            return(
-                                <div>
-                                    <div>
-                                        <img src={picture.img} alt=""/>
+        const PicturesRow = (props)=>{
+            const [questionImages, setQuestionImages] = useState([]);
+
+            useEffect(() => {
+                if (props.array !== null) {
+                    getImagesForQuestion(props.array, props.gindex);
+                }
+            }, [props.array, props.gindex]);
+
+            const getImagesForQuestion = async (array, gindex) => {
+                const tempArray = new Array(array.length);
+                await Promise.all(
+                    array.map(async (item, index) => {
+                        const image = await getImageData(item.img);
+                        tempArray[index] = image;
+                    })
+                );
+                const updatedImages = [...questionImages];
+                updatedImages[gindex] = tempArray;
+                setQuestionImages(updatedImages);
+            };
+
+            const getImageData = async (imageUrl) => {
+                try {
+                    const response = await axios.get(imageUrl);
+                    return response.data;
+                } catch (error) {
+                    console.error(error);
+                    return null;
+                }
+            };
+
+            if (props.array !== null) {
+                return (
+                    <div className="testconst__imagerow">
+                        {props.array.map((picture, index) => {
+                            if (index % 3 === 0) {
+                                return (
+                                    <div className="testconst__subrow" key={index}>
+                                        {[0, 1, 2].map((subIndex) => {
+                                            const elementIndex = index + subIndex;
+                                            if (props.array[elementIndex]) {
+                                                return (
+                                                    <div className="testconst__image" key={elementIndex}>
+                                                        <div>
+                                                            <img src={questionImages[props.gindex]?.[elementIndex]} alt="" />
+                                                        </div>
+                                                        <div>{props.array[elementIndex].caption}</div>
+                                                    </div>
+                                                );
+                                            } else {
+                                                return null;
+                                            }
+                                        })}
                                     </div>
-                                    <span>{picture.caption}</span>
-                                </div>
-                            )
+                                );
+                            } else {
+                                return null;
+                            }
                         })}
                     </div>
-                )
+                );
+            }
+
+
+            return null;
         }
         const OptionsRow = ({options})=>{
             if (options!==undefined&&options!==null)
@@ -142,7 +208,7 @@ const TestConst = () => {
         return(
             <div className="testconst__content">
                 <span><span style={{fontStyle:"italic"}}>Формулировка:</span> {questionBodies[props.index].text}</span>
-                <PicturesRow array = {questionBodies[props.index].pictures}/>
+                <PicturesRow array = {questionBodies[props.index].pictures} gindex = {props.index}/>
                 <OptionsRow options = {questionBodies[props.index].options}/>
             </div>
         )
