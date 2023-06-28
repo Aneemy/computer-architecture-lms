@@ -14,9 +14,10 @@ const StudentResult = () => {
     const [curTest,setCurTest] = useState([])
     const token = localStorage.getItem('token')
     const openedModal = useSelector(state => state.modal)
-    const isTeacher = useSelector(state => state.user.isTeacher)
+    const isTeacher = localStorage.getItem('isTeacher')
     const dispatch = useDispatch()
     const studentTestsRequest = async (email) =>{
+        console.log("STR")
         try {
             const response = await axios.get($url+'/student/'+token+'/completed')
             setTestLists(response.data)
@@ -29,6 +30,7 @@ const StudentResult = () => {
         }
     }
     useEffect(()=>{
+        if (!isTeacher&&token)
         studentTestsRequest(token)
     },[])
     const TestList = () =>{

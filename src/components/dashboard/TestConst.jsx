@@ -24,6 +24,7 @@ const TestConst = () => {
             const newArray = [...questionBodies]
             newArray[index] = response.data
             setQuestionBodies(newArray)
+            console.log(response.data)
         }
         catch (e){
             alert(e)

@@ -19,6 +19,7 @@ const TeacherResult = () => {
     const isTeacher = useSelector(state => state.user.isTeacher)
     const dispatch = useDispatch()
     const getUncheckedTests = async () =>{
+        console.log('GUT')
         try {
             const response = await axios.get(`${$url}/teacher/${token}/tests/check`)
             setTestsList(response.data)
@@ -28,6 +29,7 @@ const TeacherResult = () => {
         }
     }
     useEffect((()=>{
+        if(isTeacher&&token)
         getUncheckedTests()
     }),[])
     const getUncheckedTest = async (id)=>{
