@@ -8,6 +8,7 @@ import DbSideBar from "./DBSideBar";
 import Body from "../Body";
 import AuthForm from "../userInterface/AuthForm";
 import {useDispatch, useSelector} from "react-redux";
+import {isObject} from "util";
 
 const StudentResult = () => {
     const [testsList,setTestLists] = useState(null)
@@ -17,7 +18,6 @@ const StudentResult = () => {
     const isTeacher = localStorage.getItem('isTeacher')
     const dispatch = useDispatch()
     const studentTestsRequest = async (email) =>{
-        console.log("STR")
         try {
             const response = await axios.get($url+'/student/'+token+'/completed')
             setTestLists(response.data)
@@ -33,26 +33,86 @@ const StudentResult = () => {
         studentTestsRequest(token)
     },[])
     const TestList = () =>{
+        const PicturesRow = (props)=>{
+            console.log(props.array)
+            const [questionImages, setQuestionImages] = useState([]);
+
+            useEffect(() => {
+                if (props.array !== null) {
+                    getImagesForQuestion(props.array, props.gindex);
+                }
+            }, [props.array, props.gindex]);
+
+            const getImagesForQuestion = async (array, gindex) => {
+                const tempArray = new Array(array.length);
+                await Promise.all(
+                    array.map(async (item, index) => {
+                        const image = await getImageData(item.img);
+                        tempArray[index] = image;
+                    })
+                );
+                const updatedImages = [...questionImages];
+                updatedImages[gindex] = tempArray;
+                setQuestionImages(updatedImages);
+            };
+
+            const getImageData = async (imageUrl) => {
+                try {
+                    const response = await axios.get(imageUrl);
+                    return response.data;
+                } catch (error) {
+                    console.error(error);
+                    return null;
+                }
+            };
+
+            if (props.array !== null&&props.array!==undefined) {
+                return (
+                    <div className="testconst__imagerow">
+                        {props.array.map((picture, index) => {
+                            if (index % 3 === 0) {
+                                return (
+                                    <div className="testconst__subrow" key={index}>
+                                        {[0, 1, 2].map((subIndex) => {
+                                            const elementIndex = index + subIndex;
+                                            if (props.array[elementIndex]) {
+                                                return (
+                                                    <div className="testconst__image" key={elementIndex}>
+                                                        <div>
+                                                            <img src={questionImages[props.gindex]?.[elementIndex]} alt="" />
+                                                        </div>
+                                                        <div>{props.array[elementIndex].caption}</div>
+                                                    </div>
+                                                );
+                                            } else {
+                                                return null;
+                                            }
+                                        })}
+                                    </div>
+                                );
+                            } else {
+                                return null;
+                            }
+                        })}
+                    </div>
+                );
+            }
+
+
+            return null;
+        }
         const TestBody = ({index}) =>{
-            if (curTest[index]!==undefined)
+            if ((curTest[index])!==undefined)
                 return(
                     <div className="testresult__result">
                         {curTest[index].test.map((question,index)=>{
+                            console.log(question)
                             return(
                                 <div key={index}>
-                                    <span>{question.text}</span>
+                                    <span>{question.quest.text}</span>
+                                        <PicturesRow array = {question.quest.pictures} gindex = {index}/>
                                     <div>
-                                        {question.pictures===undefined ? null:question.pictures.map((picture,index)=>{
-                                            return(
-                                                <div key={index}>
-                                                    {picture.img}
-                                                    {picture.caption}
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                    <div>
-                                        {question.answers===undefined ? null:question.answers.map((answer,index)=>{
+                                        {!Array.isArray(question.answers) ? null:question.answers.map((answer,index)=>{
                                             return(
                                                 <div key={index}>
                                                     {answer.heading}
@@ -69,18 +129,18 @@ const StudentResult = () => {
                     </div>
                 )
         }
-        const studentTestRequest = async (id,index) =>{
+        const studentTestRequest = async (id, index) => {
             try {
-                const response = await axios.get($url+'/student/'+token+'/'+id+'/results')
-                console.log(response)
-                let temparr = curTest;
-                temparr[index] = response.data;
-                setCurTest(temparr)
+                const response = await axios.get($url+'/student/'+token+'/'+id+'/results');
+                const updatedTests = [...curTest];
+                updatedTests[index] = response.data;
+                setCurTest(updatedTests);
             }
-            catch (e){
-                alert(e)
+            catch (e) {
+                alert(e);
             }
         }
+
         if (testsList!==null)
             return(
                 <div className="testresult__table">
@@ -94,7 +154,7 @@ const StudentResult = () => {
                                         Запросить тест
                                     </div>
                                 </div>
-                                <TestBody index={index}/>
+                                {<TestBody index={index}/>}
                             </div>
                         )
                     })}

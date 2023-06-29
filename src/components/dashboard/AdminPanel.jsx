@@ -10,6 +10,7 @@ import SumInput from "../summators/SumInput";
 import {modalStyle} from "../Main";
 import DbSideBar from "./DBSideBar";
 import {$url, question} from "../../http/user";
+import PicturesRow from "./PicturesRow";
 
 const AdminPanel = () => {
     const openedModal = useSelector(state => state.modal)
@@ -287,7 +288,6 @@ const AdminPanel = () => {
     },[])
     const TestModal = () =>{
         const OptionsList = ({answers}) =>{
-            console.log(answers)
             if (Array.isArray(answers))
             return(
                 <div>
@@ -304,31 +304,27 @@ const AdminPanel = () => {
             else {
                 return (
                     <div>
-                        <span>{answers.text}</span>
-                        <span>{answers.isTrue}</span>
+                        <span style={answers.isTrue?{color:'green'}:{color:'red'}} >{answers.text}</span>
                     </div>
                 )
             }
         }
             return (
-                <div className="adminpanel__modal">
+                <div className="adminpanel__test">
                     <span onClick={() => setCurTest(null)} className="adminpanel__xclose">Закрыть</span>
                     <div className="adminpanel__list">
                         {curTest.test.map((question, index) => {
                             return (
-                                <div key={index}>
+                                <div className="test__question" key={index}>
                                     <span>{question.quest.text}</span>
-                                    <div>
-                                        {question.quest.pictures === null ? null : question.quest.pictures.map((picture, index) => {
-                                            return (
-                                                <div key={index}>
-                                                    {picture.img}
-                                                    {picture.caption}
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                    {question.answers!==undefined&&question.answers!==null ? <OptionsList answers = {question.answers}/>:null}
+                                    <PicturesRow array = {question.quest.pictures} gindex = {index}/>
+                                    {question.answers!==undefined&&question.answers!==null ? <OptionsList answers = {question.answers}/>:()=>{
+                                        return(
+                                            <div>
+                                                {question.answers}
+                                            </div>
+                                        )
+                                    }}
                                 </div>)
                         })}
                     </div>
@@ -342,18 +338,20 @@ const AdminPanel = () => {
             <div className={openedModal ? modalStyle : null} onClick={()=>{dispatch(closeModal())}} style={{display:"flex",justifyContent:"center"}}>
                 <DbSideBar/>
                 <Body >
-                    <div className={`adminpanel__body ${curTest!==null?'ap_modal_opened':''}`}>
-                        <div className="adminpanel__functions">
-                        <GroupPanel/>
-                        <StudentPanel/>
+
+                    {curTest!==null?<TestModal/>:
+                        <div className='adminpanel__body'>
+                            <div className="adminpanel__functions">
+                                <GroupPanel/>
+                                <StudentPanel/>
+                            </div>
+                            <div className="adminpanel__tables">
+                                <StudentsList/>
+                                <TestsList/>
+                                <GroupsList/>
+                            </div>
                         </div>
-                        <div className="adminpanel__tables">
-                            <StudentsList/>
-                            <TestsList/>
-                            <GroupsList/>
-                        </div>
-                    </div>
-                    {curTest!==null&&<TestModal/>}
+                    }
                 </Body>
             </div>
             {openedModal ? <AuthForm/> : null}

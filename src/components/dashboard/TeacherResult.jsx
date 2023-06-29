@@ -48,10 +48,10 @@ const TeacherResult = () => {
     const PrintTestsList = () =>{
         if (testsList!==null)
             return(
-                <div>
+                <div className="result__testlist">
                     {testsList.map((quest,index)=>{
                         return(
-                            <div key = {index} onClick={()=>getUncheckedTest(quest.id)}>
+                            <div className="result__test" key = {index} onClick={()=>getUncheckedTest(quest.id)}>
                                 {quest.name}
                             </div>
                         )
@@ -64,14 +64,17 @@ const TeacherResult = () => {
         const Student = ({student}) => {
             const  [currentQuestion,setCurrentQuestion] = useState(0)
             const submitStudent = async () => {
+                console.log(student.email,estimation,+score)
                 try {
                     const response = await axios.post($url + '/teacher/' + token + '/student/' + curTest + '/choose/results', {
                         email: student.email,
                         estimation: estimation,
                         score: Number(score)
                     })
+                    console.log(response)
                 } catch (e) {
                     alert(e)
+                    console.log(e)
                 }
             }
             let estimation = student.answers.map((answer, index) => {
@@ -86,15 +89,15 @@ const TeacherResult = () => {
             }
             const Question = ({question,index}) =>{
                 return (
-                    <div>
-                        <span>{question.quest.text}</span>
-                        <span onClick={() => handleAnswer(index)}>{question.answer}</span>
+                    <div className="teacherresult__answer">
+                        <span >Формулировка вопроса: <span style={{textDecoration:'underline'}}>{question.quest.text}</span></span>
+                        <span onClick={() => handleAnswer(index)}>Ответ на вопрос: <span style={{textDecoration:'underline'}}>{question.answer}</span></span>
                     </div>
                 )
             }
             return (
-                <div>
-                    <span>{student.email}</span>
+                <div className="teacherresult__stundent">
+                    <span> Имя студента: <span style={{textDecoration:'underline'}}>{student.email}</span></span>
                     <div>
                         <Question question={student.answers[currentQuestion]} index={currentQuestion}/>
                     </div>
@@ -107,17 +110,17 @@ const TeacherResult = () => {
                         </div>}
                     </div>
                     {currentQuestion===student.answers.length-1&&
-                        <div>
+                        <div className="teacherresult__submit">
                         <input value={score} onChange={(e) => setScore(e.currentTarget.value)} type="text"
                            placeholder="Введите оценку"/>
-                    <button onClick={() => submitStudent()}> Отправить в ад</button>
+                    <div onClick={() => submitStudent()}> Отправить в ад</div>
                         </div>}
                 </div>
             )
         }
         if (ulist !== null)
             return (
-                <div>
+                <div className="teacherresult__box">
                     <Student student={ulist[currentStudent]}/>
                 </div>
             )
