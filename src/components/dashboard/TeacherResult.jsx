@@ -64,7 +64,6 @@ const TeacherResult = () => {
         const Student = ({student}) => {
             const  [currentQuestion,setCurrentQuestion] = useState(0)
             const submitStudent = async () => {
-                console.log(student.email,estimation,+score)
                 try {
                     const response = await axios.post($url + '/teacher/' + token + '/student/' + curTest + '/choose/results', {
                         email: student.email,
@@ -77,21 +76,26 @@ const TeacherResult = () => {
                     console.log(e)
                 }
             }
-            let estimation = student.answers.map((answer, index) => {
-                return false
-            })
+            const [estimation,setEstimation] = useState(student.answers.map((answer, index) => {
+                return false}))
             const [score, setScore] = useState('')
             const handleAnswer = (index) => {
-                if (estimation[index] === false)
-                    estimation[index] = true
+                console.log('123',estimation)
+                let tempArr = [...estimation]
+                if (tempArr[index] === false)
+                    tempArr[index] = true
                 else
-                    estimation[index] = false
+                    tempArr[index] = false
+                setEstimation(tempArr)
             }
             const Question = ({question,index}) =>{
                 return (
                     <div className="teacherresult__answer">
                         <span >Формулировка вопроса: <span style={{textDecoration:'underline'}}>{question.quest.text}</span></span>
-                        <span onClick={() => handleAnswer(index)}>Ответ на вопрос: <span style={{textDecoration:'underline'}}>{question.answer}</span></span>
+                        <div onClick={() => handleAnswer(index)}>
+                        <span>Ответ на вопрос:</span>
+                            <span style={{textDecoration:'underline', color:`${estimation[index]?'green':'red'}`}}>{question.answer}</span>
+                        </div>
                     </div>
                 )
             }
@@ -113,7 +117,7 @@ const TeacherResult = () => {
                         <div className="teacherresult__submit">
                         <input value={score} onChange={(e) => setScore(e.currentTarget.value)} type="text"
                            placeholder="Введите оценку"/>
-                    <div onClick={() => submitStudent()}> Отправить в ад</div>
+                    <div onClick={() => submitStudent()}> Выставить оценку</div>
                         </div>}
                 </div>
             )

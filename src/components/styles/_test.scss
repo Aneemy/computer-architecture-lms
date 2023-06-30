@@ -72,3 +72,41 @@
   background: #004d68;
   color: white;
 }
+.test__buttons{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  &>div{
+    border: #004d68 1px solid;
+    border-radius: 25px;
+    padding: 1%;
+    &:hover{
+      cursor: pointer;
+      background: #004d68;
+      color: white;
+    }
+  }
+}
+.test__nav{
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.test__navitem{
+  width: 50px;
+  margin-right: 10px;
+  height: 50px;
+  background: white;
+  border-radius: 12px;
+  border: #004d68 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #004d68;
+}
+.navitem__current{
+  background: lightgrey;
+}
+.navitem__answered{
+}

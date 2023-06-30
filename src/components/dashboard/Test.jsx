@@ -21,6 +21,7 @@ const Test = () => {
     const dispatch = useDispatch();
     const token = localStorage.getItem('token');
     const [curTest,setCurTest] = useState();
+    console.log('answers',answers)
 
     const requestLaunchedTests = async () => {
         try {
@@ -73,10 +74,25 @@ const Test = () => {
                 alert(e)
             }
         }
+        const TestNav = () =>{
+            return(
+                <div className = "test__nav">
+                {test.map((test,index)=>{
+                    return(
+                        <div onClick={()=>setCurrentQuestion(index)} className={`test__navitem ${currentQuestion===index ? 'navitem__current' :null} 
+                        ${answers[index]!=='' ? 'navitem__answered' : null}`}>
+                            {index+1}
+                        </div>
+                    )
+                    })}
+                </div>
+            )
+        }
         if (test !== undefined) {
             return (
                 <div className="test__body">
                     <div className="test__questionslist">
+                        <TestNav/>
                         <TestQuestion key={currentQuestion} question={test[currentQuestion]} gindex={currentQuestion} />
                         <div className="test__buttons">
                             {currentQuestion!==0&&<div onClick={()=>setCurrentQuestion(currentQuestion-1)}>

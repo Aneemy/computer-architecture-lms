@@ -64,8 +64,10 @@
     border-radius: 25px;
   }
   &>div{
+    margin-left: 5px;
     padding: 1%;
     border: #004d68 0.5px solid;
+    border-radius: 25px;
     &:hover{
       background: #004d68;
       color: white;
@@ -74,6 +76,29 @@
       border-radius: 25px;
     }
   }
+}
+.testresult__table{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 26px;
+}
+.testresult__row{
+  padding: 1%;
+  margin-top: 5px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  border: #004d68 1px solid;
+  width: 80%;
+  flex-direction: column;
+}
+.testresult__data{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 //.teacherresult__tag{
 //  text-decoration: underline;

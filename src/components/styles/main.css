@@ -275,6 +275,7 @@ h6 {
 }
 .sinsum__result > .sinsum__item-appear:first-child {
   animation: appear calc(var(--ssi__time) * 1ms) forwards;
+  border-right: #004d68 solid 1px;
 }
 
 .sinsum__buffer {
@@ -314,13 +315,13 @@ h6 {
     transform: translate(0, 365%);
   }
   50% {
-    transform: translate(322.5%, 365%);
+    transform: translate(332%, 365%);
   }
   75% {
-    transform: translate(322.5%, 115%);
+    transform: translate(332%, 110%);
   }
   90% {
-    transform: translate(0, 115%);
+    transform: translate(0, 110%);
   }
   100% {
     transform: translate(0, 40%);
@@ -366,7 +367,7 @@ h6 {
   align-items: flex-end;
   padding-top: 2.5%;
   padding-bottom: 2.5%;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
 }
 
@@ -721,7 +722,7 @@ h6 {
   animation: calc(var(--gsi__time) * 1ms) gsi-result;
 }
 .groupsum__elem .groupsum__item:nth-child(2).enter-done {
-  transform: translate(335%, 415%);
+  transform: translate(340%, 420%);
   opacity: 1;
 }
 .groupsum__elem .groupsum__item:nth-child(3) {
@@ -841,10 +842,10 @@ h6 {
     opacity: 1;
   }
   50% {
-    transform: translate(335%, 0);
+    transform: translate(340%, 0);
   }
   100% {
-    transform: translate(335%, 415%);
+    transform: translate(340%, 420%);
     opacity: 1;
   }
 }
@@ -884,6 +885,32 @@ h6 {
     opacity: 1;
   }
 }
+.groupsum__input {
+  font-size: 26px;
+  margin-top: 20px;
+}
+.groupsum__input > input {
+  font-size: 26px;
+  text-align: center;
+  border: 1px #004d68 solid;
+  margin-left: 5px;
+}
+.groupsum__input > div {
+  margin-left: 5px;
+  border-radius: 25px;
+  background: #004d68;
+  color: white;
+  padding: 0.5%;
+  border: 1px #004d68 solid;
+}
+.groupsum__input > div:hover {
+  padding: 0.5%;
+  background: white;
+  color: #004d68;
+  cursor: pointer;
+  border: #004d68 1px solid;
+}
+
 .auth__block {
   position: relative;
   float: right;
@@ -1267,6 +1294,7 @@ h6 {
 .testconst__subrow {
   display: flex;
   width: 100%;
+  height: 300px;
   justify-content: space-between;
 }
 .testconst__subrow > div {
@@ -1280,10 +1308,12 @@ h6 {
   width: 100%;
 }
 .testconst__image > div {
-  width: 100%;
+  width: 270px;
+  height: 270px;
 }
 .testconst__image > div > img {
   width: 100%;
+  height: 100%;
 }
 
 .testlaunch__body {
@@ -1412,6 +1442,7 @@ h6 {
 }
 
 .adminpanel__functions {
+  margin-top: 10px;
   display: flex;
   justify-content: space-around;
   border-bottom: 1px #004d68 solid;
@@ -1584,6 +1615,46 @@ h6 {
   color: white;
 }
 
+.test__buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.test__buttons > div {
+  border: #004d68 1px solid;
+  border-radius: 25px;
+  padding: 1%;
+}
+.test__buttons > div:hover {
+  cursor: pointer;
+  background: #004d68;
+  color: white;
+}
+
+.test__nav {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.test__navitem {
+  width: 50px;
+  margin-right: 10px;
+  height: 50px;
+  background: white;
+  border-radius: 12px;
+  border: #004d68 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #004d68;
+}
+
+.navitem__current {
+  background: lightgrey;
+}
+
 .testresult__body {
   display: flex;
   width: 100%;
@@ -1658,8 +1729,10 @@ h6 {
   border-radius: 25px;
 }
 .teacherresult__submit > div {
+  margin-left: 5px;
   padding: 1%;
   border: #004d68 0.5px solid;
+  border-radius: 25px;
 }
 .teacherresult__submit > div:hover {
   background: #004d68;
@@ -1667,6 +1740,32 @@ h6 {
   cursor: pointer;
   padding: 1%;
   border-radius: 25px;
+}
+
+.testresult__table {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 26px;
+}
+
+.testresult__row {
+  padding: 1%;
+  margin-top: 5px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  border: #004d68 1px solid;
+  width: 80%;
+  flex-direction: column;
+}
+
+.testresult__data {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 * {

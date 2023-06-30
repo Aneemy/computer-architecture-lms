@@ -15,7 +15,7 @@ const GroupSumInput = (props) => {
         <div className="groupsum__input">
             По сколько сумматоров вы хотите сгрупировать?(не более {props.max})
             <input type="text" onChange={(e)=>setData(e.currentTarget.value)}/>
-            <button onClick={()=>updateDate(data)}>Отправить</button>
+            <div onClick={()=>updateDate(data)}>Отправить</div>
         </div>
     );
 };

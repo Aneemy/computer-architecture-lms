@@ -3,9 +3,18 @@ import GroupSumItem from "./GroupSumItem";
 import {CSSTransition} from "react-transition-group";
 
 const GroupSumElem = (props) => {
-    const GroupSummator = props.keyValue===0 ? props.cursum.links[0] :props.cursum.links[1];
+    let GroupSummator;
     const [goResult,setGoResult] = useState(false);
     // const [goBuffer,setGoBuffer] = useState(false)
+    console.log(props.cursum.links)
+
+        if (props.keyValue===0)
+            GroupSummator = props.cursum.links[0]
+        else
+            GroupSummator = props.cursum.links[1]
+        if(props.isLast)
+        GroupSummator = props.cursum.links[2]
+
     function TransBuffer (){
         if (props.keyValue === 0 && (!props.isFirst)&&!props.isLast)
             return (

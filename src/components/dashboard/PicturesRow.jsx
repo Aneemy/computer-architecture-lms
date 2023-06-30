@@ -32,7 +32,7 @@ const PicturesRow = (props)=>{
             return null;
         }
     };
-
+    console.log(props.array)
     if (props.array !== null) {
         return (
             <div className="testconst__imagerow">

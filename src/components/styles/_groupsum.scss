@@ -59,7 +59,7 @@
       animation: calc(var(--gsi__time)*1ms) gsi-result;
     }
     &.enter-done{
-      transform: translate(335%,415%);
+      transform: translate(340%,420%);
       opacity: 1;
     }
   }
@@ -180,10 +180,10 @@
     opacity: 1;
   }
   50%{
-    transform: translate(335%,0);
+    transform: translate(340%,0);
   }
   100%{
-    transform: translate(335%,415%);
+    transform: translate(340%,420%);
     opacity: 1;
   }
 }
@@ -222,5 +222,30 @@
   100%{
     transform: translate(1090%,-65%);
     opacity: 1;
+  }
+}
+.groupsum__input{
+  font-size: 26px;
+  margin-top: 20px;
+  &>input{
+    font-size: 26px;
+    text-align: center;
+    border: 1px #004d68 solid;
+    margin-left: 5px;
+  }
+  &>div{
+    margin-left: 5px;
+    border-radius: 25px;
+    background: #004d68;
+    color: white;
+    padding: 0.5%;
+    border: 1px #004d68 solid;
+    &:hover{
+      padding: 0.5%;
+      background: white;
+      color: #004d68;
+      cursor: pointer;
+      border: #004d68 1px solid;
+    }
   }
 }

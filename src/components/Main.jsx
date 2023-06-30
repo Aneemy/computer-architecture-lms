@@ -29,7 +29,7 @@ const Main = (props) => {
                 ParHead,ParBody,ParTail
             ]},
         {id: 4, heading: 'С групповым переносом',links:
-                [GroupHead,MultiBody]
+                [GroupHead,MultiBody,MultiTail]
         }
     ])
     const [curSum,setCurSum] = useState(sums[0]);
