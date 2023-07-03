@@ -28,6 +28,7 @@
   align-items: center;
 }
 .teacherresult__stundent{
+  margin-top: 10px;
   font-size: 26px;
   display: flex;
   flex-direction: column;
@@ -40,6 +41,8 @@
   flex-direction: column;
 }
 .teacherresult__buttons{
+  margin-top: 10px;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   &>div{

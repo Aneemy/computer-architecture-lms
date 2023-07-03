@@ -37,6 +37,7 @@ const TestConst = () => {
             alert(e)
         }
     }
+    console.log(questionList)
     const getQuestionList = async () =>{
         try {
             const response = await axios.get($url+'/teacher/'+token+'/quests')
@@ -165,7 +166,7 @@ const TestConst = () => {
                     {testList.map((quest,index)=>{
                         return(
                             <div className="testconst__quest testconst__item" key = {index}>
-                                {quest}
+                                {questionList.find((question)=>question.id == quest)?.name}
                             </div>
                         )
                     })}

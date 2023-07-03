@@ -379,7 +379,6 @@ h6 {
   position: absolute;
   top: 41.5%;
   left: 45%;
-  color: red;
   opacity: 0;
 }
 .multisum__block > .multisum__item:nth-child(2).enter {
@@ -1689,6 +1688,7 @@ h6 {
 }
 
 .teacherresult__stundent {
+  margin-top: 10px;
   font-size: 26px;
   display: flex;
   flex-direction: column;
@@ -1703,6 +1703,8 @@ h6 {
 }
 
 .teacherresult__buttons {
+  margin-top: 10px;
+  width: 80%;
   display: flex;
   justify-content: space-between;
 }

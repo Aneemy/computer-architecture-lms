@@ -50,12 +50,14 @@ const TestLaunch = () => {
         const now = new Date();
         const [launchTime,setLaunchTime] = useState(now.toLocaleDateString())
         const [duration,setDuration] = useState(0);
+        const [endTime,setEndTime] = useState(now.toLocaleDateString())
 
         const handleTestSubmit = async () =>{
             try {
                 const response = await axios.post($url+'/teacher/'+token+'/'+testsList[selectedTestIndex].id,{
                     name:testsList[selectedTestIndex].name,
                     start:launchTime,
+                    finish:endTime,
                     duration:duration
                 }
                 )
@@ -74,8 +76,10 @@ const TestLaunch = () => {
                 <span className="testlaunch__xclose" onClick={()=>setSelectedTestIndex(null)}>Закрыть</span>
                 <span>Окно запуска теста</span>
                  Тест: {testsList[selectedTestIndex].name}
-                <span>Выберите время начала теста</span>
+                <span>Выберите время начала доступа к тесту</span>
                 <input value={launchTime} onChange={(e)=>setLaunchTime(e.target.value)} type="datetime-local"/>
+                <span>Выберите время конца доступа к тесту</span>
+                <input value={endTime} onChange={(e)=>setEndTime(e.target.value)} type="datetime-local"/>
                 <span>Введите продолжительность теста в минутах</span>
                 <input value={duration} onChange={(e)=>setDuration(e.target.value)} type="text"/>
                 <span onClick={()=>handleTestSubmit()}> Запустить тест </span>

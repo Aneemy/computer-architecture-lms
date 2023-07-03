@@ -15,7 +15,6 @@
     position: absolute;
     top: 41.5%;
     left: 45%;
-    color: red;
     opacity: 0;
     &.enter{
       animation: forwards calc(var(--msi__time)*1ms) msi-result;

@@ -66,7 +66,6 @@ const TeacherResult = () => {
             const submitStudent = async () => {
                 try {
                     const response = await axios.post($url + '/teacher/' + token + '/student/' + curTest + '/choose/results', {
-                        email: student.email,
                         estimation: estimation,
                         score: Number(score)
                     })
@@ -93,6 +92,7 @@ const TeacherResult = () => {
                     <div className="teacherresult__answer">
                         <span >Формулировка вопроса: <span style={{textDecoration:'underline'}}>{question.quest.text}</span></span>
                         <div onClick={() => handleAnswer(index)}>
+                            {/*<img style={{width:'300px',height:'300px'}} src={} alt=""/>*/}
                         <span>Ответ на вопрос:</span>
                             <span style={{textDecoration:'underline', color:`${estimation[index]?'green':'red'}`}}>{question.answer}</span>
                         </div>
@@ -126,6 +126,14 @@ const TeacherResult = () => {
             return (
                 <div className="teacherresult__box">
                     <Student student={ulist[currentStudent]}/>
+                    <div className="teacherresult__buttons">
+                        {<div onClick={()=>setCurrentStudent(currentStudent-1)}>
+                            Предыдущий студент
+                        </div>}
+                        {<div onClick={()=>setCurrentStudent(currentStudent+1)}>
+                            Следующий студент
+                        </div>}
+                    </div>
                 </div>
             )
     }
