@@ -1,0 +1,14 @@
+.Table {
+    font: min(50vh, 50vw) sans-serif;
+    min-height: 100%;
+    min-width: 100%;
+    left:0;
+    top:0;
+    font-weight: bolder;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: min(5vh, 5vw) solid #004d68;
+    outline-offset:max(-5vh, -5vw);
+}

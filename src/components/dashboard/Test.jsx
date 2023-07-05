@@ -21,7 +21,6 @@ const Test = () => {
     const dispatch = useDispatch();
     const token = localStorage.getItem('token');
     const [curTest,setCurTest] = useState();
-    console.log('answers',answers)
 
     const requestLaunchedTests = async () => {
         try {
@@ -42,7 +41,6 @@ const Test = () => {
             setCurTest(id)
             setTestList(null);
             setCurTest(id)
-            console.log('requested test',response.data)
         } catch (e) {
             alert(e);
         }
@@ -55,20 +53,24 @@ const Test = () => {
         return(
             <div className="test__testlist">
                 {testList.map((test, index) => (
-                <div onClick={() => requestTest(test.id)} key={index}>
-                    {test.name}
-                </div>
-            ))}
+                    <div onClick={() => requestTest(test.id)} key={index}>
+                        {test.test_name}
+                    </div>
+                ))}
             </div>
         )
     }
     const TestBody = () => {
         const [currentQuestion,setCurrentQuestion] = useState(0)
         const submitTest = async () =>{
+            if (answers.length!==test.length)
+                return alert("Ответь на все вопросы")
+            console.log('send',answers)
             try {
                 const response = await axios.post($url+'/student/'+token+'/'+curTest+'/results',
                     {answers:answers,date_time:new Date()})
-                    navigate('/')
+                navigate('/')
+                console.log(response)
             }
             catch (e){
                 alert(e)
@@ -77,13 +79,13 @@ const Test = () => {
         const TestNav = () =>{
             return(
                 <div className = "test__nav">
-                {test.map((test,index)=>{
-                    return(
-                        <div onClick={()=>setCurrentQuestion(index)} className={`test__navitem ${currentQuestion===index ? 'navitem__current' :null} 
+                    {test.map((test,index)=>{
+                        return(
+                            <div onClick={()=>setCurrentQuestion(index)} className={`test__navitem ${currentQuestion===index ? 'navitem__current' :null} 
                         ${answers[index]!=='' ? 'navitem__answered' : null}`}>
-                            {index+1}
-                        </div>
-                    )
+                                {index+1}
+                            </div>
+                        )
                     })}
                 </div>
             )
@@ -207,7 +209,7 @@ const Test = () => {
                 <DbSideBar />
                 <Body>
                     <div className="test__body">
-                    {testList == null ? <TestBody/> : <TestsList/>}
+                        {testList == null ? <TestBody/> : <TestsList/>}
                     </div>
                 </Body>
             </div>

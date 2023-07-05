@@ -1,0 +1,101 @@
+:root {
+    --Tab: min(3vw, 3vh);
+
+    --TableWidth: 500px;
+    --TableHeight: 600px;
+    --TableX: var(--Tab);
+    --TableY: var(--Tab);
+
+    --EncryptorWidth: 600px;
+    --EncryptorHeight: 500px;
+    --EncryptorX: calc(var(--TableX) + var(--Tab) + var(--TableWidth));
+    --EncryptorY: var(--Tab);
+
+    --DecryptorWidth: 600px;
+    --DecryptorHeight: 500px;
+    --DecryptorX: calc(var(--EncryptorX) + var(--Tab) + var(--EncryptorWidth));
+    --DecryptorY: var(--Tab);
+
+    --OutPutWidth: 1500px;
+    --OutPutHeight: 200px;
+    --OutPutX: var(--Tab);
+    --OutPutY: calc(var(--TableY) + var(--Tab) + var(--TableHeight));
+
+    --InputWidth: min(16vw, 16vh);
+    --InputHeight: min(6vw, 6vh);
+    --InputTab: min(1vw, 1vh);
+    --InputBorder: var(--InputTab) solid black;
+
+    --InputsWidth: calc(var(--InputTab) + 10*var(--InputWidth));
+    --InputsHeight: calc(2 * var(--InputTab) + 2 * var(--InputHeight));
+    --InputsX: var(--Tab);
+    --InputsY: calc(var(--OutPutY) + var(--Tab) + var(--OutPutHeight));
+
+    --ButtX: calc(100% - var(--Tab) - var(--InputWidth));
+    --ButtY: var(--InputsY);
+
+    --ButtTableX: calc(var(--ButtX) - var(--Tab) - var(--InputWidth));
+    --ButtTableY: var(--ButtY);
+}
+
+.Table {
+    position: absolute;
+    left: var(--TableX);
+    top: var(--TableY);
+    
+}
+
+.Inputs {
+    position: absolute;
+    width: var(--InputsWidth);
+    height: var(--InputsHeight);
+    left: var(--InputsX);
+    top: var(--InputsY);
+    font: var(--InputHeight) Serif;
+}
+
+.Input {
+    position: relative;
+    width: var(--InputWidth);
+    height: var(--InputHeight);
+    outline: var(--InputBorder);
+    margin-bottom: var(--InputTab);
+    font: var(--InputHeight) Serif;
+}
+
+.OutPut {
+    position: absolute;
+    left: var(--OutPutX);
+    top: var(--OutPutY);
+}
+
+.Butt {
+    position: absolute;
+    left: var(--ButtX);
+    top: var(--ButtY);
+    width: var(--InputWidth);
+    height: var(--InputHeight);
+    outline: var(--InputBorder);
+}
+
+.ButtTable {
+    position: absolute;
+    left: var(--ButtTableX);
+    top: var(--ButtTableY);
+    width: var(--InputWidth);
+    height: var(--InputHeight);
+    outline: var(--InputBorder);
+}
+
+.Encryptor {
+    position: absolute;
+    left: var(--EncryptorX);
+    top: var(--EncryptorY);
+   
+}
+
+.Decryptor {
+    position: absolute;
+    left: var(--DecryptorX);
+    top: var(--DecryptorY); 
+}

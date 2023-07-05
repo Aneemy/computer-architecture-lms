@@ -8,6 +8,7 @@ import DbSideBar from "./DBSideBar";
 import Body from "../Body";
 import AuthForm from "../userInterface/AuthForm";
 import {useDispatch, useSelector} from "react-redux";
+import PicturesRow from "./PicturesRow";
 
 const TeacherResult = () => {
     const [testsList,setTestsList] = useState(null)
@@ -21,8 +22,8 @@ const TeacherResult = () => {
     const getUncheckedTests = async () =>{
         try {
             const response = await axios.get(`${$url}/teacher/${token}/tests/check`)
-            console.log(response.data)
             setTestsList(response.data)
+            console.log(response.data)
         }
         catch (e){
             alert(e)
@@ -36,8 +37,8 @@ const TeacherResult = () => {
         try {
             const response = await axios.get($url+'/teacher/'+token+'/'+id +'/choose')
             setUList(response.data)
-            setCurTest(id)
             console.log(response.data)
+            setCurTest(id)
             setTestsDisplay(false)
         }
         catch (e){
@@ -61,7 +62,7 @@ const TeacherResult = () => {
     }
     const PrintUList = () => {
         const [currentStudent,setCurrentStudent] = useState(0)
-        const Student = ({student}) => {
+        const Student = ({student,test}) => {
             const  [currentQuestion,setCurrentQuestion] = useState(0)
             const submitStudent = async () => {
                 try {
@@ -79,7 +80,6 @@ const TeacherResult = () => {
                 return false}))
             const [score, setScore] = useState('')
             const handleAnswer = (index) => {
-                console.log('123',estimation)
                 let tempArr = [...estimation]
                 if (tempArr[index] === false)
                     tempArr[index] = true
@@ -90,20 +90,20 @@ const TeacherResult = () => {
             const Question = ({question,index}) =>{
                 return (
                     <div className="teacherresult__answer">
-                        <span >Формулировка вопроса: <span style={{textDecoration:'underline'}}>{question.quest.text}</span></span>
+                        <span >Формулировка вопроса: <span style={{textDecoration:'underline'}}>{question.text}</span></span>
                         <div onClick={() => handleAnswer(index)}>
-                            {/*<img style={{width:'300px',height:'300px'}} src={} alt=""/>*/}
+                            <PicturesRow gindex = {index} array = {question.pictures}/>
                         <span>Ответ на вопрос:</span>
-                            <span style={{textDecoration:'underline', color:`${estimation[index]?'green':'red'}`}}>{question.answer}</span>
+                            <span style={{textDecoration:'underline', color:`${estimation[index]?'green':'red'}`}}></span>
                         </div>
                     </div>
                 )
             }
             return (
-                <div className="teacherresult__stundent">
+                <div className="teacherresult__student">
                     <span> Имя студента: <span style={{textDecoration:'underline'}}>{student.email}</span></span>
                     <div>
-                        <Question question={student.answers[currentQuestion]} index={currentQuestion}/>
+                        <Question question={test[currentQuestion]} index={currentQuestion}/>
                     </div>
                     <div className="teacherresult__buttons">
                         {currentQuestion!==0&&<div onClick={()=>setCurrentQuestion(currentQuestion-1)}>
@@ -125,7 +125,7 @@ const TeacherResult = () => {
         if (ulist !== null)
             return (
                 <div className="teacherresult__box">
-                    <Student student={ulist[currentStudent]}/>
+                    <Student student={ulist.students[currentStudent]} test = {ulist.test}/>
                     <div className="teacherresult__buttons">
                         {<div onClick={()=>setCurrentStudent(currentStudent-1)}>
                             Предыдущий студент

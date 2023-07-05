@@ -1,0 +1,64 @@
+:root {
+    --Tab: min(3vw, 3vh);
+
+    --TableWidth: 300px;
+    --TableHeight: 500px;
+    --TableX: var(--Tab);
+    --TableY: var(--Tab);
+
+    --EncryptorWidth: 600px;
+    --EncryptorHeight: 500px;
+    --EncryptorX: calc(var(--TableX) + var(--Tab) + var(--TableWidth));
+    --EncryptorY: var(--Tab);
+
+    --DecryptorWidth: 600px;
+    --DecryptorHeight: 500px;
+    --DecryptorX: calc(var(--EncryptorX) + var(--Tab) + var(--EncryptorWidth));
+    --DecryptorY: var(--Tab);
+
+    --KeySize: min(8vw, 8vh);
+    --KeyTab: min(1vw, 1vh);
+    --KeyBorder: var(--KeyTab) solid black;
+
+    --KlawaWidth: calc(4 * var(--KeyTab) + 3 * var(--KeySize));
+    --KlawaHeight: calc(4 * var(--KeyTab) + 3 * var(--KeySize));
+    --KlawaX: var(--Tab);
+    --KlawaY: calc(var(--TableY) + var(--Tab) + var(--TableHeight));
+}
+
+.Table {
+    position: absolute;
+    left: var(--TableX);
+    top: var(--TableY);
+    font: var(--KeySize) Serif;
+}
+
+.Klawa {
+    position: absolute;
+    width: var(--KlawaWidth);
+    height: var(--KlawaHeight);
+    left: var(--KlawaX);
+    top: var(--KlawaY);
+}
+
+.key {
+    position: relative;
+    width: var(--KeySize);
+    height: var(--KeySize);
+    outline: var(--KeyBorder);
+    margin-bottom: var(--KeyTab);
+}
+
+.Encryptor {
+    position: absolute;
+    left: var(--EncryptorX);
+    top: var(--EncryptorY);
+    font: var(--KeySize) Serif;
+}
+
+.Decryptor {
+    position: absolute;
+    left: var(--DecryptorX);
+    top: var(--DecryptorY);
+    font: var(--KeySize) Serif;
+}

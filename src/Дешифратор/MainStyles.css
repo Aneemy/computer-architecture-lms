@@ -1,0 +1,25 @@
+:root {
+    --TableSize: min(20vh,20vw);
+}
+
+.TableHead {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height:var(--TableSize);
+}
+.TableSide {
+    position: absolute;
+    top:var(--TableSize);
+    left:0;
+    width: var(--TableSize);
+    height: 80%;
+}
+.Client {
+    position: absolute;
+    top:var(--TableSize);
+    left:var(--TableSize);
+    width: calc(100% - var(--TableSize));
+    height: calc(100% - var(--TableSize));
+}
