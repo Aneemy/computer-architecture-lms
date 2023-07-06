@@ -102,15 +102,17 @@ const TeacherResult = () => {
                         <span >Формулировка вопроса: <span style={{textDecoration:'underline'}}>{question.text}</span></span>
                         <PicturesRow gindex = {index} array = {question.pictures}/>
                         <div onClick={() => handleAnswer(index)}>
-                        <div>Ответ на вопрос:{typeof student.answers[index] === 'string'?student.answers[index]:
-                        student.answers[index].map((answer)=>{
-                            return(
-                                <div>
-                                    {question.options[answer].heading}
-                                </div>
-                            )
-                        })}</div>
-                            <span style={{textDecoration:'underline', color:`${estimation[index]?'green':'red'}`}}></span>
+                        <div>Ответ на вопрос:</div>
+                            <div style={{textDecoration:'underline', color:`${estimation[index].answer?'green':'red'}`}}>
+                                {typeof student.answers[index] === 'string'?student.answers[index]:
+                                    student.answers[index].map((answer)=>{
+                                        return(
+                                            <div style={{color:"#004d68"}}>
+                                                {question.options[answer].heading}
+                                            </div>
+                                        )
+                                    })}
+                            </div>
                         </div>
                     </div>
                 )
