@@ -9,6 +9,9 @@ import Body from "../Body";
 import AuthForm from "../userInterface/AuthForm";
 import {useDispatch, useSelector} from "react-redux";
 import PicturesRow from "./PicturesRow";
+import {isString} from "util";
+import * as util from "util";
+import {resolveObjectURL} from "buffer";
 
 const TeacherResult = () => {
     const [testsList,setTestsList] = useState(null)
@@ -66,19 +69,25 @@ const TeacherResult = () => {
             const  [currentQuestion,setCurrentQuestion] = useState(0)
             const submitStudent = async () => {
                 try {
-                    const response = await axios.post($url + '/teacher/' + token + '/student/' + curTest + '/choose/results', {
+                    const response = await axios.post($url + '/teacher/' + token + '/student/' + student.id + '/choose/results', {
                         estimation: estimation,
                         score: Number(score)
                     })
                     console.log(response)
+                    if (response.status === '200'){
+                        setUList(prev => prev.filter((item)=>item===currentStudent))
+                        setCurrentQuestion(currentQuestion-1)
+                    }
                 } catch (e) {
                     alert(e)
                     console.log(e)
                 }
             }
-            const [estimation,setEstimation] = useState(student.answers.map((answer, index) => {
+            const [estimation,setEstimation] = useState(test.filter((answer) => answer.options===null).map(() => {
                 return false}))
+            console.log(test)
             const [score, setScore] = useState('')
+            console.log('123',estimation)
             const handleAnswer = (index) => {
                 let tempArr = [...estimation]
                 if (tempArr[index] === false)
@@ -93,7 +102,14 @@ const TeacherResult = () => {
                         <span >Формулировка вопроса: <span style={{textDecoration:'underline'}}>{question.text}</span></span>
                         <div onClick={() => handleAnswer(index)}>
                             <PicturesRow gindex = {index} array = {question.pictures}/>
-                        <span>Ответ на вопрос:</span>
+                        <div>Ответ на вопрос:{typeof student.answers[index] === 'string'?student.answers[index]:
+                        student.answers[index].map((answer)=>{
+                            return(
+                                <div>
+                                    {question.options[answer].heading}
+                                </div>
+                            )
+                        })}</div>
                             <span style={{textDecoration:'underline', color:`${estimation[index]?'green':'red'}`}}></span>
                         </div>
                     </div>
@@ -127,10 +143,10 @@ const TeacherResult = () => {
                 <div className="teacherresult__box">
                     <Student student={ulist.students[currentStudent]} test = {ulist.test}/>
                     <div className="teacherresult__buttons">
-                        {<div onClick={()=>setCurrentStudent(currentStudent-1)}>
+                        {currentStudent!==0&&<div onClick={()=>setCurrentStudent(currentStudent-1)}>
                             Предыдущий студент
                         </div>}
-                        {<div onClick={()=>setCurrentStudent(currentStudent+1)}>
+                        {currentStudent!==ulist.students.length-1&&<div onClick={()=>setCurrentStudent(currentStudent+1)}>
                             Следующий студент
                         </div>}
                     </div>
