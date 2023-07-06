@@ -9,9 +9,6 @@ import Body from "../Body";
 import AuthForm from "../userInterface/AuthForm";
 import {useDispatch, useSelector} from "react-redux";
 import PicturesRow from "./PicturesRow";
-import {isString} from "util";
-import * as util from "util";
-import {resolveObjectURL} from "buffer";
 
 const TeacherResult = () => {
     const [testsList,setTestsList] = useState(null)
@@ -68,9 +65,12 @@ const TeacherResult = () => {
         const Student = ({student,test}) => {
             const  [currentQuestion,setCurrentQuestion] = useState(0)
             const submitStudent = async () => {
+                const filteredEstimation = estimation.filter(
+                    (item) => test[item.index].options === null
+                ).map((item)=>{return item.answer});
                 try {
                     const response = await axios.post($url + '/teacher/' + token + '/student/' + student.id + '/choose/results', {
-                        estimation: estimation,
+                        estimation: filteredEstimation,
                         score: Number(score)
                     })
                     console.log(response)
@@ -83,25 +83,25 @@ const TeacherResult = () => {
                     console.log(e)
                 }
             }
-            const [estimation,setEstimation] = useState(test.filter((answer) => answer.options===null).map(() => {
-                return false}))
+            const [estimation,setEstimation] = useState(test.map((ans,index) => {
+                return {index:index,answer:false}}))
             console.log(test)
             const [score, setScore] = useState('')
             console.log('123',estimation)
             const handleAnswer = (index) => {
                 let tempArr = [...estimation]
-                if (tempArr[index] === false)
-                    tempArr[index] = true
+                if (tempArr[index].answer === false)
+                    tempArr[index].answer = true
                 else
-                    tempArr[index] = false
+                    tempArr[index].answer = false
                 setEstimation(tempArr)
             }
-            const Question = ({question,index}) =>{
+            const Question = ({question,index,eindex}) =>{
                 return (
                     <div className="teacherresult__answer">
                         <span >Формулировка вопроса: <span style={{textDecoration:'underline'}}>{question.text}</span></span>
+                        <PicturesRow gindex = {index} array = {question.pictures}/>
                         <div onClick={() => handleAnswer(index)}>
-                            <PicturesRow gindex = {index} array = {question.pictures}/>
                         <div>Ответ на вопрос:{typeof student.answers[index] === 'string'?student.answers[index]:
                         student.answers[index].map((answer)=>{
                             return(
